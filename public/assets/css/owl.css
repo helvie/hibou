@@ -1,0 +1,63 @@
+
+.categories label {
+    margin-right : 30px;
+    margin-left : 5px;
+}
+
+.articleText li{
+    list-style:none;
+}
+
+.articleTrash {
+    padding : 5px;
+    background-color : brown;
+    color : white;
+    border-radius : 2px;
+}
+
+.articleUpdate {
+    padding : 5px;
+    background-color : darkolivegreen;
+    color : white;
+    border-radius : 2px;
+
+}
+
+.commentTrash {
+    padding : 5px;
+    background-color : #333377;
+    color : white;
+    border-radius : 2px;
+
+}
+
+.commentUpdate {
+    padding : 5px;
+    background-color : darkslateblue;
+    color : white;
+    border-radius : 2px;
+}
+
+.commentResponseTrash {
+    padding : 5px;
+    background-color : dimgray;
+    color : white;
+    border-radius : 2px;
+
+}
+
+.commentResponseUpdate {
+    padding : 5px;
+    background-color : grey;
+    color : white;
+    border-radius : 2px;
+}
+
+
+li {
+    padding : 0px;
+}
+
+.content {
+    padding-top : 100px;
+}

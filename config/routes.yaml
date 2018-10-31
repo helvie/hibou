@@ -1,0 +1,52 @@
+index:
+    path: /
+    controller: App\Controller\ArticleController::articleFormDisplay
+
+articleAdmin:
+    path: /articleAdmin
+    controller: App\Controller\ArticleController::articleAdminDisplay
+
+article:
+    path: /article
+    controller: App\Controller\ArticleController::articleDisplay
+
+addComment:
+    path: /addComment
+    controller: App\Controller\ArticleController::addComment
+
+
+commentResponseUpdate:
+    path: /commentResponseUpdate
+    controller: App\Controller\ArticleController::commentResponseUpdate
+
+
+commentResponseTrash:
+    path: /commentResponseTrash
+    controller: App\Controller\ArticleController::commentResponseTrash
+
+
+commentUpdate:
+    path: /commentUpdate
+    controller: App\Controller\ArticleController::commentUpdate
+
+
+commentTrash:
+    path: /commentTrash
+    controller: App\Controller\ArticleController::commentTrash
+
+articleTrash:
+    path: /articleTrash
+    controller: App\Controller\ArticleController::articleTrash
+
+articleUpdate:
+    path: /articleUpdate
+    controller: App\Controller\ArticleController::articleUpdate
+
+articleCreate:
+    path: /articleCreate
+    controller: App\Controller\ArticleController::articleFormDisplay
+
+
+
+
+

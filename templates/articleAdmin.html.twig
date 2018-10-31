@@ -1,0 +1,84 @@
+
+
+{#----------------------------- Page formulaire d'ajout d'un organisme ---------------------------#}
+
+
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+
+    <div class = "articleAdmin container col-lg-8 col-lg-offset-2">
+
+        {% for article in articles %}
+
+
+                <div class="articleText">
+
+                <p>
+                    <span class="glyphicon glyphicon-pencil link articleUpdate" id="up{{ article.id }}"></span>
+                    <span class="glyphicon glyphicon-trash link articleTrash" id="tr{{ article.id }}"></span>
+                </p>
+
+                <p>
+                    {{ article.author ~ ", le " ~ article.updateDate|date("d/m/Y") }}
+                </p>
+
+                <p>{{ article.text|slice(0, 300) }}</p>
+
+
+                <div class = "articleComment" id="art{{ article.id }}">
+
+                    {% for comment in article.comments %}
+
+                        <div id="com{{ comment.id }}">
+
+                        <p style="color:rebeccapurple; margin-top:5px; margin-bottom:5px; margin-left:20px;">
+
+                        <span class="glyphicon glyphicon-pencil link commentUpdate" id="up{{ comment.id }}"></span>
+                        <span class="glyphicon glyphicon-trash link commentTrash" id="tr{{ comment.id }}"></span>
+
+                                {{ comment.text }}
+
+                            </p>
+
+                            {% for response in comment.commentResponses %}
+
+                                <p style="color:gray; margin-top:5px; margin-bottom:5px; margin-left:20px;">
+
+                                <span class="glyphicon glyphicon-pencil link commentResponseUpdate" id="up{{ response.id }}"></span>
+                                <span class="glyphicon glyphicon-trash link commentResponseTrash" id="tr{{ response.id }}"></span>
+
+
+
+                                    {{ response.text }}
+
+                                </p>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% endfor %}
+
+                    <hr>
+
+                </div>
+
+                </div>
+
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+
+    {% block javascripts %}
+
+        {{ parent() }}
+
+        <script src="{{ asset('assets/js/articleAdmin.js') }}"></script>
+
+    {% endblock %}
