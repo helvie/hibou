@@ -126,7 +126,9 @@ function addComment(commentId, author, commentText){
         success: function(response){
 
             console.log("L'auteur est "+response.author+" et le commentaire est "+response.commentText+" et l'id est "+response.commentId
-                +" et l'article est "+response.articleId)
+                +" et l'article est "+response.articleId);
+
+            alert("Le commentaire sera mis en ligne dès validation par l'administrateur");
 
 
 

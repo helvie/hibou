@@ -13,7 +13,7 @@
     <div class = "article container col-lg-10 col-lg-offset-1">
 
         <h1>{{ article.title }}</h1>
-        <p>{{ article.text }}</p>
+        <p>{{ article.text|raw }}</p>
         <p>{{ article.author }} - Article créé le " {{ article.date|date("d/m/Y")}} - Modifié le " {{  article.updateDate|date("d/m/Y") }}</p>
 
         <div id="gerard" class="col-lg-12" style="margin-top:20px;margin-bottom:20px;">
@@ -61,9 +61,10 @@
 
                 {% for response in comment.commentResponses %}
 
-                    <p style="margin-top:20px;margin-bottom:20px;color:green;margin-left:30px;">{{ response.text }}
+                    <div style="margin-top:20px;margin-bottom:20px;color:green;margin-left:30px;">
+                        {{ response.text }}
 
-                    </p>
+                    </div>
 
                 {% endfor %}
 

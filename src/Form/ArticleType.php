@@ -25,6 +25,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 
 
@@ -64,12 +65,14 @@ class ArticleType extends AbstractType
                 }
             ))
 
-            ->add('text', TextareaType::class, array(
-                'required' => true,
+            ->add('text', CKEditorType::class, array(
+                'config' => array(
+                    'uiColor' => '#ffffff',
+                ),
             ))
 
             ->add('visible', CheckboxType::class, array(
-                'required' => true,
+                'required' => false,
             ))
 
             ->add('valid', HiddenType::class, array(

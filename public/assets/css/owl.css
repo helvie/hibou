@@ -23,7 +23,7 @@
 
 }
 
-.commentTrash {
+.commentTrash, .commentUpdate,  .commentVisibility.glyphicon-eye-open {
     padding : 5px;
     background-color : #333377;
     color : white;
@@ -31,14 +31,8 @@
 
 }
 
-.commentUpdate {
-    padding : 5px;
-    background-color : darkslateblue;
-    color : white;
-    border-radius : 2px;
-}
 
-.commentResponseTrash {
+.commentResponseTrash, .commentResponseUpdate, .commentResponseVisibility.glyphicon-eye-open {
     padding : 5px;
     background-color : dimgray;
     color : white;
@@ -46,12 +40,22 @@
 
 }
 
-.commentResponseUpdate {
+
+.commentResponseVisibility.glyphicon-eye-close {
     padding : 5px;
-    background-color : grey;
-    color : white;
+    background-color : #9db3f5;
+    color : #333377;
     border-radius : 2px;
 }
+
+
+.commentVisibility.glyphicon-eye-close {
+    padding : 5px;
+    background-color : #9db3f5;
+    color : #333377;
+    border-radius : 2px;
+}
+
 
 
 li {

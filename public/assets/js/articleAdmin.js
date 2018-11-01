@@ -1,4 +1,4 @@
-
+var currentComment;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Récupération d'un paramètre dans l'URL ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -31,13 +31,6 @@ jQuery(function () {
 
 
 
-        $(".commentResponseUpdate").on("click", function(){
-            commentResponseId = $(this).attr("id").substr(2);
-            commentId = $(this).parent().parent().attr("id").substr(3);
-            // console.log("commentresponse "+commentResponseId+"commentid"+commentId);
-            commentResponseUpdate(commentResponseId, commentId)
-        });
-
         $(".commentResponseTrash").on("click", function(){
             commentResponseId = $(this).attr("id").substr(2);
             commentId = $(this).parent().parent().attr("id").substr(3);
@@ -45,22 +38,77 @@ jQuery(function () {
 
         });
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        // console.log($commentId);        });
 
         $(".commentUpdate").on("click", function(){
-            commentId = $(this).attr("id").substr(2);
-            articleId = $(this).parent().parent().parent().attr("id").substr(3);
-            commentUpdate(commentId, articleId)
+
+            $(".divUpdate").remove();
+            $(".commentText").show();
+
+            commentId = $(this).attr("id");
+            thisCommentText = $(this).siblings(".commentText");
+            createForm(thisCommentText, "comment", commentId);
+
+            currentComment = thisCommentText;
+
 
         });
 
-        $(".commentTrash").on("click", function(){
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+        $(".commentResponseUpdate").on("click", function(){
+
+            $(".divUpdate").remove();
+            $(".commentText").show();
+
+            commentId = $(this).attr("id");
+            thisCommentText = $(this).siblings(".commentText");
+            createForm(thisCommentText, "commentResponse", commentId);
+
+        });
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        $(".articleAdmin").on("click", "#returnUpdate", function(){
+            $(".divUpdate").remove();
+            thisCommentText.show();
+        });
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        $(".articleAdmin").on("click", ".validUpdate", function(){
+
+            if($(this).hasClass("comment")){
+
+                thisCommentType = "comment";}
+
+                else if($(this).hasClass("commentResponse")){
+
+                    thisCommentType = "commentResponse";}
+
+                commentId = $(this).attr("id").substr(2);
+                console.log(commentId+" "+thisCommentType);
+
+                commentUpdate(commentId, thisCommentType, $("#commentInput").val());
+                console.log($("#commentInput").val());
+
+
+        });
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            $(".commentTrash").on("click", function(){
             commentId = $(this).attr("id").substr(2,3);
             articleId = $(this).parent().parent().parent().attr("id").substr(3);
             commentTrash(commentId, articleId, $(this).parent())
 
-        })
+        });
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         $(".articleTrash").on("click", function(){
             articleId = $(this).attr("id").substr(2);
@@ -69,10 +117,68 @@ jQuery(function () {
 
         });
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+        $(".commentVisibility").on("click", function() {
+            commentId = $(this).attr("id").substr(2);
+            console.log(commentId);
+            commentVisibility(commentId, "comment", $(this));
+
+        });
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+        $(".commentResponseVisibility").on("click", function() {
+            commentId = $(this).attr("id").substr(2);
+            console.log(commentId);
+            commentVisibility(commentId, "commentResponse", $(this));
+        });
+
+
 
     });
 
 });
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function createForm(thisCommentText, commentType, commentId){
+
+    formUpdate = document.createElement("div");
+    formUpdate.setAttribute("class", "divUpdate");
+
+    formUpdate.setAttribute("id", commentId);
+
+    inputUpdate = document.createElement("input");
+    inputUpdate.setAttribute('value', thisCommentText.text());
+    inputUpdate.setAttribute('id', "commentInput");
+
+    validUpdate = document.createElement('button');
+    validUpdate.setAttribute("class", "validUpdate "+commentType);
+    validUpdate.setAttribute("id", commentId);
+    validUpdateText = document.createTextNode("Valider");
+    validUpdate.appendChild(validUpdateText);
+
+    returnUpdate = document.createElement('button');
+    returnUpdate.setAttribute("id", "returnUpdate");
+    returnUpdateText =document.createTextNode("Annuler");
+    returnUpdate.appendChild(returnUpdateText);
+
+    formUpdate.appendChild(inputUpdate);
+    formUpdate.appendChild(validUpdate);
+    formUpdate.appendChild(returnUpdate);
+
+    thisCommentText.hide();
+    thisCommentText.after(formUpdate);
+
+}
+
+
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -150,7 +256,7 @@ function commentTrash(commentId, articleId, thisElt){
 
 function articleTrash(articleId, thisElt){
 
-    console.log("gerard")
+    console.log("gerard");
 
     jQuery.ajax({
         url: "/articleTrash",
@@ -177,8 +283,119 @@ function articleTrash(articleId, thisElt){
         }
 
     });
-}
+};
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+// function articleUpdate(articleId){
+//
+//     console.log("géraldine");
+//
+//     jQuery.ajax({
+//         url: "/articleFormDisplay",
+//         type: "POST",
+//         data:
+//             {
+//                 'articleId' : articleId,
+//             },
+//         dataType: 'json',
+//
+//         // Retourne les tableaux catégories, sous-catégories et activités
+//
+//
+//         success: function(response){
+//
+//             thisElt.remove();
+//             alert("L'article a bien été supprimé");
+//
+//         },
+//
+//         error: function(){
+//             dataResponse = [];
+//             console.log("dynamicMenu raté!");
+//         }
+//
+//     });
+// };
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+function commentVisibility(commentId, commentType, thisElt){
+
+    jQuery.ajax({
+        url: "/commentVisibility",
+        type: "POST",
+        data:
+            {
+                'commentId' : commentId,
+                'commentType' : commentType
+            },
+        dataType: 'json',
+
+        // Retourne les tableaux catégories, sous-catégories et activités
+
+
+        success: function(response){
+
+            thisElt.toggleClass("glyphicon-eye-close"),
+                thisElt.toggleClass("glyphicon-eye-open");
+
+        },
+
+        error: function(){
+
+            dataResponse = [];
+            console.log("dynamicMenu raté!");
+        }
+
+    });
+};
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+function commentUpdate(commentId, commentType, thisText){
+
+    jQuery.ajax({
+        url: "/commentUpdate",
+        type: "POST",
+        data:
+            {
+                'commentId' : commentId,
+                'commentType' : commentType,
+                'text' : thisText
+            },
+        dataType: 'json',
+
+        // Retourne les tableaux catégories, sous-catégories et activités
+
+
+        success: function(response){
+
+            $(".divUpdate").remove();
+            currentComment.text(thisText);
+            currentComment.show();
+
+        },
+
+        error: function(){
+
+            dataResponse = [];
+            console.log("dynamicMenu raté!");
+        }
+
+    });
+};

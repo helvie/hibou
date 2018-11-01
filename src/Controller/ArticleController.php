@@ -199,11 +199,28 @@ class ArticleController extends Controller
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-    public function articleFormDisplay(Request $request, ArticleRepository $articleRepository){
+    public function articleFormDisplay(Request $request, ArticleRepository $articleRepository)
+    {
 
         // Création du formulaire, basé sur une nouvelle entité atelier ponctuel
 
-        $article = new Article();
+        if ($request->query->get("art")) {
+            $articleId = $request->query->get("art");
+            $article = $articleRepository->find($articleId);
+            $date = $article -> getDate();
+        }
+
+        else
+
+        {
+            $article = new Article();
+            $date = new DateTime;
+
+        }
+
+        $article -> setDate("");
+        $article -> setUpdateDate("");
+
 
         $form = $this->createForm(ArticleType::class, $article);
 
@@ -213,7 +230,6 @@ class ArticleController extends Controller
 
             $articleData = $form->getData();
 
-            $date = new DateTime;
 
             $article -> setDate($date);
             $article -> setUpdateDate($date);
@@ -234,11 +250,10 @@ class ArticleController extends Controller
             $entityManager->flush();
 
 
-            return $this->redirectToRoute("articlesAdmin");
+            return $this->redirectToRoute("articleAdmin");
 
         }
 
-        // Affichage du formulaire d'atelier ponctuel
 
         return $this->render("formArticle.html.twig", array(
             'form' => $form->createView()
@@ -246,4 +261,75 @@ class ArticleController extends Controller
 
     }
 
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+    public function commentVisibility(Request $request, CommentResponseRepository $commentResponseRepository,
+                                      CommentRepository $commentRepository)
+    {
+        $commentId = $request->request->get('commentId');
+        $commentType = $request->request->get('commentType');
+
+        if ($commentType == "comment")
+        {
+            $comment = $commentRepository -> find($commentId);
+        }
+        elseif ($commentType == "commentResponse")
+        {
+            $comment = $commentResponseRepository -> find($commentId);
+        }
+
+        $commentStatus = $comment -> getValid();
+        if ($commentStatus == 0)
+        {$comment -> setValid(1);
+        }
+        else if ($commentStatus == 1)
+        {
+            $comment ->setValid(0);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($comment);
+        $em->flush();
+
+        return new JsonResponse("ok");
+
+
+    }
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+    public function commentUpdate(Request $request, CommentResponseRepository $commentResponseRepository,
+                                      CommentRepository $commentRepository)
+    {
+        $commentId = $request->request->get('commentId');
+        $commentType = $request->request->get('commentType');
+        $text = $request->request->get('text');
+
+
+        if ($commentType == "comment")
+        {
+            $comment = $commentRepository -> find($commentId);
+        }
+        elseif ($commentType == "commentResponse")
+        {
+            $comment = $commentResponseRepository -> find($commentId);
+        }
+
+        $comment -> setText($text);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($comment);
+        $em->flush();
+
+        return new JsonResponse("ok");
+
+
+    }
 }

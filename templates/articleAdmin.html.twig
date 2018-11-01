@@ -10,21 +10,30 @@
 
     <div class = "articleAdmin container col-lg-8 col-lg-offset-2">
 
+
+
+
+
         {% for article in articles %}
 
 
                 <div class="articleText">
 
                 <p>
-                    <span class="glyphicon glyphicon-pencil link articleUpdate" id="up{{ article.id }}"></span>
+                    <a href="{{ path('article',{'art':article.id}) }}" class="btn btn-sm btn-default">Voir l'article</a>
+
+                    <a class="glyphicon glyphicon-pencil link articleUpdate" id="up{{ article.id }}" href="{{ path('articleFormDisplay',{'art':article.id}) }}"></a>
+                    {#<span class="glyphicon glyphicon-pencil link articleUpdate" id="up{{ article.id }}"></span>#}
                     <span class="glyphicon glyphicon-trash link articleTrash" id="tr{{ article.id }}"></span>
+
                 </p>
 
                 <p>
-                    {{ article.author ~ ", le " ~ article.updateDate|date("d/m/Y") }}
+                    {{ article.author ~ ', le ' ~ article.updateDate|date('d/m/Y') ~ ' - "' ~ article.title ~ '"' }}
                 </p>
 
-                <p>{{ article.text|slice(0, 300) }}</p>
+
+                    <p>{{ article.text|slice(0, 300)|raw }}</p>
 
 
                 <div class = "articleComment" id="art{{ article.id }}">
@@ -35,10 +44,19 @@
 
                         <p style="color:rebeccapurple; margin-top:5px; margin-bottom:5px; margin-left:20px;">
 
-                        <span class="glyphicon glyphicon-pencil link commentUpdate" id="up{{ comment.id }}"></span>
+
+                            {% if comment.valid == 0 %}
+
+
+                        <span class="glyphicon glyphicon-eye-close link commentVisibility" id="up{{ comment.id }}"></span>
+                            {% elseif comment.valid == 1 %}
+                                <span class="glyphicon glyphicon-eye-open link commentVisibility" id="up{{ comment.id }}"></span>
+                            {% endif %}
+
+                            <span class="glyphicon glyphicon-pencil link commentUpdate" id="up{{ comment.id }}"></span>
                         <span class="glyphicon glyphicon-trash link commentTrash" id="tr{{ comment.id }}"></span>
 
-                                {{ comment.text }}
+                                <span class="commentText">{{ comment.text }}</span>
 
                             </p>
 
@@ -46,12 +64,15 @@
 
                                 <p style="color:gray; margin-top:5px; margin-bottom:5px; margin-left:20px;">
 
+                                {% if response.valid == 0 %}
+                                    <span class="glyphicon glyphicon-eye-close link commentResponseVisibility" id="up{{ response.id }}"></span>
+                                {% elseif response.valid == 1 %}
+                                    <span class="glyphicon glyphicon-eye-open link commentResponseVisibility" id="up{{ response.id }}"></span>
+                                {% endif %}
                                 <span class="glyphicon glyphicon-pencil link commentResponseUpdate" id="up{{ response.id }}"></span>
                                 <span class="glyphicon glyphicon-trash link commentResponseTrash" id="tr{{ response.id }}"></span>
 
-
-
-                                    {{ response.text }}
+                                    <span class="commentText">{{ response.text }}</span>
 
                                 </p>
 

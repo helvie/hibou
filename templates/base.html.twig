@@ -25,13 +25,12 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">WebSiteName</a>
+                    <a class="navbar-brand" href="#">Le Hibou qui Geek</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href={{ path('articleCreate') }}>Création article</a></li>
+                    <li class="active"><a href="#">Accueil</a></li>
+                    <li><a href={{ path('articleFormDisplay') }}>Création article</a></li>
                     <li><a href="{{ path('articleAdmin') }}">Administration article</a></li>
-                    <li><a href="{{ path('article') }}">Page article</a></li>
                 </ul>
             </div>
         </nav>
@@ -69,6 +68,8 @@
 {% block javascripts %}
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/1...nt/ckeditor.js"></script>
+    <script src="[ckeditor-build-path]/ckeditor.js"></script>
 
 {% endblock %}
 

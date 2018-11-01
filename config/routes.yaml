@@ -42,11 +42,10 @@ articleUpdate:
     path: /articleUpdate
     controller: App\Controller\ArticleController::articleUpdate
 
-articleCreate:
-    path: /articleCreate
+articleFormDisplay:
+    path: /articleFormDisplay
     controller: App\Controller\ArticleController::articleFormDisplay
 
-
-
-
-
+commentVisibility:
+    path: /commentVisibility
+    controller: App\Controller\ArticleController::commentVisibility
