@@ -34,13 +34,13 @@ class ArticleController extends Controller
 //
 //commentTrash
 
-//
-//    public function addComment(Request $request, ArticleRepository $articleRepository)
-//    {
-//
-//        $comment = $request->get('art');
-//
-//    }
+
+    public function essai(Request $request, ArticleRepository $articleRepository)
+    {
+
+        return $this-> render("essai.html.twig");
+
+    }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

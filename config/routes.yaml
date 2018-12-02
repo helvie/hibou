@@ -1,6 +1,22 @@
 index:
     path: /
-    controller: App\Controller\ArticleController::articleFormDisplay
+    controller: App\Controller\DefaultController::owlHomeDisplay
+
+owlServicesDisplay:
+    path: /owlServicesDisplay
+    controller: App\Controller\DefaultController::owlServicesDisplay
+
+owlReferencesDisplay:
+    path: /owlReferencesDisplay
+    controller: App\Controller\DefaultController::owlReferencesDisplay
+
+owlContactDisplay:
+    path: /owlContactDisplay
+    controller: App\Controller\DefaultController::owlContactDisplay
+
+owlBlogDisplay:
+    path: /owlBlogDisplay
+    controller: App\Controller\DefaultController::owlBlogDisplay
 
 articleAdmin:
     path: /articleAdmin
