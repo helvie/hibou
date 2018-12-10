@@ -1,661 +1,292 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon.png">
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>About Us | Gaia - Bootstrap Template</title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <!--<link href="../assets/css/bootstrap.css" rel="stylesheet" />-->
-    <!--<link href="../assets/css/material-dashboard.css" rel="stylesheet"/>-->
-    <!--<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">-->
-    <!--&lt;!&ndash;<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">&ndash;&gt;-->
-    <!--&lt;!&ndash;<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>&ndash;&gt;-->
-    <!--&lt;!&ndash;<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>&ndash;&gt;-->
-    <!--&lt;!&ndash;<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>&ndash;&gt;-->
-    <!--&lt;!&ndash;     Fonts and icons     &ndash;&gt;-->
-    <!--<link href='https://fonts.googleapis.com/css?family=Cambo|Lato:400,700' rel='stylesheet' type='text/css'>-->
-    <!--<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">-->
-    <!--<link href="../assets/css/fonts/pe-icon-7-stroke.css" rel="stylesheet">-->
-    <!--<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />-->
-    <!--<link href="../assets/css/owl.css" rel="stylesheet"/>-->
+{% extends 'base.html.twig' %}
 
 
-    <style>
-        /*body {*/
-            /*margin: 0;*/
-            /*width: 100vw;*/
-            /*height: 100vh;*/
-            /*background: #a4c400;*/
-        /*}*/
+    {% block logo %}
 
-        .gerard {
-            position: fixed;
-            right: 0;
-            top: 20px;
-            width: 8em;
-            margin-top: -2.5em;
-            z-index: 1;
+        <div class="headSection blueBlockHead">
 
-        }
+                <div class="content blueBlock">
 
-        .owlMenu {
-            width: 200px;
-            /*height: 360px;*/
-            background: #113441;
-            transform: translateX(100%);
-            transition: 1s;
-        }
-        .owlMenu ul {3498db
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            padding: 0;
-        }
-        .active {
-            transform: translateX(-50%);
-        }
-        li {
-            list-style: none;
-        }
-        li:hover {
-
-            background: white;
-        }
-
-        .owlMenu a {
-            display: block;
-            text-decoration: none;
-            color: #fff;
-            text-transform: uppercase;
-            width: 100%;
-            height: 100%;
-            padding: 20px;
-        }
-        .owlMenu a:hover {
-            color:  #113441;
-        }
-        .hamburger {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            box-shadow: 5px 5px 105px rgba(0,0,0,.4);
-            cursor: pointer;
-            top: 0px;
-            left: 30px;
-            background: #fff;
-            transition: all 1s;
-            margin-top: 30px;
-        }
-        .hamburger span {
-            position: absolute;
-            display: block;
-            width: 20px;
-            height: 3px;
-            top: 50%;
-            transform: translateY(-50%);
-            left: 50%;
-            transform: translateX(-45%);
-            background: #000;
-            transition: .5s;
-            /*   box-shadow: 2px 2px 40px rgba(0,0,0,.5); */
-        }
-        .hamburger span::before {
-            position: absolute;
-            top: -8px;
-            content: '';
-            display: block;
-            width: 20px;
-            height: 3px;
-            background: #000;
-            transition: .2s;
-        }
-        .hamburger span::after {
-            position: absolute;
-            top: 8px;
-            content: '';
-            display: block;
-            width: 20px;
-            height: 3px;
-            background: #000;
-            transition: .2s;
-        }
-        .hamburger-active span {
-            transform: rotate(180deg);
-            left: 40%;
-        }
-        .hamburger-active span::before {
-            transform: rotate(45deg);
-            width: 10px;
-            transform-origin: right top;
-            top: 0;
-            right: 0;
-        }
-        .hamburger-active span::after {
-            transform: rotate(-45deg);
-            width: 10px;
-            transform-origin: right bottom;
-            top: 0;
-            right: 0;
-        }
-
-        /*--------------------------------------------------------------------------------------------------*/
-
-
-        /* entire container, keeps perspective */
-        .flip-container {
-            perspective: 1000px;
-        }
-        /* flip the pane when hovered */
-        .flip-container:hover .flipper, .flip-container.hover .flipper {
-            transform: rotateY(180deg);
-        }
-
-        .flip-container, .front, .back {
-            width: 320px;
-            height: 480px;
-        }
-
-        /* flip speed goes here */
-        .flipper {
-            transition: 0.6s;
-            transform-style: preserve-3d;
-
-            position: relative;
-        }
-
-        /* hide back of pane during swap */
-        .front, .back {
-            backface-visibility: hidden;
-
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        /* front pane, placed above back */
-        .front {
-            z-index: 2;
-            /* for firefox 31 */
-            transform: rotateY(0deg);
-        }
-
-        /* back, initially hidden pane */
-        .back {
-            transform: rotateY(180deg);
-        }
-
-        .flip-container:hover .flipper, .flip-container.hover .flipper, .flip-container.flip .flipper {
-            transform: rotateY(180deg);
-        }
-        /*--------------------------------------------------------------------------------------------------*/
-
-
-        /*#card1{*/
-            /*width: 100%;*/
-            /*height: 100%;*/
-            /*position: absolute;*/
-            /*transform-style: preserve-3d;*/
-            /*transition: transform 8s;*/
-        /*}*/
-
-        /*#card1 figure {*/
-            /*margin: 0;*/
-            /*display: block;*/
-            /*position: absolute;*/
-            /*width: 100%;*/
-            /*height: 100%;*/
-            /*!*backface-visibility: hidden;*!*/
-        /*}*/
-
-        /*#card1 .cardFront {*/
-            /*background: red;*/
-            /*transform-style: preserve-3d;*/
-            /*transition: transform 2s;*/
-            /*!*transform: rotateY( 180deg );*!*/
-            /*z-index: 10;*/
-            /*!*visibility: hidden;*!*/
-        /*}*/
-
-        /*#card1 .cardBack {*/
-            /*background: blue;*/
-            /*transform-style: preserve-3d;*/
-            /*transition: transform 2s;*/
-            /*z-index: 0;*/
-            /*!*backface-visibility: hidden;*!*/
-
-            /*!*transform: rotateY( 180deg );*!*/
-        /*}*/
-
-        /*#card1*/
-        /*.flipped {*/
-            /*transform: rotateY( 180deg );*/
-            /*background: green;*/
-        /*}*/
-
-    </style>
-
-
-
-</head>
-
-<body>
-
-
-<div class="gerard">
-    <div class="hamburger">
-        <span></span>
-    </div>
-
-    <div class="owlMenu">
-        <ul>
-            <li><a href="#">L'agence</a></li>
-            <li><a href="#">Notre savoir-faire</a></li>
-            <li><a href="#">L'équipe</a></li>
-            <li><a href="#">Notre philosophie</a></li>
-            <li><a href="#">Nos références</a></li>
-            <li><a href="#">Nous contacter</a></li>
-            <li><a href="#">Blog</a></li>
-
-        </ul>
-    </div>
-
-</div>
-
-    <div class="headSection">
-        <div>
-            <!--<div class="image"-->
-                <!--style="background-image:url('../assets/img/header-12.jpeg')">-->
-            <!--</div>-->
-            <div class="co/ntainer">
-
-
-
-
-                <div class="content" style="text-align:left; margin-left:50px;">
-
-                    <div>
-                        <img alt="..." src="../assets/img/logoJaune.png" style="width:140px;height:140px"/>
+                    <div class="blueHeadImg">
+                        <img alt="..." src="../assets/img/logoBleu.png"/>
                     </div>
 
-                 </div>
-            </div>
-         </div>
-    </div>
-
-
-
-
-    {#<div class="section yellowBlock section-our-team">#}
-        {#<div class="container">#}
-            {#<!--<div class="text-area">-->#}
-                {#<div class="title-area">#}
-                    {#<h2>Réalisation de sites</h2>#}
-                    {#<div class="separator separator-danger">♦</div>#}
-
-                {#</div>#}
-            {#<p class="description">#}
-                {#Mauris id sagittis est. Integer a mauris nec augue cursus molestie. Vivamus ut lectus non felis condimentum tempor. Praesent efficitur semper congue. Duis nec nisi libero. Pellentesque aliquam quam nec massa faucibus, nec mollis dui maximus. Aliquam ornare et mi et convallis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis in elementum orci. Sed a tempor tortor. Nam massa nibh, placerat at leo et, tincidunt pretium ex. Phasellus lectus felis, pretium ut ornare et, pharetra ac turpis. Integer non aliquam tellus. Vestibulum malesuada sed magna vel pretium. Pellentesque posuere interdum lectus id consequat. Praesent aliquam justo a quam efficitur tempus.#}
-            {#</p>#}
-        {#</div>#}
-            {#<!-- end team -->#}
-            {#<div class="col-md-12 text-center" style="height:60px;">#}
-                {#<div style="width:400px;margin:auto;">#}
-                        {#<button type="button" class="btn btn-fill btn-owl">#}
-                            {#Subscribe#}
-                        {#</button>#}
-
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-    {#</div>#}
-
-
-        <div class="section whiteBlock specialization">
-            <div class="container">
-                <div>
-                    <div class="title-area">
-                        <h2 class="essai">Notre savoir faire</h2>
-                    </div>
                 </div>
-                <div class="team"  style="text-align:center;">
 
-                        <!--<div class="speBlock" style="background-color:#c1e2fc;">-->
+        </div>
+    {% endblock %}
 
-                    <div class="col-md-12">
+    {% block content %}
 
-                        <div  style="min-height:400px;">
+        <div class="section blueBlock section-our-team">
 
-                        <div class="row generalSpeBlock">
+            <div class="container">
 
-                            <div>
+                <h1>Parlons accessibilité...</h1>
 
-                                <div class="col-md-3 col-sm-4">
-                                        <img src="../assets/img/imageSite.jpg" class="imgService  image-header">
+            </div>
+
+        </div>
+
+        <div class="section blueBlock section-our-team">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-9 whiteBlock blogResume">
+
+                        <p>Pourquoi dois-je rendre mon site accessible ?</p>
+                        <p>Le web est devenu un média incontournable  dans le secteur de l’information. Il est à présent essentiel à chacun, tant dans la vie professionnelle que dans la vie privée.
+                        L’accessibilité est une notion indispensable dans ce domaine. C’est devenu une obligation légale dans la majorité des sites publics dans le monde.
+                        L’accessibilité du Web c’est permettre toute personne, quelle qu’elle soit, d’accéder à la toile, en toute circonstance.</p>
+
+                        <p>Comme je suis pressé, je préférerais passer cette étape et le rendre accessible plus tard</p>
+                        <p>Ce ne serait pas très judicieux comme option. En effet, dans la vie courante, lorsque l’on souhaite rendre un environnement accessible, nous parlons généralement d’ajouter des éléments pour faciliter l’accès aux personnes handicapées… une rampe d’accès, etc… Mais lorsque nous parlons web, cela nécessite une  réflexion à la base même du projet, lors du cadrage de celui-ci. Et le fruit de cette réflexion modifiera fondamentalement la structure du futur site.</p>
+
+                        <p>Mais mes internautes ne présentent pas d’handicap, donc cela ne me concerne pas…</p>
+                        <p>Mais si, cela concerne toute personne qui surfe sur le net.
+                        Dans le web, l’accessibilité n’est pas «  l’accès à internet » à proprement parler, via un opérateur. Elle ne concerne pas non plus uniquement les personnes handicapées.
+                        Une personne qui, par exemple, dans la vie courante, se déplace en fauteuil roulant aura beaucoup plus de facilités à faire ses courses via internet que dans le supermarché du coin.
+                        C’est la raison pour laquelle, dans le web, on ne parle pas de personnes handicapées mais plus de personnes en situation de handicap, ce qui est totalement différent.
+                        Parmi ces personnes, nous trouvons, bien entendu, celles ayant certain handicap physique ou mental, désavantagées lors d’une navigation sur un site non adapté. Celles-ci représentent environ 10% de la population.
+                        Mais la navigation sur des sites web s’avère compliquée, voir impossible pour 20% des internautes en France,  notamment sur des sites institutionnels ou marchand peu intuitifs ou mal conçus.
+                        N’importe qui, devant son ordinateur, peut donc se retrouver un jour en situation de handicap.</p>
+
+                        <p>Vous me parlez de situation de handicap, mais il s’agit de quoi exactement ?</p>
+                        <p>Cela peut être dû à problème physiologique, difficulté à lire des petits caractères, blessure temporaire à la main, etc…
+                        Cela peut aussi être dû à de problèmes logistiques, colorimétrie d’un écran mal réglé, site optimisé pour un seul navigateur, module Flash manquant, notamment sur les smartphones et les tablettes, etc…
+                        Il est important d’avoir un site bien pensé, car l’internaute adaptera souvent sa navigation, en agrandissant les caractères, par exemple, ou en modifiant le contraste de son écran. Le site internet doit alors pouvoir s’adapter à ces modifications, sans se retrouver devant une page complètement déstructurée.</p>
+
+                        <p>Il existe donc des ordinateurs spéciaux existant pour chaque handicap ?</p>
+                        <p>Non, les outils pour surfer sur internet sont les même pour tous… un ordinateur de bureau, une tablette, etc…  Il ne s’agit donc pas d’ordinateurs particuliers mais de périphériques ou logiciels qui viennent s’ajouter à l’ordinateur
+                        Les non-voyants, se serviront juste d’un matériel complémentaire, afin de pallier à leur handicap. Il s’agira d’un logiciel vocalisant les données de l’écran, ou d’une plage braille permettant à l’utilisateur de décrypter le texte, grâce à des picots placés sous leurs doigts, par exemple.
+                        Les personnes étant limitées au niveau de la motricité, quand à elles, utiliseront d’autres aides, telles qu’un logiciel de dictée, un track ball (doté d’une boule, remplace la souris, mais ne nécessite pas de déplacement sur le bureau), une headmouse (remplace la souris en captant les mouvements de la tête), clavier virtuel, etc…
+                        Il existe tellement d’aides techniques facilitant la navigation, qu’il est impossible de toutes les lister.
+                        Mais alors, comment pourrais-je avoir un site internet spécialisé dans chaque handicap ?
+                        Il ne s’agit pas, pour le développeur qui travaille sur l’accessibilité, d’adapter le site aux différents handicaps, mais plutôt rendre le contenu accessible, et lisible par les différents matériels ou logiciel spécialisés.
+                        Rendre son site accessible, c’est donc rendre le contenu accessible aux internautes ?
+                        Pas seulement. L’accessibilité, c’est aussi permettre une communication « inter-automates », afin par exemple de permettre aux robots de moteur de recherches de mieux référencer les contenus ou faciliter le développement d’applications spécifiques reposant sur des interfaces web.
+                        Mais finalement, l’accessibilité, c’est quoi ?
+                        L’accessibilité, telle que souhaitée par Tim Berners-Lee, inventeur du web, c’est :
+                        « Mettre le Web et ses services à la disposition de tous les individus, quels que soient leur matériel ou logiciel, leur infrastructure réseau, leur langue maternelle, leur culture, leur localisation géographique, ou leurs aptitudes physiques ou mentales. »</p>
+
+                    </div>
+
+                    <div class="col-md-3 blueBlock">
+                        <div class="articleAvatar">
+
+                            <div class="content">
+
+                                <div class="avatar avatar-danger">
+                                    <img alt="..." class="img-circle" src="../assets/img/faces/face_6.jpg" />
                                 </div>
 
-                                <div class="col-md-3 col-sm-4">
-                                    <img src="../assets/img/imageSite.jpg" class="imgService  image-header">
+                                <div class="description">
+                                    <h3 class="big-text">Sylvie H.</h3>
+                                    <p class="small-text">Développeuse</p>
+                                    <p class="small-text">Nuage de tag</p>
                                 </div>
-
-                                <div class="col-md-3 col-sm-4">
-                                    <img src="../assets/img/imageSite.jpg" class="imgService  image-header">
-                                </div>
-
-                                <div class="col-md-3 col-sm-4">
-                                    <img src="../assets/img/imageSite.jpg" class="imgService  image-header">
-                                </div>
-
-                                <div class="col-md-3 col-sm-4">
-                                    <img src="../assets/img/imageSite.jpg" class="imgService  image-header">
-                                </div>
-
-                                <div class="col-md-3 col-sm-4">
-                                    <img src="../assets/img/imageSite.jpg" class="imgService  image-header">
-                                </div>
-
-                                <div class="col-md-3 col-sm-4">
-                                    <img src="../assets/img/imageSite.jpg" class="imgService  image-header">
-                                </div>
-
-                                <div class="col-md-3 col-sm-4">
-                                    <img src="../assets/img/imageSite.jpg" class="imgService  image-header">
-                                </div>
-
-
 
                             </div>
                         </div>
+                    </div>
+
+                </div>
+
+            </div>
+        {#</div>#}
+</div>
+        <div class="whiteBlock networksIconBlock">
+
+            <div class="col-md-4 col-md-offset-4 text-center networksIconDiv">
+
+            <h2 style="padding-bottom:30px;">Partager cet article</h2>
+
+                <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/facebookBlue.png" style="width:50px;height:50px"/></div>
+                <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/instaBlue.png" style="width:50px;height:50px"/></div>
+                <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/twitterBlue.png" style="width:50px;height:50px"/></div>
+                <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/linkedinBlue.png" style="width:50px;height:50px"/></div>
+
+                {#</div>#}
 
 
 
+                {#</div>#}
 
+            </div>
+
+
+            <div class="col-md-12 text-center">
+                <div class="col-md-4 col-md-offset-4 text-center" >
+                <div style="height:170px;padding:60px;" >
+                    <div style="float:left;">
+                        <button type="button" class="btn btn-fill btn-owl">
+                            Subscribe
+                        </button>
+                    </div>
+                    <div style="float:right">
+                        <button type="button" class="btn btn-fill btn-owl">
+                            Subscribe
+                        </button>
+                    </div>
+                    <div style="float:none;clear:both;">
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="yellowBlock blogArticles">
+            {#<div class="section">#}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card card-blog card-plain">
+                                <a href="#gaia" class="header">
+                                    <img src="../assets/img/web1x.jpg" class="image-header">
+                                </a>
+                                <div class="blogTitleText">
+                                    <p>Jul 27</p>
+                                    <a href="#gaia" class="card-title">
+                                        <h2>How to Make the Perfect Statues</h2>
+                                    </a>
+                                    {#<div class="line-divider line-danger"></div>#}
+                                    <p>Food & Drink</p>
                                 </div>
+                            </div>
 
-                    <!--</div>-->
-                <!-- end team -->
-                <div class="col-md-12 text-center" style="height:60px;">
-                    <div style="width:400px;background-color:green;margin:auto;">
-                        <div style="float:left">
-                            <button type="button" class="btn btn-fill btn-owl">
-                                Subscribe
-                            </button>
+                            <div class="card card-blog card-plain">
+                                <a href="#gaia" class="header">
+                                    <img src="../assets/img/web2x.jpg" class="image-header">
+                                </a>
+                                <div class="blogTitleText">
+                                    <p>Jul 27</p>
+                                    <a href="#gaia" class="card-title">
+                                        <h2>How to Make the Perfect Statues</h2>
+                                    </a>
+                                    {#<div class="line-divider line-danger"></div>#}
+                                    <p>Food & Drink</p>
+                                </div>
+                            </div>
+
                         </div>
-                        <div style="float:right">
-                            <button type="button" class="btn btn-fill btn-owl">
-                                Subscribe
-                            </button>
+
+
+                        <div class="col-md-4">
+                            <div class="card card-blog card-plain">
+                                <a href="#gaia" class="header">
+                                    <img src="../assets/img/web3x.jpg" class="image-header">
+                                </a>
+                                <div class="blogTitleText">
+                                    <p>Feb 17</p>
+                                    <a href="#gaia" class="card-title">
+                                        <h2>Nature & The Catch of the Day</h2>
+                                    </a>
+                                    {#<div class="line-divider line-danger"></div>#}
+                                    <p>Nature</p>
+                                </div>
+                            </div>
+                            <div class="card card-blog card-plain">
+                                <a href="#gaia" class="header">
+                                    <img src="../assets/img/web4x.jpg" class="image-header">
+                                </a>
+                                <div class="blogTitleText">
+                                    <p>Mar 27</p>
+                                    <a href="#gaia" class="card-title">
+                                        <h2>Breathing in the Crisp Air of Lake Lucerne</h2>
+                                    </a>
+                                    {#<div class="line-divider line-danger"></div>#}
+                                    <p>Business & Travel</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="card card-blog card-plain">
+                                <a href="#gaia" class="header">
+                                    <img src="../assets/img/web5x.jpg" class="image-header">
+                                </a>
+                                <div class="blogTitleText">
+                                    <p>Feb 17</p>
+                                    <a href="#gaia" class="card-title">
+                                        <h2>17 Best Nature Images</h2>
+                                    </a>
+                                    {#<div class="line-divider line-danger"></div>#}
+                                    <p>Images</p>
+                                </div>
+                            </div>
+                            <div class="card card-blog card-plain">
+                                <a href="#gaia" class="header">
+                                    <img src="../assets/img/web6x.jpg" class="image-header">
+                                </a>
+                                <div class="blogTitleText">
+                                    <p>Feb 17</p>
+                                    <a href="#gaia" class="card-title">
+                                        <h2>17 Best Nature Images</h2>
+                                    </a>
+                                    {#<div class="line-divider line-danger"></div>#}
+                                    <p>Images</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {#</div>#}
+            </div>
+        </div>
+        <div class="beigeBlock section">
+            <div class="container">
+                <div class="title-area">
+                    <h2>Rester informé</h2>
+                </div>
+
+                <div class="formBlock">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1">
+                        <div class="card1 ">
+                            <div class="card1-header card1-header-rose card1-header-icon">
+                                <div class="card1-icon">
+                                    <i class="material-icons" style="color:#113441">mail_outline</i>
+                                </div>
+                                <!--<h4 class="card1-title">Stacked Form</h4>-->
+                            </div>
+                            <div class="card1-body ">
+                                <form method="#" action="#">
+                                    <div class="form-group">
+                                        <label for="name" class="bmd-label-floating">Nom et prénom ou société</label>
+                                        <input type="text" class="form-control" id="exampleEmail">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="bmd-label-floating">Adresse mail</label>
+                                        <input type="email" class="form-control" id="examplePass">
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" value=""> S'inscrire à la newsletter
+                                            <span class="form-check-sign">
+                                            <span class="check">
+                                            </span>
+                                        </span>
+                                        </label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card1-footer ">
+                                <button type="submit" class="btn btn-fill btn-rose">S'inscrire</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-            </div>
-        </div>
-
-        <div class="section blueBlock">
-            <div class="container">
-
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img  src="../assets/img/imageSite.jpg" alt="First slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../assets/img/imageSite.jpg" alt="Second slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../assets/img/imageSite.jpg" alt="Third slide">
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
 
             </div>
         </div>
 
-        <div class="section beigeBlock">
-            <div class="container">
 
 
 
-            </div>
-        </div>
+    {% endblock %}
 
-    <footer class="footer footer-big footer-color-black greyBlock" data-color="black">
+{% block javascripts %}
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2 col-sm-3">
+    {{ parent() }}
+    <script src="assets/js/plugins/bootstrap-selectpicker.js" ></script>
 
-                </div>
-                <div class="col-md-3 col-md-offset-1 col-sm-3">
-
-                </div>
-                <div class="col-md-3 col-sm-3">
-                </div>
-                <div class="col-md-2 col-md-offset-1 col-sm-3">
-                </div>
-            </div>
-            <hr>
-            <div class="copyright">
-                ©
-                <script>
-                    document.write(new Date().getFullYear())
-                </script> Creative Tim, made with love
-            </div>
-        </div>
-    </footer>
-
-</body>
-
-<!--   core js files    -->
-<script src="../assets/js/jquery.min.js" type="text/javascript"></script>
-<script src="../assets/js/bootstrap.js" type="text/javascript"></script>
-
-<!--  js library for devices recognition -->
-<script type="text/javascript" src="../assets/js/modernizr.js"></script>
-
-<!--  script for google maps   -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
-
-<!--   file where we handle all the script from the Gaia - Bootstrap Template   -->
-<script type="text/javascript" src="../assets/js/gaia.js"></script>
-
-<script type="text/javascript">
-    $('.hamburger').click(function() {
-        $('.owlMenu').toggleClass('active');
-        $('.hamburger').toggleClass('hamburger-active');
-    });
-
-    // $('.speBlock2').hide();
-
-
-    $('.markOpen').click(function(){
-        console.log('essai');
-        $('.market').toggleClass("speDisplay");
-        $('.markImg').toggleClass('speImgDisplay');
-        $('.generalSpeBlock').toggleClass('hide');
-
-    });
-
-    $('.market').click(function(){
-        $('.market').toggleClass("speDisplay");
-        $('.markImg').toggleClass('speImgDisplay');
-        $('.generalSpeBlock').toggleClass('hide');
-    });
-
-    $('.devOpen').click(function(){
-        console.log('essai');
-        $('.dev').toggleClass("speDisplay");
-        $('.devImg').toggleClass('speImgDisplay');
-        $('.generalSpeBlock').toggleClass('hide');
-
-    });
-
-    $('.dev').click(function(){
-        $('.dev').toggleClass("speDisplay");
-        $('.devImg').toggleClass('speImgDisplay');
-        $('.generalSpeBlock').toggleClass('hide');
-    });
-
-    $('.designOpen').click(function(){
-        console.log('essai');
-        $('.design').toggleClass("speDisplay");
-        $('.designImg').toggleClass('speImgDisplay');
-        $('.generalSpeBlock').toggleClass('hide');
-
-    });
-
-    $('.design').click(function(){
-        $('.design').toggleClass("speDisplay");
-        $('.designImg').toggleClass('speImgDisplay');
-        $('.generalSpeBlock').toggleClass('hide');
-    });
-
-    $('.auditOpen').click(function(){
-        console.log('essai');
-        $('.audit').toggleClass("speDisplay");
-        $('.auditImg').toggleClass('speImgDisplay');
-        $('.generalSpeBlock').toggleClass('hide');
-
-    });
-
-    $('.audit').click(function(){
-        $('.audit').toggleClass("speDisplay");
-        $('.auditImg').toggleClass('speImgDisplay');
-        $('.generalSpeBlock').toggleClass('hide');
-    });
-
-    //----------------------------------------------------------------------------------------------------------
-
-    //
-    // $(function() {
-    //     "use strict";
-    //
-    //     var body = $('body'),
-    //         slider = $('.slider'),
-    //         sliderUl = slider.find('> ul'),
-    //         sliderOlLi = slider.find('> ol li'),
-    //         sliderCtrl = slider.find('> .controll .fa'),
-    //         sliderTime = 500,
-    //         sliderWait = 4000,
-    //         autoRun;
-    //
-    //     sliderUl.append('<li>' + sliderUl.find('> li').first().html() + '</li>');
-    //     sliderUl.prepend('<li>' + sliderUl.find('> li').last().prev().html() + '</li>');
-    //
-    //     function resetDimension() {
-    //         slider.height(sliderUl.height());
-    //         sliderUl.find('> li').width(slider.width());
-    //         sliderUl.width(sliderUl.find('> li').width() * sliderUl.find('> li').length);
-    //     }
-    //     resetDimension();
-    //
-    //     $(window).on('resize', function() {
-    //         resetDimension();
-    //     });
-    //
-    //     function runSlider() {
-    //         if (sliderUl.find('> li').hasClass('slider-active')) {
-    //             sliderUl.animate({
-    //                 left: -sliderUl.find('> li').width() * $('.slider-active').index()
-    //             }, sliderTime);
-    //             sliderOlLi.eq($('.slider-active').index() - 1).addClass('pointer-active').siblings('li').removeClass('pointer-active');
-    //         }
-    //     }
-    //     runSlider();
-    //
-    //     sliderCtrl.on('click', function() {
-    //         $(this).addClass('active').siblings().removeClass('active');
-    //
-    //         if ($(this).hasClass('fa-chevron-left')) {
-    //             if ($('.slider-active').prev().is(':first-of-type')) {
-    //                 $('.slider-active').prev().addClass('slider-active').siblings('li').removeClass('slider-active');
-    //                 sliderUl.css('left', -sliderUl.find('> li').width() * (sliderUl.find('> li').length - 1));
-    //                 sliderUl.find('> li').last().prev().addClass('slider-active').siblings('li').removeClass('slider-active');
-    //             } else {
-    //                 $('.slider-active').prev().addClass('slider-active').siblings('li').removeClass('slider-active');
-    //             }
-    //         }
-    //         if ($(this).hasClass('fa-chevron-right')) {
-    //             if ($('.slider-active').next().is(':last-of-type')) {
-    //                 $('.slider-active').next().addClass('slider-active').siblings('li').removeClass('slider-active');
-    //                 sliderUl.css('left', 0);
-    //                 sliderUl.find('> li').first().next().addClass('slider-active').siblings('li').removeClass('slider-active');
-    //             } else {
-    //                 $('.slider-active').next().addClass('slider-active').siblings('li').removeClass('slider-active');
-    //             }
-    //         }
-    //         runSlider();
-    //     });
-    //
-    //     function autoRunSlider() {
-    //         if (body.css('direction') === 'ltr') {
-    //             autoRun = setInterval(function() {
-    //                 sliderCtrl.last().click();
-    //             }, sliderWait);
-    //         } else if (body.css('direction') === 'rtl') {
-    //             autoRun = setInterval(function() {
-    //                 sliderCtrl.first().click();
-    //             }, sliderWait);
-    //         }
-    //     }
-    //     autoRunSlider();
-    //
-    //     sliderCtrl.on('mouseenter', function() {
-    //         clearInterval(autoRun);
-    //     });
-    //     sliderCtrl.on('mouseleave', function() {
-    //         autoRunSlider();
-    //     });
-    //
-    //     sliderOlLi.on('mouseenter', function() {
-    //         clearInterval(autoRun);
-    //     });
-    //     sliderOlLi.on('mouseleave', function() {
-    //         autoRunSlider();
-    //     });
-    //
-    //
-    //     sliderOlLi.on('click', function() {
-    //
-    //         $(this).addClass('pointer-active').siblings().removeClass('pointer-active');
-    //
-    //         sliderUl.animate({
-    //             left: -sliderUl.find('> li').width() * ($('.pointer-active').index() + 1)
-    //         }, sliderTime);
-    //
-    //         sliderUl.find('> li').eq($('.pointer-active').index() + 1).addClass('slider-active').siblings('li').removeClass('slider-active');
-    //
-    //     });
-    // });
-
-    //----------------------------------------------------------------------------------------------------------
-
-
-</script>
-
-
-
-</html>
+{% endblock %}

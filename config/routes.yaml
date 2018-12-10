@@ -12,7 +12,7 @@ owlReferencesDisplay:
 
 owlContactDisplay:
     path: /owlContactDisplay
-    controller: App\Controller\DefaultController::owlContactDisplay
+    controller: App\Controller\DefaultController::formContactDisplay
 
 owlBlogDisplay:
     path: /owlBlogDisplay

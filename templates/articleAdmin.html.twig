@@ -8,7 +8,8 @@
 {% block content %}
 
 
-    <div class = "articleAdmin container col-lg-8 col-lg-offset-2">
+    <div class = "whiteBlock" style="padding-top:70px;">
+    <div class="articleAdmin container col-lg-8 col-lg-offset-2">
 
 
 
@@ -36,49 +37,49 @@
 
                 <div class = "articleComment" id="art{{ article.id }}">
 
-                    {% for comment in article.comments %}
+                    {#{% for comment in article.comments %}#}
 
-                        <div id="com{{ comment.id }}">
+                        {#<div id="com{{ comment.id }}">#}
 
-                        <p style="color:rebeccapurple; margin-top:5px; margin-bottom:5px; margin-left:20px;">
-
-
-                            {% if comment.valid == 0 %}
+                        {#<p style="color:rebeccapurple; margin-top:5px; margin-bottom:5px; margin-left:20px;">#}
 
 
-                        <span class="glyphicon glyphicon-eye-close link commentVisibility" id="up{{ comment.id }}"></span>
-                            {% elseif comment.valid == 1 %}
-                                <span class="glyphicon glyphicon-eye-open link commentVisibility" id="up{{ comment.id }}"></span>
-                            {% endif %}
+                            {#{% if comment.valid == 0 %}#}
 
-                            <span class="glyphicon glyphicon-pencil link commentUpdate" id="up{{ comment.id }}"></span>
-                        <span class="glyphicon glyphicon-trash link commentTrash" id="tr{{ comment.id }}"></span>
 
-                                <span class="commentText">{{ comment.text }}</span>
+                        {#<span class="glyphicon glyphicon-eye-close link commentVisibility" id="up{{ comment.id }}"></span>#}
+                            {#{% elseif comment.valid == 1 %}#}
+                                {#<span class="glyphicon glyphicon-eye-open link commentVisibility" id="up{{ comment.id }}"></span>#}
+                            {#{% endif %}#}
 
-                            </p>
+                            {#<span class="glyphicon glyphicon-pencil link commentUpdate" id="up{{ comment.id }}"></span>#}
+                        {#<span class="glyphicon glyphicon-trash link commentTrash" id="tr{{ comment.id }}"></span>#}
 
-                            {% for response in comment.commentResponses %}
+                                {#<span class="commentText">{{ comment.text }}</span>#}
 
-                                <p style="color:gray; margin-top:5px; margin-bottom:5px; margin-left:20px;">
+                            {#</p>#}
 
-                                {% if response.valid == 0 %}
-                                    <span class="glyphicon glyphicon-eye-close link commentResponseVisibility" id="up{{ response.id }}"></span>
-                                {% elseif response.valid == 1 %}
-                                    <span class="glyphicon glyphicon-eye-open link commentResponseVisibility" id="up{{ response.id }}"></span>
-                                {% endif %}
-                                <span class="glyphicon glyphicon-pencil link commentResponseUpdate" id="up{{ response.id }}"></span>
-                                <span class="glyphicon glyphicon-trash link commentResponseTrash" id="tr{{ response.id }}"></span>
+                            {#{% for response in comment.commentResponses %}#}
 
-                                    <span class="commentText">{{ response.text }}</span>
+                                {#<p style="color:gray; margin-top:5px; margin-bottom:5px; margin-left:20px;">#}
 
-                                </p>
+                                {#{% if response.valid == 0 %}#}
+                                    {#<span class="glyphicon glyphicon-eye-close link commentResponseVisibility" id="up{{ response.id }}"></span>#}
+                                {#{% elseif response.valid == 1 %}#}
+                                    {#<span class="glyphicon glyphicon-eye-open link commentResponseVisibility" id="up{{ response.id }}"></span>#}
+                                {#{% endif %}#}
+                                {#<span class="glyphicon glyphicon-pencil link commentResponseUpdate" id="up{{ response.id }}"></span>#}
+                                {#<span class="glyphicon glyphicon-trash link commentResponseTrash" id="tr{{ response.id }}"></span>#}
 
-                            {% endfor %}
+                                    {#<span class="commentText">{{ response.text }}</span>#}
 
-                        </div>
+                                {#</p>#}
 
-                    {% endfor %}
+                            {#{% endfor %}#}
+
+                        {#</div>#}
+
+                    {#{% endfor %}#}
 
                     <hr/>
 
@@ -89,6 +90,7 @@
 
         {% endfor %}
 
+    </div>
     </div>
 
 {% endblock %}

@@ -1,425 +1,330 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-	<link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon.png">
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>About Us | Gaia - Bootstrap Template</title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    {#<link href="../assets/css/bootstrap.css" rel="stylesheet" />#}
-    {#<link href="../assets/css/material-dashboard.css" rel="stylesheet"/>#}
-    {#<link href="../assets/css/owl.css" rel="stylesheet"/>#}
-
-    {#<!--     Fonts and icons     -->#}
-    {#<link href='https://fonts.googleapis.com/css?family=Cambo|Lato:400,700' rel='stylesheet' type='text/css'>#}
-    {#<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">#}
-    {#<link href="../assets/css/fonts/pe-icon-7-stroke.css" rel="stylesheet">#}
-    {#<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />#}
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bmatznerfontawesome/css/font-awesome.min.css') }}" />
-    <link href="{{ asset('assets/pe-icon-7-stroke.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/gaia.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/material-dashboard.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/owl.css') }}" rel="stylesheet" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-    <script src="{{ asset('assets/js/generalFunctions.js') }}"></script>
+{% extends 'base.html.twig' %}
 
 
-    <style>
-        /*body {*/
-            /*margin: 0;*/
-            /*width: 100vw;*/
-            /*height: 100vh;*/
-            /*background: #a4c400;*/
-        /*}*/
+    {% block stylesheets %}
+        {{ parent() }}
 
-        .gerard {
-            position: fixed;
-            right: 0;
-            top: 20px;
-            width: 8em;
-            margin-top: -2.5em;
-            z-index: 1;
+        <style>
 
-        }
+            /*.hamburger {*/
+                /*z-index:81;*/
+            /*}*/
+            .contactForm1 {
+                z-index:80;
+            }
+            .contactForm2 {
+                z-index:80;
+            }
 
-        .owlMenu {
-            width: 200px;
-            /*height: 360px;*/
-            background: #113441;
-            transform: translateX(100%);
-            transition: 1s;
-        }
-        .owlMenu ul {3498db
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            padding: 0;
-        }
-        .active {
-            transform: translateX(-50%);
-        }
-        li {
-            list-style: none;
-        }
-        li:hover {
+        </style>
 
-            background: white;
-        }
+    {% endblock %}
 
-        .owlMenu a {
-            display: block;
-            text-decoration: none;
-            color: #fff;
-            text-transform: uppercase;
-            width: 100%;
-            height: 100%;
-            padding: 20px;
-        }
-        .owlMenu a:hover {
-            color:  #113441;
-        }
-        .hamburger {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            box-shadow: 5px 5px 105px rgba(0,0,0,.4);
-            cursor: pointer;
-            top: 0px;
-            left: 30px;
-            background: #fff;
-            transition: all 1s;
-            margin-top: 30px;
-        }
-        .hamburger span {
-            position: absolute;
-            display: block;
-            width: 20px;
-            height: 3px;
-            top: 50%;
-            transform: translateY(-50%);
-            left: 50%;
-            transform: translateX(-45%);
-            background: #000;
-            transition: .5s;
-            /*   box-shadow: 2px 2px 40px rgba(0,0,0,.5); */
-        }
-        .hamburger span::before {
-            position: absolute;
-            top: -8px;
-            content: '';
-            display: block;
-            width: 20px;
-            height: 3px;
-            background: #000;
-            transition: .2s;
-        }
-        .hamburger span::after {
-            position: absolute;
-            top: 8px;
-            content: '';
-            display: block;
-            width: 20px;
-            height: 3px;
-            background: #000;
-            transition: .2s;
-        }
-        .hamburger-active span {
-            transform: rotate(180deg);
-            left: 40%;
-        }
-        .hamburger-active span::before {
-            transform: rotate(45deg);
-            width: 10px;
-            transform-origin: right top;
-            top: 0;
-            right: 0;
-        }
-        .hamburger-active span::after {
-            transform: rotate(-45deg);
-            width: 10px;
-            transform-origin: right bottom;
-            top: 0;
-            right: 0;
-        }
+    {% block logo %}
 
-        /*--------------------------------------------------------------------------------------------------*/
+        <div class="headSection blueBlockHead";>
 
+                {#<div class="container">#}
+                <div class="content blueBlock">
 
-        /* entire container, keeps perspective */
-        .flip-container {
-            perspective: 1000px;
-        }
-        /* flip the pane when hovered */
-        .flip-container:hover .flipper, .flip-container.hover .flipper {
-            transform: rotateY(180deg);
-        }
+                    <div class="blueHeadImg">
+                        <img alt="..." src="../assets/img/logoBleu.png"/>
+                    </div>
 
-        .flip-container, .front, .back {
-            width: 320px;
-            height: 480px;
-        }
+                </div>
+            {#</div>#}
+        </div>
+    {% endblock %}
 
-        /* flip speed goes here */
-        .flipper {
-            transition: 0.6s;
-            transform-style: preserve-3d;
+    {% block content %}
 
-            position: relative;
-        }
+        <div class="section blueBlock section-our-team">
+            <div class="container">
+                <!--<div class="text-area">-->
+                <h1>Nos références</h1>
 
-        /* hide back of pane during swap */
-        .front, .back {
-            backface-visibility: hidden;
+                <div class="title-area">
+                    <h2>Réalisation de sites</h2>
+                    <div class="separator separator-danger">♦</div>
 
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
+                </div>
+                <p class="description">
+                    Mauris id sagittis est. Integer a mauris nec augue cursus molestie. Vivamus ut lectus non felis condimentum tempor. Praesent efficitur semper congue. Duis nec nisi libero. Pellentesque aliquam quam nec massa faucibus, nec mollis dui maximus. Aliquam ornare et mi et convallis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis in elementum orci. Sed a tempor tortor. Nam massa nibh, placerat at leo et, tincidunt pretium ex. Phasellus lectus felis, pretium ut ornare et, pharetra ac turpis. Integer non aliquam tellus. Vestibulum malesuada sed magna vel pretium. Pellentesque posuere interdum lectus id consequat. Praesent aliquam justo a quam efficitur tempus.
+                </p>
+            </div>
 
-        /* front pane, placed above back */
-        .front {
-            z-index: 2;
-            /* for firefox 31 */
-            transform: rotateY(0deg);
-        }
-
-        /* back, initially hidden pane */
-        .back {
-            transform: rotateY(180deg);
-        }
-
-        .flip-container:hover .flipper, .flip-container.hover .flipper, .flip-container.flip .flipper {
-            transform: rotateY(180deg);
-        }
-        /*--------------------------------------------------------------------------------------------------*/
-
-
-        /*#card1{*/
-            /*width: 100%;*/
-            /*height: 100%;*/
-            /*position: absolute;*/
-            /*transform-style: preserve-3d;*/
-            /*transition: transform 8s;*/
-        /*}*/
-
-        /*#card1 figure {*/
-            /*margin: 0;*/
-            /*display: block;*/
-            /*position: absolute;*/
-            /*width: 100%;*/
-            /*height: 100%;*/
-            /*!*backface-visibility: hidden;*!*/
-        /*}*/
-
-        /*#card1 .cardFront {*/
-            /*background: red;*/
-            /*transform-style: preserve-3d;*/
-            /*transition: transform 2s;*/
-            /*!*transform: rotateY( 180deg );*!*/
-            /*z-index: 10;*/
-            /*!*visibility: hidden;*!*/
-        /*}*/
-
-        /*#card1 .cardBack {*/
-            /*background: blue;*/
-            /*transform-style: preserve-3d;*/
-            /*transition: transform 2s;*/
-            /*z-index: 0;*/
-            /*!*backface-visibility: hidden;*!*/
-
-            /*!*transform: rotateY( 180deg );*!*/
-        /*}*/
-
-        /*#card1*/
-        /*.flipped {*/
-            /*transform: rotateY( 180deg );*/
-            /*background: green;*/
-        /*}*/
-
-    </style>
-
-
-
-</head>
-
-<body>
-
-
-<div class="gerard">
-    <div class="hamburger">
-        <span></span>
-    </div>
-
-    <div class="owlMenu">
-        <ul>
-            <li><a href={{ path('owlHome') }}>L'agence</a></li>
-            <li><a href={{ path('owlServices') }}>Notre savoir-faire</a></li>
-            <li><a href={{ path('owlReferences') }}>Nos références</a></li>
-            <li><a href={{ path('owlContact') }}>Nous contacter</a></li>
-            <li><a href={{ path('owlBlog') }}>Blog</a></li>
-
-        </ul>
-    </div>
-
-</div>
-
-    <div class="headSection" style="height:320px;margin:0;">
-        <div>
-            <!--<div class="image"-->
-                <!--style="background-image:url('../assets/img/header-12.jpeg')">-->
-            <!--</div>-->
             <div class="container">
 
+                <div class="row">
 
+                    <div class="col-md-4 col-md-offset-4 text-center" style="margin-bottom:50px;">
 
+                        <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/facebook.png" style="width:50px;height:50px"/></div>
+                        <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/instagram.png" style="width:50px;height:50px"/></div>
+                        <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/twitter.png" style="width:50px;height:50px"/></div>
+                        <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/linkedin.png" style="width:50px;height:50px"/></div>
 
-                <div class="content">
-
-                    <div>
-                        <img alt="..." src="../assets/img/logoJaune.png" />
                     </div>
 
-                 </div>
-            </div>
-         </div>
-    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="col-md-12 text-center" style="height:60px;">
+                            <div style="width:400px;margin:auto;">
+                                <button type="button" class="btn btn-fill btn-owl">
+                                    Subscribe
+                                </button>
 
-    <div class="section section-our-projects yellowBlock">
-
-        <div class="title-area">
-            <h1 style="margin-top:0;padding-top:70px;color:#ffffff">Agence digitale</h1>
-            <div class="separator separator-danger">♦</div>
-            <p class="description">
-                Mauris id sagittis est. Integer a mauris nec augue cursus molestie. Vivamus ut lectus non felis condimentum tempor. Praesent efficitur semper congue. Duis nec nisi libero. Pellentesque aliquam quam nec massa faucibus, nec mollis dui maximus. Aliquam ornare et mi et convallis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis in elementum orci. Sed a tempor tortor. Nam massa nibh, placerat at leo et, tincidunt pretium ex. Phasellus lectus felis, pretium ut ornare et, pharetra ac turpis. Integer non aliquam tellus. Vestibulum malesuada sed magna vel pretium. Pellentesque posuere interdum lectus id consequat. Praesent aliquam justo a quam efficitur tempus.
-            </p>
-        </div>
-
-        <div class="text-center">
-            <button type="button" class="btn btn-fill btn-owl">
-                Subscribe
-            </button>
-        </div>
-
-
-
-
-    </div>
-
-
-    <div class="blueBlock section">
-        <div class="container">
-            <div class="title-area">
-                <h2>Rester informé</h2>
-            </div>
-
-            <div class="formBlock">
-                <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1">
-                    <div class="card1 ">
-                        <div class="card1-header card1-header-rose card1-header-icon">
-                            <div class="card1-icon">
-                                <i class="material-icons">mail_outline</i>
                             </div>
-                            <!--<h4 class="card1-title">Stacked Form</h4>-->
                         </div>
-                        <div class="card1-body ">
-                            <form method="#" action="#">
-                                <div class="form-group">
-                                    <label for="exampleEmail" class="bmd-label-floating">Nom et prénom ou société</label>
-                                    <input type="email" class="form-control" id="exampleEmail">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="container" style="text-align:center;margin-top:100px;">
+
+                <h2>Nous contacter</h2>
+
+            </div>
+
+            <div class="container">
+                <div class="formBlock contactForm1">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1">
+                        <div class="card1">
+
+                            <div class="card1-header card1-header-rose card1-header-icon">
+                                <div class="card1-icon">
+                                    <i class="material-icons" style="color:#113441">mail_outline</i>
                                 </div>
-                                <div class="form-group">
-                                    <label for="examplePass" class="bmd-label-floating">Adresse mail</label>
-                                    <input type="password" class="form-control" id="examplePass">
+                            </div>
+
+                            <div class="card1-body ">
+
+                                {{ form_start(formNL, {'attr': {'class': 'form-group'}} ) }}
+
+                                <div>
+                                    {{ form_widget(formNL.name, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formNL.name) }}
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" value=""> S'inscrire à la newsletter
-                                        <span class="form-check-sign">
-                                            <span class="check">
-                                            </span>
-                                        </span>
-                                    </label>
+
+                                <div>
+                                    {{ form_widget(formNL.email, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formNL.email) }}
                                 </div>
-                            </form>
-                        </div>
-                        <div class="card1-footer ">
-                            <button type="submit" class="btn btn-fill btn-rose">S'inscrire</button>
+
+                                <div>
+                                    {{ form_row(formNL.quoteRequest, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                </div>
+
+                                <div>
+                                    {{ form_row(formNL.newsletterRequest, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                </div>
+
+                                <div>
+                                    {{ form_row(formNL.informationsRequest, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                </div>
+
+                                <div>
+                                    {{ form_row(formNL.archived, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                </div>
+
+                                <div>
+                                    {{ form_row(formNL.lastAction, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                </div>
+
+                                <div>
+                                    {{ form_row(formNL.lastActionDate, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                </div>
+
+                                <div>
+                                    {{ form_row(formNL.nextAction, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                </div>
+
+                                <div>
+                                    {{ form_row(formNL.nextActionDate, {'attr': {'required': false, 'class' : 'form-control '}}) }}
+                                </div>
+
+                                <div class="card1-footer ">
+                                    {{ form_row(formNL.save, {'attr': {'class' : 'form-control btn btn-fill btn-rose'},'label': 'Valider'}) }}
+                                </div>
+
+                                {{ form_end(formNL) }}
+
+
+                            </div>
+
+
+
                         </div>
                     </div>
                 </div>
             </div>
 
         </div>
-    </div>
+
+
+        <div class="contactForm2" style="position:absolute; text-align:center; width:100%;" >
+            <div class="container">
+                <div class="formBlock contactForm2">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1">
+
+                        <div class="card1 card2 ">
+
+                            <h2>Demande de devis</h2>
+
+                            <p style="margin-right:10px;margin-left:10px;">Nous vous recontacterons dans les meilleurs délais pour vous donner la meilleure expertise </p>
+
+                            <div class="card1-header card1-header-rose card1-header-icon">
+                                <div class="card1-icon devisForm">
+                                    <i>Vos informations</i>
+                                </div>
+                            </div>
+
+                            <div class="card1-body ">
+
+                                {{ form_start(formQuote, {'attr': {'class': 'form-group'}} ) }}
+
+                                <div class="form-group">
+                                    {{ form_widget(formQuote.company, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.company) }}
+                                </div>
+
+                                <div class="form-group respCivility">
+                                    {{ form_widget(formQuote.respCivility, {'attr': {'required': true, 'style':'display:inlineBlock','class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.respCivility) }}
+                                </div>
+
+
+                                <div class="form-group">
+                                    {{ form_widget(formQuote.respName, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.respName) }}
+                                </div>
 
 
 
-    <footer class="footer footer-big footer-color-black greyBlock" data-color="black">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2 col-sm-3">
+                                <div>
+                                    {{ form_widget(formQuote.email, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.email) }}
+                                </div>
 
+
+                                <div>
+                                    {{ form_widget(formQuote.siret, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.siret) }}
+                                </div>
+
+
+                                <div>
+                                    {{ form_widget(formQuote.activity, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.activity) }}
+                                </div>
+
+
+                                <div>
+                                    {{ form_widget(formQuote.phone, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.phone) }}
+                                </div>
+
+
+                                <div>
+                                    {{ form_widget(formQuote.postalCode, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.postalCode) }}
+                                </div>
+
+
+                                <div>
+                                    {{ form_widget(formQuote.locality, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.locality) }}
+                                </div>
+
+
+                                <div class="card1-footer ">
+                                    {{ form_row(formQuote.save2, {'attr': {'class' : 'form-control btn btn-fill btn-rose'},'label': 'Valider'}) }}
+                                </div>
+
+                                {{ form_end(formQuote) }}
+
+
+                                {#<form method="#" action="#">#}
+
+                                    {#<div class="form-group">#}
+                                        {#<input type="text" class="form-control" id="exampleEmail" placeholder="Nom de la société">#}
+                                    {#</div>#}
+
+                                    {#<div class="form-group">#}
+                                        {#<input type="email" class="form-control" id="examplePass" placeholder="Nom du responsable">#}
+                                    {#</div>#}
+
+                                    {#<div class="form-group">#}
+                                        {#<input type="email" class="form-control" id="examplePass" placeholder="Adresse mail">#}
+                                    {#</div>#}
+
+                                    {#<div class="form-group">#}
+                                        {#<input type="text" class="form-control" id="exampleEmail" placeholder="Numéro de siret">#}
+                                    {#</div>#}
+
+                                    {#<div class="form-group">#}
+                                        {#<input type="email" class="form-control" id="examplePass" placeholder="Domaine d'activité">#}
+                                    {#</div>#}
+
+                                    {#<div class="form-group">#}
+                                        {#<input type="text" class="form-control" id="exampleEmail" placeholder="téléphone">#}
+                                    {#</div>#}
+
+                                    {#<div class="form-group">#}
+                                        {#<input type="email" class="form-control" id="examplePass" placeholder="Code postal">#}
+                                    {#</div>#}
+
+                                    {#<div class="form-group">#}
+                                        {#<input type="text" class="form-control" id="exampleEmail" placeholder="Ville">#}
+                                    {#</div>#}
+
+                                    {#<div class="form-group NLSelect1">#}
+
+                                        {#<select class="form-control selectpicker" data-style="btn btn-link" id="formControlSelect1" >#}
+                                            {#<option value="" style="color:#ffbb00;" disabled selected>Select your option</option>                                        <option>rzerzer</option>#}
+                                            {#<option>zere</option>#}
+                                            {#<option>kjlkl</option>#}
+                                            {#<option>oiuiiouio</option>#}
+                                            {#<option>kljkljiouoei</option>#}
+                                        {#</select>#}
+
+                                    {#</div>#}
+
+                                    {#<div class="form-group">#}
+                                        {#<textarea type="textarea" class="form-control" id="textAreaDevis" placeholder="Commentaires"></textarea>#}
+                                    {#</div>#}
+
+                                {#</form>#}
+
+                            </div>
+
+                            {#<div class="card1-footer ">#}
+                                {#<button type="submit" class="btn btn-fill btn-rose">S'inscrire</button>#}
+                            {#</div>#}
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-3 col-md-offset-1 col-sm-3">
-
-                </div>
-                <div class="col-md-3 col-sm-3">
-                </div>
-                <div class="col-md-2 col-md-offset-1 col-sm-3">
-                </div>
-            </div>
-            <hr>
-            <div class="copyright">
-                ©
-                <script>
-                    document.write(new Date().getFullYear())
-                </script> Creative Tim, made with love
             </div>
         </div>
-    </footer>
 
-</body>
+        <div class="section blueBlock section-our-team" style="height:300px;"></div>
 
-<!--   core js files    -->
-<script src="../assets/js/jquery.min.js" type="text/javascript"></script>
-<script src="../assets/js/bootstrap.js" type="text/javascript"></script>
-
-<!--  js library for devices recognition -->
-<script type="text/javascript" src="../assets/js/modernizr.js"></script>
-
-<!--  script for google maps   -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
-
-<!--   file where we handle all the script from the Gaia - Bootstrap Template   -->
-<script type="text/javascript" src="../assets/js/gaia.js"></script>
-
-<script type="text/javascript">
-    $('.hamburger').click(function() {
-        $('.owlMenu').toggleClass('active');
-        $('.hamburger').toggleClass('hamburger-active');
-    });
-    // -------------------------------------------------------
-
-    // $('.card').on('click', function(){
-    //     console.log("gerard");
-    //     $(this).toggleClass('cardFront');
-    //     $(this).toggleClass('cardBack');
-    //
-    // });
-
-
-</script>
+        <div class="section beigeBlock section-our-team" style="height:1100px;"></div>
 
 
 
-</html>
+
+        </div>
+
+
+
+
+    {% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script src="assets/js/plugins/bootstrap-selectpicker.js" ></script>
+
+{% endblock %}

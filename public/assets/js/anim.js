@@ -208,7 +208,7 @@ $('.devOpen').click(function(){
 
 });
 
-$('.dev').click(function(){
+$('.devClose').click(function(){
     $('.dev').toggleClass("speDisplay");
     $('.devImg').toggleClass('speImgDisplay');
     $('.generalSpeBlock').toggleClass('hide');
@@ -245,3 +245,13 @@ $('.audit').click(function(){
 });
 //--------------------------------------------
 
+$("#form1").click(function() {
+    $("#form2").toggleClass("index");
+    console.log("form 1");
+});
+
+$("#form2").click(function() {
+    $("#form1").toggleClass("index");
+    console.log("form 2");
+
+});
