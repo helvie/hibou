@@ -87,6 +87,83 @@
 
             </div>
 
+
+            {%  set today = 'now'|date('l')%}
+            {%  set thisHour = 'now'|date_modify("+1 hour")|date('H')%}
+
+            {#{% if gerard = "" %}#}
+            {#{% set day1 = %}#}
+            {#{% set day2 = %}#}
+            {#{% set day3 = %}#}
+            {#{% set day4 = %}#}
+
+
+
+
+            {#lundi=["lundi", "mardi", mercredi", "jeudi"];#}
+            {#mardi = ["mardi", "mercredi", "jeudi", "vendredi"];#}
+            {#mercredi = ["mercredi", "jeudi", "vendredi", "samedi"];#}
+            {#jeudi = ["jeudi", "vendredi", "samedi", "lundi"];#}
+            {#vendredi = ["vendredi", "samedi", "lundi", "mardi"];#}
+            {#samedi = ["samedi", "lundi", "mardi", "mercredi"]#}
+            {#dimanche = ["lundi", "mardi", "mercredi"]#}
+
+
+            {% if today == "Monday" %}
+                {%  set
+                    todayList = [0,1,2,3,4,5,7]
+                %}
+            {% elseif today == "Tuesday" %}
+                {% set
+                    todayList = [0,1,2,3,4,6,7]
+                %}
+            {% elseif today == "Wednesday" %}
+                {% set
+                    todayList = [0,1,2,3,5,6,7]
+                %}
+            {% elseif today == "Thursday" %}
+                {% set
+                    todayList = [0,1,2,4,5,6,7]
+                %}
+            {% elseif today == "Friday" %}
+                {% set
+                    todayList = [0,1,3,4,5,6,7]
+                %}
+            {% elseif today == "Saturday" %}
+                {% set
+                    todayList = [0,2,3,4,5,6,7]
+                %}
+            {% elseif today == "Sunday" %}
+                {% set
+                    todayList = [1,2,3,4,5,6,7]
+                %}
+            {% endif %}
+
+            {% set todayList =
+                [0,1,2,3,4,6,7]
+
+            %}
+
+            {{ today }}
+            {{ thisHour }}
+            {#{% for moment in lundi %}#}
+
+                {#<h1>{{ moment.date }}</h1>#}
+
+            {#{% endfor %}#}
+            {#{{ dump(lundi[0].date) }}#}
+
+
+
+
+            {#lundi=["Aujourd'hui", "Demain", mercredi", "jeudi"];#}
+            {#mardi = ["Aujourd'hui", "Demain", "jeudi", "vendredi"];#}
+            {#mercredi = ["Aujourd'hui", "Demain", "vendredi", "samedi"];#}
+            {#jeudi = ["Aujourd'hui", "Demain", "samedi", "lundi"];#}
+            {#vendredi = ["Aujourd'hui", "Demain", "lundi", "mardi"];#}
+            {#samedi = ["Aujourd'hui", "lundi", "mardi", "mercredi"]#}
+            {#dimanche = ["Demain", "mardi", "mercredi"]#}
+
             <div class="container">
                 <div class="formBlock contactForm1">
                     <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1">
@@ -111,6 +188,56 @@
                                     {{ form_widget(formNL.email, {'attr': {'required': true, 'class' : 'form-control'}}) }}
                                     {{ form_errors(formNL.email) }}
                                 </div>
+
+                                <div>
+                                    {{ form_widget(formNL.phone, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formNL.phone) }}
+                                </div>
+
+                                <div class="form-group NLSelect1">
+
+                                    <select class="form-control menuSelect daysMenu"  id="formControlSelect1" >
+
+                                        <option value="" style="color:#ffbb00;" disabled selected>Jour où vous souhaitez être rappelé</option>
+
+
+                                        {#{% if gerard == "Monday" %}#}
+                                        {% for day in todayList %}
+                                            {% if thisHour >=14 %}
+                                                {% if not loop.first %}
+                                                    <option class="option">{{ 'now'|date_modify("+"~day~" day")|localizeddate('full', 'none', 'locale') }}</option>
+                                                {% endif %}
+                                            {% elseif thisHour < 14 %}
+                                                <option value = {{ day }}>{{ 'now'|date_modify("+"~day~" day")|localizeddate('full', 'none', 'locale') }}</option>                                            {% endif %}
+
+                                        {% endfor %}
+
+                                        {#{% elseif gerard == "Tuesday" %}#}
+                                        {#{% for moment in mardi %}#}
+                                            {#{{ moment }}#}
+                                            {#<option>{{ moment.date}}</option>#}
+                                        {#{% endfor %}#}
+
+                                        {#{% endif %}#}
+
+                                    </select>
+
+                                </div>
+
+                                <div class="form-group NLSelect2">
+
+                                    <select class="form-control menuSelect hoursMenu" id="formControlSelect1" >
+
+                                        <option value="" style="color:#ffbb00;" disabled selected>Choisissez un créneau horaire</option>
+
+                                        {#{% for moment in lundi %}#}
+                                            {#<option>{{ moment.date}}</option>#}
+                                        {#{% endfor %}#}
+
+                                    </select>
+
+                                </div>
+
 
                                 <div>
                                     {{ form_row(formNL.quoteRequest, {'attr': {'required': false, 'class' : 'form-control'}}) }}
@@ -182,67 +309,67 @@
 
                             <div class="card1-body ">
 
-                                {{ form_start(formQuote, {'attr': {'class': 'form-group'}} ) }}
+                                {#{{ form_start(formQuote, {'attr': {'class': 'form-group'}} ) }}#}
 
-                                <div class="form-group">
-                                    {{ form_widget(formQuote.company, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                    {{ form_errors(formQuote.company) }}
-                                </div>
+                                {#<div class="form-group">#}
+                                    {#{{ form_widget(formQuote.company, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
+                                    {#{{ form_errors(formQuote.company) }}#}
+                                {#</div>#}
 
-                                <div class="form-group respCivility">
-                                    {{ form_widget(formQuote.respCivility, {'attr': {'required': true, 'style':'display:inlineBlock','class' : 'form-control'}}) }}
-                                    {{ form_errors(formQuote.respCivility) }}
-                                </div>
-
-
-                                <div class="form-group">
-                                    {{ form_widget(formQuote.respName, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                    {{ form_errors(formQuote.respName) }}
-                                </div>
+                                {#<div class="form-group respCivility">#}
+                                    {#{{ form_widget(formQuote.respCivility, {'attr': {'required': true, 'style':'display:inlineBlock','class' : 'form-control'}}) }}#}
+                                    {#{{ form_errors(formQuote.respCivility) }}#}
+                                {#</div>#}
 
 
-
-                                <div>
-                                    {{ form_widget(formQuote.email, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                    {{ form_errors(formQuote.email) }}
-                                </div>
-
-
-                                <div>
-                                    {{ form_widget(formQuote.siret, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                    {{ form_errors(formQuote.siret) }}
-                                </div>
+                                {#<div class="form-group">#}
+                                    {#{{ form_widget(formQuote.respName, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
+                                    {#{{ form_errors(formQuote.respName) }}#}
+                                {#</div>#}
 
 
-                                <div>
-                                    {{ form_widget(formQuote.activity, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                    {{ form_errors(formQuote.activity) }}
-                                </div>
+
+                                {#<div>#}
+                                    {#{{ form_widget(formQuote.email, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
+                                    {#{{ form_errors(formQuote.email) }}#}
+                                {#</div>#}
 
 
-                                <div>
-                                    {{ form_widget(formQuote.phone, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                    {{ form_errors(formQuote.phone) }}
-                                </div>
+                                {#<div>#}
+                                    {#{{ form_widget(formQuote.siret, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
+                                    {#{{ form_errors(formQuote.siret) }}#}
+                                {#</div>#}
 
 
-                                <div>
-                                    {{ form_widget(formQuote.postalCode, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                    {{ form_errors(formQuote.postalCode) }}
-                                </div>
+                                {#<div>#}
+                                    {#{{ form_widget(formQuote.activity, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
+                                    {#{{ form_errors(formQuote.activity) }}#}
+                                {#</div>#}
 
 
-                                <div>
-                                    {{ form_widget(formQuote.locality, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                    {{ form_errors(formQuote.locality) }}
-                                </div>
+                                {#<div>#}
+                                    {#{{ form_widget(formQuote.phone, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
+                                    {#{{ form_errors(formQuote.phone) }}#}
+                                {#</div>#}
 
 
-                                <div class="card1-footer ">
-                                    {{ form_row(formQuote.save2, {'attr': {'class' : 'form-control btn btn-fill btn-rose'},'label': 'Valider'}) }}
-                                </div>
+                                {#<div>#}
+                                    {#{{ form_widget(formQuote.postalCode, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
+                                    {#{{ form_errors(formQuote.postalCode) }}#}
+                                {#</div>#}
 
-                                {{ form_end(formQuote) }}
+
+                                {#<div>#}
+                                    {#{{ form_widget(formQuote.locality, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
+                                    {#{{ form_errors(formQuote.locality) }}#}
+                                {#</div>#}
+
+
+                                {#<div class="card1-footer ">#}
+                                    {#{{ form_row(formQuote.save2, {'attr': {'class' : 'form-control btn btn-fill btn-rose'},'label': 'Valider'}) }}#}
+                                {#</div>#}
+
+                                {#{{ form_end(formQuote) }}#}
 
 
                                 {#<form method="#" action="#">#}
@@ -326,5 +453,89 @@
 
     {{ parent() }}
     <script src="assets/js/plugins/bootstrap-selectpicker.js" ></script>
+
+    <script>
+
+        $(".hoursMenu").hide();
+
+        $(".daysMenu").on("change", function() {
+            console.log("changé");
+
+            $(".hoursMenu").show();
+
+            var now = new Date();
+            var day = now.getDay();
+            var hour = now.getHours();
+            console.log(hour);
+
+            $(".hoursMenu").empty();
+
+            if($(".daysMenu").val() != 0 || day == 0)  {
+
+            // <option value="" style="color:#ffbb00;" disabled selected>Jour où vous souhaitez être rappelé</option>
+
+
+                    var optionCat0 = document.createElement("OPTION");
+                    textCat = document.createTextNode("Jour où vous souhaitez être rappelé");
+                    // optionCat0.attr("disabled");
+                    optionCat0.setAttribute("style", "color:#ffbb00;");
+                    optionCat0.appendChild(textCat);
+                    optionCat0.selected = true;
+                    $(".hoursMenu").append(optionCat0);
+
+                    var optionCat0 = document.createElement("OPTION");
+                    textCat = document.createTextNode("Entre 8h et 10h");
+                    optionCat0.appendChild(textCat);
+                    optionCat0.selected = true;
+                    $(".hoursMenu").append(optionCat0);
+
+                    optionCat0 = document.createElement("OPTION");
+                    textCat = document.createTextNode("Entre 10h et 12h");
+                    optionCat0.appendChild(textCat);
+                    optionCat0.selected = true;
+                    $(".hoursMenu").append(optionCat0);
+
+                    optionCat0 = document.createElement("OPTION");
+                    textCat = document.createTextNode("Entre 14h et 16h");
+                    optionCat0.appendChild(textCat);
+                    optionCat0.selected = true;
+                    $(".hoursMenu").append(optionCat0);
+            }
+            else {
+
+                var optionCat0 = document.createElement("OPTION");
+                textCat = document.createTextNode("Choisissez un créneau horaire");
+                optionCat0.setAttribute("disabled", true);
+                optionCat0.setAttribute("style", "color:#ffbb00;");
+                optionCat0.appendChild(textCat);
+                optionCat0.selected = true;
+                $(".hoursMenu").append(optionCat0);
+
+                if (hour < 8) {
+                    var optionCat0 = document.createElement("OPTION");
+                    textCat = document.createTextNode("Entre 8h et 10h");
+                    optionCat0.appendChild(textCat);
+                    $(".hoursMenu").append(optionCat0);
+                }
+                if (hour < 10) {
+                    optionCat0 = document.createElement("OPTION");
+                    textCat = document.createTextNode("Entre 10h et 12h");
+                    optionCat0.appendChild(textCat);
+                    $(".hoursMenu").append(optionCat0);
+                }
+                if (hour < 14) {
+                    optionCat0 = document.createElement("OPTION");
+                    textCat = document.createTextNode("Entre 14h et 16h");
+                    optionCat0.appendChild(textCat);
+                    $(".hoursMenu").append(optionCat0);
+                }
+
+            }
+
+        })
+
+
+
+    </script>
 
 {% endblock %}

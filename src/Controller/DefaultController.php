@@ -17,6 +17,8 @@ use App\Entity\ProspectInformation;
 use App\Entity\CommentResponse;
 use App\Repository\CommentRepository;
 use App\Repository\CommentResponseRepository;
+use App\Repository\LastActionRepository;
+use App\Repository\NextActionRepository;
 use App\Repository\ProspectRepository;
 use App\Form\ProspectType;
 use App\Form\ProspectInformationType;
@@ -32,12 +34,12 @@ class DefaultController extends Controller
 {
 
 
-    public function owlHomeDisplay(Request $request, ArticleRepository $articleRepository)
-    {
-
-        return $this-> render("owlHome.html.twig");
-
-    }
+//    public function owlHomeDisplay(Request $request, ArticleRepository $articleRepository)
+//    {
+//
+//        return $this-> render("owlHome.html.twig");
+//
+//    }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -90,9 +92,88 @@ class DefaultController extends Controller
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+
+    public function owlHomeDisplay(Request $request, ProspectRepository $prospectRepository, LastActionRepository $lastActionRepository, NextActionRepository $nextActionRepository)
+    {
+
+        // Création du formulaire avec une nouvelle entité
+
+        $formProspect = new Prospect();
+
+        $formNL = $this->createForm(ProspectType::class, $formProspect);
+
+        $formNL->handleRequest($request);
+
+        $today = new dateTime();
+        $today2 = $today -> format('d/m/Y');
+        $today15 = new dateTime();
+        $today15 -> add(new DateInterval('P15D'));
+
+        if ($formNL->isSubmitted() && $formNL->isValid()) {
+
+            $existingProspect = $prospectRepository->findOneByEmail($formProspect -> getEmail());
+
+            $lastAction = $lastActionRepository -> find(1);
+            $nextAction = $nextActionRepository -> find(4);
+
+            if($existingProspect != null){
+                $thisProspect = $existingProspect;
+                $quote = $thisProspect -> getQuoteRequest();
+                $infos = $thisProspect -> getInformationsRequest();
+                $information = $thisProspect -> getInformation();
+            }
+
+            else{
+                $thisProspect = new Prospect();
+                $quote = "0";
+                $infos = "0";
+                $information = "";
+            }
+            $thisProspect->setName($formProspect -> getName());
+            $thisProspect->setEmail($formProspect -> getEmail());
+            $thisProspect->setQuoteRequest($quote);
+            $thisProspect->setNewsletterRequest(1);
+            $thisProspect->setInformationsRequest($infos);
+            $thisProspect->setArchived(0);
+            $thisProspect->setLastAction($lastAction);
+            $thisProspect->setLastActionDate($today);
+            $thisProspect->setNextAction($nextAction);
+            $thisProspect->setApplicant(1);
+            $thisProspect->setNextActionDate($today15);
+            $thisProspect -> setInformation($information."<p><b>Inscription à la newsletter - ".$today2."</b></p>");
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($thisProspect);
+            $em->flush();
+
+            // Redirection vers le formulaire d'activité
+
+            return $this->redirectToRoute('index');
+
+        }
+
+        // Affichage du formulaire d'activité
+
+        return $this->render('owlHome.html.twig', [
+            'formNL' => $formNL->createView(),
+        ]);
+
+    }
+
+
+
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Enregistrement d'une activité (modification ou création) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
 
 
     public function formContactDisplay(Request $request, ProspectRepository $prospectRepository)

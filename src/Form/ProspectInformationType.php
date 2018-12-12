@@ -82,12 +82,6 @@ class ProspectInformationType extends AbstractType
                 )
             ))
 
-            ->add('phone', TelType::class, array(
-                'required' => false,
-                'attr' => array(
-                    'placeholder' => 'Téléphone',
-                )
-            ))
 
             ->add('email', EmailType::class, array(
                 'required' => true,

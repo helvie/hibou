@@ -22,6 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -51,7 +52,16 @@ class ProspectType extends AbstractType
                 'required' => true,
                 'attr' => array(
                     'placeholder' => 'Email',
-                )            ))
+                )
+            ))
+
+
+            ->add('phone', TelType::class, array(
+                'required' => false,
+                'attr' => array(
+                    'placeholder' => 'Téléphone',
+                )
+            ))
 
             ->add('quoteRequest', HiddenType::class, array(
                 'required' => false,

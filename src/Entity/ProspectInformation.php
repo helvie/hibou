@@ -83,20 +83,6 @@ class ProspectInformation
     private $activity;
 
 
-    /**
-     * @ORM\Column(type="string")
-     * @ORM\Column(name="phone", type="string")
-     * @Assert\Length(
-     *      min = 10,
-     *      max = 10,
-     *      minMessage = "Veuillez entrer 10 chiffres exactement",
-     *      maxMessage = "Veuillez entrer 10 chiffres exactement",
-     *      exactMessage = "Veuillez entrer 10 chiffres exactement"
-     * )
-     */
-
-    private $phone;
-
 
     /**
      * @ORM\Column(type="integer", length=5)
@@ -199,15 +185,6 @@ class ProspectInformation
     }
 
 
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-    }
 
 
     /**

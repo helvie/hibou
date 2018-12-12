@@ -46,6 +46,20 @@ class Prospect
 
 
     /**
+     * @ORM\Column(name="phone", type="string", nullable=true)
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "Veuillez entrer 10 chiffres exactement",
+     *      maxMessage = "Veuillez entrer 10 chiffres exactement",
+     *      exactMessage = "Veuillez entrer 10 chiffres exactement"
+     * )
+     */
+
+    private $phone;
+
+
+    /**
      * @ORM\OneToOne(targetEntity="ProspectInformation", cascade="persist", orphanRemoval=true)
      * @ORM\JoinColumn(nullable=true)
      */
@@ -81,7 +95,8 @@ class Prospect
     private $archived;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="ProspectLastAction", cascade="persist")
+     * @ORM\JoinColumn(nullable=true)
      */
 
     private $lastAction;
@@ -96,7 +111,8 @@ class Prospect
 
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="ProspectNextAction", cascade="persist")
+     * @ORM\JoinColumn(nullable=true)
      */
 
     private $nextAction;
@@ -158,6 +174,18 @@ class Prospect
     public function setEmail($email): void
     {
         $this->email = $email;
+    }
+
+
+
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
     }
 
 
@@ -232,7 +260,7 @@ class Prospect
         return $this->lastAction;
     }
 
-    public function setLastAction($lastAction)
+    public function setLastAction(ProspectLastAction $lastAction)
     {
         $this->lastAction = $lastAction;
     }
@@ -256,7 +284,7 @@ class Prospect
     }
 
 
-    public function setNextAction($nextAction)
+    public function setNextAction(ProspectNextAction $nextAction)
     {
         $this->nextAction = $nextAction;
     }

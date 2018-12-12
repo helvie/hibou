@@ -15,8 +15,8 @@ use App\Validator\Constraints as AcmeAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ProspectDoneAction")
- * @ORM\Table(name="prospectDoneAction")
+ * @ORM\Entity(repositoryClass="App\Repository\ProspectLastAction")
+ * @ORM\Table(name="prospect_last_action")
  */
 class ProspectLastAction
 {
@@ -38,6 +38,12 @@ class ProspectLastAction
     private $action;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="Prospect", mappedBy="lastAction", cascade="all")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $prospects;
+
 
     public function getId()
     {
@@ -55,6 +61,16 @@ class ProspectLastAction
     public function setAction($action)
     {
         $this->action = $action;
+    }
+
+    public function __construct()
+    {
+        $this->prospects = new ArrayCollection();
+    }
+
+    public function getProspects()
+    {
+        return $this->prospects;
     }
 
 }
