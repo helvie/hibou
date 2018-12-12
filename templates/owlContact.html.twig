@@ -476,8 +476,8 @@
 
 
                     var optionCat0 = document.createElement("OPTION");
-                    textCat = document.createTextNode("Jour où vous souhaitez être rappelé");
-                    // optionCat0.attr("disabled");
+                    textCat = document.createTextNode("Choisissez un créneau horaire");
+                    optionCat0.setAttribute("disabled", true);
                     optionCat0.setAttribute("style", "color:#ffbb00;");
                     optionCat0.appendChild(textCat);
                     optionCat0.selected = true;
@@ -485,18 +485,21 @@
 
                     var optionCat0 = document.createElement("OPTION");
                     textCat = document.createTextNode("Entre 8h et 10h");
+                    optionCat0.value = 1;
                     optionCat0.appendChild(textCat);
                     optionCat0.selected = true;
                     $(".hoursMenu").append(optionCat0);
 
                     optionCat0 = document.createElement("OPTION");
                     textCat = document.createTextNode("Entre 10h et 12h");
+                    optionCat0.value = 2;
                     optionCat0.appendChild(textCat);
                     optionCat0.selected = true;
                     $(".hoursMenu").append(optionCat0);
 
                     optionCat0 = document.createElement("OPTION");
                     textCat = document.createTextNode("Entre 14h et 16h");
+                    optionCat0.value = 3;
                     optionCat0.appendChild(textCat);
                     optionCat0.selected = true;
                     $(".hoursMenu").append(optionCat0);
@@ -514,18 +517,21 @@
                 if (hour < 8) {
                     var optionCat0 = document.createElement("OPTION");
                     textCat = document.createTextNode("Entre 8h et 10h");
+                    optionCat0.value = 1;
                     optionCat0.appendChild(textCat);
                     $(".hoursMenu").append(optionCat0);
                 }
                 if (hour < 10) {
                     optionCat0 = document.createElement("OPTION");
                     textCat = document.createTextNode("Entre 10h et 12h");
+                    optionCat0.value = 2;
                     optionCat0.appendChild(textCat);
                     $(".hoursMenu").append(optionCat0);
                 }
                 if (hour < 14) {
                     optionCat0 = document.createElement("OPTION");
                     textCat = document.createTextNode("Entre 14h et 16h");
+                    optionCat0.value = 3;
                     optionCat0.appendChild(textCat);
                     $(".hoursMenu").append(optionCat0);
                 }
