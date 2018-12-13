@@ -91,23 +91,6 @@
             {%  set today = 'now'|date('l')%}
             {%  set thisHour = 'now'|date_modify("+1 hour")|date('H')%}
 
-            {#{% if gerard = "" %}#}
-            {#{% set day1 = %}#}
-            {#{% set day2 = %}#}
-            {#{% set day3 = %}#}
-            {#{% set day4 = %}#}
-
-
-
-
-            {#lundi=["lundi", "mardi", mercredi", "jeudi"];#}
-            {#mardi = ["mardi", "mercredi", "jeudi", "vendredi"];#}
-            {#mercredi = ["mercredi", "jeudi", "vendredi", "samedi"];#}
-            {#jeudi = ["jeudi", "vendredi", "samedi", "lundi"];#}
-            {#vendredi = ["vendredi", "samedi", "lundi", "mardi"];#}
-            {#samedi = ["samedi", "lundi", "mardi", "mercredi"]#}
-            {#dimanche = ["lundi", "mardi", "mercredi"]#}
-
 
             {% if today == "Monday" %}
                 {%  set
@@ -138,31 +121,10 @@
                     todayList = [1,2,3,4,5,6,7]
                 %}
             {% endif %}
-
-            {% set todayList =
-                [0,1,2,3,4,6,7]
-
-            %}
-
-            {{ today }}
-            {{ thisHour }}
-            {#{% for moment in lundi %}#}
-
-                {#<h1>{{ moment.date }}</h1>#}
-
-            {#{% endfor %}#}
-            {#{{ dump(lundi[0].date) }}#}
+            {#{{ form_start(formContactDisplay, {'attr': {'class': 'form-group'}} ) }}#}
+            {#{{ form_end(formContactDisplay) }}#}
 
 
-
-
-            {#lundi=["Aujourd'hui", "Demain", mercredi", "jeudi"];#}
-            {#mardi = ["Aujourd'hui", "Demain", "jeudi", "vendredi"];#}
-            {#mercredi = ["Aujourd'hui", "Demain", "vendredi", "samedi"];#}
-            {#jeudi = ["Aujourd'hui", "Demain", "samedi", "lundi"];#}
-            {#vendredi = ["Aujourd'hui", "Demain", "lundi", "mardi"];#}
-            {#samedi = ["Aujourd'hui", "lundi", "mardi", "mercredi"]#}
-            {#dimanche = ["Demain", "mardi", "mercredi"]#}
 
             <div class="container">
                 <div class="formBlock contactForm1">
@@ -177,105 +139,123 @@
 
                             <div class="card1-body ">
 
-                                {{ form_start(formNL, {'attr': {'class': 'form-group'}} ) }}
+                                {{ form_start(formContactDisplay, {'attr': {'class': 'form-group'}} ) }}
 
                                 <div>
-                                    {{ form_widget(formNL.name, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                    {{ form_errors(formNL.name) }}
+                                    {{ form_widget(formContactDisplay.name, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formContactDisplay.name) }}
                                 </div>
 
                                 <div>
-                                    {{ form_widget(formNL.email, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                    {{ form_errors(formNL.email) }}
+                                    {{ form_widget(formContactDisplay.email, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formContactDisplay.email) }}
                                 </div>
 
                                 <div>
-                                    {{ form_widget(formNL.phone, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                    {{ form_errors(formNL.phone) }}
+                                    {{ form_widget(formContactDisplay.phone, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formContactDisplay.phone) }}
                                 </div>
 
-                                <div class="form-group NLSelect1">
+                                <div style = "background-color : #dddddd; padding: 20px 20px 0 20px;margin-bottom:20px;">
+
+                                <div style="padding-top:15px;">
+
+                                    <input type="radio" id="contactChoiceTel"
+                                           name="contact" value="telephone" checked>
+                                    <label for="contactChoiceTel">Téléphone</label>
+
+                                    <input type="radio" id="contactChoiceMail"
+                                           name="contact" value="email">
+                                    <label for="contactChoiceMail">Email</label>
+
+                                </div>
+
+                                <div class="form-group contactSelect1">
 
                                     <select class="form-control menuSelect daysMenu"  id="formControlSelect1" >
 
                                         <option value="" style="color:#ffbb00;" disabled selected>Jour où vous souhaitez être rappelé</option>
 
 
-                                        {#{% if gerard == "Monday" %}#}
                                         {% for day in todayList %}
+
                                             {% if thisHour >=14 %}
+
                                                 {% if not loop.first %}
-                                                    <option class="option">{{ 'now'|date_modify("+"~day~" day")|localizeddate('full', 'none', 'locale') }}</option>
+
+                                                    <option class="option" value={{ day }}>{{ 'now'|date_modify("+"~day~" day")|localizeddate('full', 'none', 'locale')|capitalize }}</option>
+
                                                 {% endif %}
+
                                             {% elseif thisHour < 14 %}
+
                                                 <option value = {{ day }}>{{ 'now'|date_modify("+"~day~" day")|localizeddate('full', 'none', 'locale') }}</option>                                            {% endif %}
 
                                         {% endfor %}
 
-                                        {#{% elseif gerard == "Tuesday" %}#}
-                                        {#{% for moment in mardi %}#}
-                                            {#{{ moment }}#}
-                                            {#<option>{{ moment.date}}</option>#}
-                                        {#{% endfor %}#}
-
-                                        {#{% endif %}#}
 
                                     </select>
 
                                 </div>
 
-                                <div class="form-group NLSelect2">
+                                <div class="form-group contactSelect2">
 
-                                    <select class="form-control menuSelect hoursMenu" id="formControlSelect1" >
+                                    <select class="form-control menuSelect hoursMenu" id="formControlSelect2" >
 
                                         <option value="" style="color:#ffbb00;" disabled selected>Choisissez un créneau horaire</option>
 
-                                        {#{% for moment in lundi %}#}
-                                            {#<option>{{ moment.date}}</option>#}
-                                        {#{% endfor %}#}
-
                                     </select>
 
                                 </div>
 
+                                </div>
+
+                                {{ form_row(formContactDisplay.information, {'attr': {'required': false, 'class' : 'form-control textarea',rows : "4", cols :"50", "placehoder" : "Votre message"}}) }}
+
 
                                 <div>
-                                    {{ form_row(formNL.quoteRequest, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                    {{ form_row(formContactDisplay.quoteRequest, {'attr': {'required': false, 'class' : 'form-control'}}) }}
                                 </div>
 
                                 <div>
-                                    {{ form_row(formNL.newsletterRequest, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                    {{ form_row(formContactDisplay.newsletterRequest, {'attr': {'required': false, 'class' : 'form-control'}}) }}
                                 </div>
 
                                 <div>
-                                    {{ form_row(formNL.informationsRequest, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                    {{ form_row(formContactDisplay.informationsRequest, {'attr': {'required': false, 'class' : 'form-control'}}) }}
                                 </div>
 
                                 <div>
-                                    {{ form_row(formNL.archived, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                    {{ form_row(formContactDisplay.archived, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                </div>
+
+                                <div style="display:none;">
+                                    {{ form_row(formContactDisplay.lastAction, {'attr': {'required': false, 'class' : 'form-control'}}) }}
                                 </div>
 
                                 <div>
-                                    {{ form_row(formNL.lastAction, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                    {{ form_row(formContactDisplay.lastActionDate, {'attr': {'required': false, 'class' : 'form-control'}}) }}
                                 </div>
 
-                                <div>
-                                    {{ form_row(formNL.lastActionDate, {'attr': {'required': false, 'class' : 'form-control'}}) }}
-                                </div>
-
-                                <div>
-                                    {{ form_row(formNL.nextAction, {'attr': {'required': false, 'class' : 'form-control'}}) }}
-                                </div>
-
-                                <div>
-                                    {{ form_row(formNL.nextActionDate, {'attr': {'required': false, 'class' : 'form-control '}}) }}
+                                <div style="display:none;">
+                                    {{ form_row(formContactDisplay.nextAction, {'attr': {'required': false, 'class' : 'form-control'}}) }}
                                 </div>
 
                                 <div class="card1-footer ">
-                                    {{ form_row(formNL.save, {'attr': {'class' : 'form-control btn btn-fill btn-rose'},'label': 'Valider'}) }}
+                                    {{ form_row(formContactDisplay.save, {'attr': {'class' : 'form-control btn btn-fill btn-rose'},'label': 'Valider'}) }}
                                 </div>
 
-                                {{ form_end(formNL) }}
+                                <div class="col hiddenDiv" style="display:none;">
+
+                                    {{ form_widget(formContactDisplay.nextActionDate.day, {'attr': {'required': false, 'class' : 'date endDateDay form-control'}}) }}
+
+                                    {{ form_widget(formContactDisplay.nextActionDate.month, {'attr': {'required': false, 'class' : 'date endDateMonth form-control'}}) }}
+
+                                    {{ form_widget(formContactDisplay.nextActionDate.year, {'attr': {'required': false, 'class' : 'date endDateYear form-control'}}) }}
+
+                                </div>
+
+                                {{ form_end(formContactDisplay) }}
 
 
                             </div>
@@ -309,67 +289,79 @@
 
                             <div class="card1-body ">
 
-                                {#{{ form_start(formQuote, {'attr': {'class': 'form-group'}} ) }}#}
+                                {{ form_start(formQuote, {'attr': {'class': 'form-group'}} ) }}
 
-                                {#<div class="form-group">#}
-                                    {#{{ form_widget(formQuote.company, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
-                                    {#{{ form_errors(formQuote.company) }}#}
-                                {#</div>#}
+                                <div class="form-group">
+                                    {{ form_widget(formQuote.company, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.company) }}
+                                </div>
 
-                                {#<div class="form-group respCivility">#}
-                                    {#{{ form_widget(formQuote.respCivility, {'attr': {'required': true, 'style':'display:inlineBlock','class' : 'form-control'}}) }}#}
-                                    {#{{ form_errors(formQuote.respCivility) }}#}
-                                {#</div>#}
-
-
-                                {#<div class="form-group">#}
-                                    {#{{ form_widget(formQuote.respName, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
-                                    {#{{ form_errors(formQuote.respName) }}#}
-                                {#</div>#}
+                                <div class="form-group respCivility">
+                                    {{ form_widget(formQuote.respCivility, {'attr': {'required': true, 'style':'display:inlineBlock','class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.respCivility) }}
+                                </div>
 
 
+                                <div class="form-group">
+                                    {{ form_widget(formQuote.respName, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.respName) }}
+                                </div>
 
-                                {#<div>#}
-                                    {#{{ form_widget(formQuote.email, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
-                                    {#{{ form_errors(formQuote.email) }}#}
-                                {#</div>#}
-
-
-                                {#<div>#}
-                                    {#{{ form_widget(formQuote.siret, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
-                                    {#{{ form_errors(formQuote.siret) }}#}
-                                {#</div>#}
+                                <div>
+                                    {{ form_widget(formQuote.prospect.email, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.prospect.email) }}
+                                </div>
 
 
-                                {#<div>#}
-                                    {#{{ form_widget(formQuote.activity, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
-                                    {#{{ form_errors(formQuote.activity) }}#}
-                                {#</div>#}
+                                <div>
+                                    {{ form_widget(formQuote.prospect.phone, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.prospect.phone) }}
+                                </div>
+
+                                <div>
+                                    {{ form_widget(formQuote.siret, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.siret) }}
+                                </div>
 
 
-                                {#<div>#}
-                                    {#{{ form_widget(formQuote.phone, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
-                                    {#{{ form_errors(formQuote.phone) }}#}
-                                {#</div>#}
+                                <div>
+                                    {{ form_widget(formQuote.activity, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.activity) }}
+                                </div>
 
 
-                                {#<div>#}
-                                    {#{{ form_widget(formQuote.postalCode, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
-                                    {#{{ form_errors(formQuote.postalCode) }}#}
-                                {#</div>#}
+                                <div>
+                                    {{ form_widget(formQuote.postalCode, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.postalCode) }}
+                                </div>
 
 
-                                {#<div>#}
-                                    {#{{ form_widget(formQuote.locality, {'attr': {'required': true, 'class' : 'form-control'}}) }}#}
-                                    {#{{ form_errors(formQuote.locality) }}#}
-                                {#</div>#}
+                                <div>
+                                    {{ form_widget(formQuote.locality, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.locality) }}
+                                </div>
+
+                                <div>
+
+                                {{ form_row(formQuote.prospect.information, {'attr': {'required': false, 'class' :
+                                    'form-control textarea',rows : "4", cols :"50", "placehoder" : "Votre message"}}) }}
+                                </div>
+
+                                {{ form_widget(formQuote.prospect, {'attr': {'required': true, 'class' : 'form-control', 'style':'display:none'}}) }}
 
 
-                                {#<div class="card1-footer ">#}
-                                    {#{{ form_row(formQuote.save2, {'attr': {'class' : 'form-control btn btn-fill btn-rose'},'label': 'Valider'}) }}#}
-                                {#</div>#}
+                            </div>
 
-                                {#{{ form_end(formQuote) }}#}
+
+
+
+                            <div>
+
+                                <div class="card1-footer ">
+                                    {{ form_row(formQuote.save2, {'attr': {'class' : 'form-control btn btn-fill btn-rose'},'label': 'Valider'}) }}
+                                </div>
+
+                                {{ form_end(formQuote) }}
 
 
                                 {#<form method="#" action="#">#}
@@ -456,26 +448,75 @@
 
     <script>
 
+        var nextDate = "";
+
         $(".hoursMenu").hide();
 
+
+        Date.prototype.addDays = function(days) {
+            this.setDate(this.getDate() + parseInt(days));
+            return this;
+        };
+
+        var tableMois = new Array(1,2,3,4,5,6,7,8,9,10,11,12);
+
+        $("#prospect_lastAction").val(12);
+
+        nextDate = new Date();
+
+        $("#formControlSelect2").change(function(){
+            $("#prospect_nextAction").val($("#formControlSelect2").val());
+        });
+
+        $("#prospect_nextActionDate_month").val(tableMois[nextDate.getMonth()]);
+        $("#prospect_nextActionDate_year").val(nextDate.getFullYear());
+        $("#prospect_nextActionDate_day").val(nextDate.getDate());
+        $("#prospect_nextAction").val(new Date());
+
+        $("#contactChoiceTel").on("change", function(){
+            if($("#contactChoiceTel").prop('checked')){
+                nextDate = new Date();
+                $("#prospect_lastAction").val(12);
+                $("#prospect_nextActionDate_month").val(tableMois[nextDate.getMonth()]);
+                $("#prospect_nextActionDate_year").val(nextDate.getFullYear());
+                $("#prospect_nextActionDate_day").val(nextDate.getDate());
+                $(".daysMenu").show();
+            }
+        });
+
+        $("#contactChoiceMail").on("change", function(){
+            if($("#contactChoiceMail").prop('checked')) {
+                nextDate = new Date();
+                $("#prospect_lastAction").val(11);
+                $("#prospect_nextActionDate_month").val(tableMois[nextDate.getMonth()]);
+                $("#prospect_nextActionDate_year").val(nextDate.getFullYear());
+                $("#prospect_nextActionDate_day").val(nextDate.getDate());
+                $(".daysMenu").hide()
+            }
+        });
+
         $(".daysMenu").on("change", function() {
-            console.log("changé");
 
             $(".hoursMenu").show();
 
-            var now = new Date();
-            var day = now.getDay();
-            var hour = now.getHours();
-            console.log(hour);
+            nextDate = new Date();
+            var day = nextDate.getDay();
+            var hour = nextDate.getHours();
 
             $(".hoursMenu").empty();
 
             if($(".daysMenu").val() != 0 || day == 0)  {
 
-            // <option value="" style="color:#ffbb00;" disabled selected>Jour où vous souhaitez être rappelé</option>
+                    daysAdd = $(".daysMenu").val();
+
+                    nextDate.addDays(daysAdd);
+
+                    $("#prospect_nextActionDate_month").val(tableMois[nextDate.getMonth()]);
+                    $("#prospect_nextActionDate_year").val(nextDate.getFullYear());
+                    $("#prospect_nextActionDate_day").val(nextDate.getDate());
 
 
-                    var optionCat0 = document.createElement("OPTION");
+                var optionCat0 = document.createElement("OPTION");
                     textCat = document.createTextNode("Choisissez un créneau horaire");
                     optionCat0.setAttribute("disabled", true);
                     optionCat0.setAttribute("style", "color:#ffbb00;");
@@ -487,21 +528,21 @@
                     textCat = document.createTextNode("Entre 8h et 10h");
                     optionCat0.value = 1;
                     optionCat0.appendChild(textCat);
-                    optionCat0.selected = true;
+                    // optionCat0.selected = true;
                     $(".hoursMenu").append(optionCat0);
 
                     optionCat0 = document.createElement("OPTION");
                     textCat = document.createTextNode("Entre 10h et 12h");
                     optionCat0.value = 2;
                     optionCat0.appendChild(textCat);
-                    optionCat0.selected = true;
+                    // optionCat0.selected = true;
                     $(".hoursMenu").append(optionCat0);
 
                     optionCat0 = document.createElement("OPTION");
                     textCat = document.createTextNode("Entre 14h et 16h");
                     optionCat0.value = 3;
                     optionCat0.appendChild(textCat);
-                    optionCat0.selected = true;
+                    // optionCat0.selected = true;
                     $(".hoursMenu").append(optionCat0);
             }
             else {
@@ -537,6 +578,7 @@
                 }
 
             }
+
 
         })
 

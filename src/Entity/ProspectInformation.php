@@ -31,6 +31,7 @@ class ProspectInformation
     private $id;
 
 
+
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\Length(min=2,max=100,minMessage="Veuillez saisir 2 caractères minimum", maxMessage="Veuillez saisir un maximum de 100 caractères")
@@ -55,13 +56,6 @@ class ProspectInformation
 
 
     /**
-     * @ORM\Column(type="string", length=254, unique=true)
-     */
-
-    private $email;
-
-
-    /**
      * @ORM\Column(name="siret", type="string")
      * @Assert\Length(
      *      min = 14,
@@ -73,6 +67,15 @@ class ProspectInformation
      */
 
     private $siret;
+
+
+
+    /**
+     * @ORM\OneToOne(targetEntity="Prospect", cascade="persist", orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=true)
+     */
+
+    private $prospect;
 
 
     /**
@@ -95,6 +98,8 @@ class ProspectInformation
      * @ORM\Column(type="string", length=100)
      */
     private $locality;
+
+
 
 
 
@@ -140,25 +145,6 @@ class ProspectInformation
         $this->respName = $respName;
     }
 
-
-
-
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email): void
-    {
-        $this->email = $email;
-    }
 
 
 
@@ -218,6 +204,23 @@ class ProspectInformation
     public function setLocality($locality): void
     {
         $this->locality = $locality;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProspect()
+    {
+        return $this->prospect;
+    }
+
+
+    /**
+     * @param mixed $prospect
+     */
+    public function setProspect(Prospect $prospect)
+    {
+        $this->prospect = $prospect;
     }
 
 }

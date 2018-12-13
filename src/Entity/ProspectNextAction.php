@@ -15,7 +15,7 @@ use App\Validator\Constraints as AcmeAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ProspectNextAction")
+ * @ORM\Entity(repositoryClass="App\Repository\NextActionRepository")
  * @ORM\Table(name="prospect_next_action")
  */
 class ProspectNextAction

@@ -28,6 +28,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use DateTime;
 use DateInterval;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class DefaultController extends Controller
@@ -173,10 +174,157 @@ class DefaultController extends Controller
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+    public function formContactDisplay(Request $request, ProspectRepository $prospectRepository, LastActionRepository
+                                        $lastActionRepository)
+    {
+
+        $formContactRequest = new Prospect();
+        $formRequest = $this->createForm(ProspectType::class, $formContactRequest);
+        $formRequest->handleRequest($request);
+
+        $formProspectInfo = new ProspectInformation();
+        $formQuote = $this->createForm(ProspectInformationType::class, $formProspectInfo);
+        $formQuote->handleRequest($request);
+
+        $today = new dateTime();
+        $today2 = $today -> format('d/m/Y');
+
+        if ($formRequest->isSubmitted() && $formRequest->isValid()) {
+
+            $existingProspect = $prospectRepository->findOneByEmail($formContactRequest -> getEmail());
+
+            if($existingProspect != null){
+                $thisProspect = $existingProspect;
+                $quote = $thisProspect -> getQuoteRequest();
+                $NL = $thisProspect -> getNewsletterRequest();
+                $information = $thisProspect -> getInformation();
+            }
+
+            else{
+                $thisProspect = new Prospect();
+                $quote = "0";
+                $NL = "0";
+                $information = "";
+            }
+
+            $lastAction = $formContactRequest -> getLastAction();
+            $nextAction = $formContactRequest -> getNextAction();
+            $newMessage = $formContactRequest -> getInformation();
+
+            $thisProspect->setName($formContactRequest -> getName());
+            $thisProspect->setEmail($formContactRequest -> getEmail());
+            $thisProspect->setQuoteRequest($quote);
+            $thisProspect->setNewsletterRequest($NL);
+            $thisProspect->setInformationsRequest(1);
+            $thisProspect->setArchived(0);
+            $thisProspect->setLastAction($lastAction);
+            $thisProspect->setLastActionDate($today);
+            $thisProspect->setNextAction($nextAction);
+            $thisProspect->setApplicant(1);
+            $thisProspect->setNextActionDate($formContactRequest -> getNextActionDate());
+            $thisProspect->setPhone($formContactRequest -> getPhone());
+
+            if ($lastAction == $lastActionRepository -> find(12)) {$message = $today2." - Rendez-vous téléphonique demandé le ".
+                $formContactRequest -> getNextActionDate()-> format('d/m/Y')." (".$nextAction->getAction()."). Message laissé : '".$newMessage."'";}
+
+            else if ($lastAction == $lastActionRepository -> find(11)) {$message = $today2." - Informations demandées par mail. Message laissé : '"
+                .$newMessage."'";}
+
+            $thisProspect -> setInformation($information."<p></p><p>".$message."</p>");
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($thisProspect);
+            $em->flush();
+
+            return $this->render('owlReferences.html.twig', array('essai' => $formContactRequest));
+
+    }
+
+
+        if ($formQuote->isSubmitted() && $formQuote->isValid()) {
+
+            $existingProspect = $prospectRepository->findOneByEmail($formProspectInfo -> getEmail());
+
+            if($existingProspect != null){
+
+                $thisProspect = $existingProspect;
+                $NL = $thisProspect -> getNewsletterRequest();
+                $information = $thisProspect -> getInformation();
+                $infos = $thisProspect -> getInformationsRequest();
+
+
+                if($thisProspect -> getProspectInformation() !=null){
+                    $thisProspectInformation = $thisProspect -> getProspectInformation();
+                }
+
+                else {
+                    $thisProspectInformation = new ProspectInformation();
+                }
+            }
+            else
+            {
+                $thisProspect = new Prospect();
+                $thisProspectInformation = new ProspectInformation();
+                $NL = 0;
+                $infos = 0;
+                $information = "";
+
+            }
+
+            $thisProspect -> setName($formProspectInfo -> getCompany());
+            $thisProspect -> setEmail($formProspectInfo -> getEmail());
+            $thisProspect -> setPhone($formProspectInfo -> getPhone());
+            $thisProspect->setQuoteRequest(1);
+            $thisProspect->setNewsletterRequest($NL);
+            $thisProspect->setInformationsRequest($infos);
+            $thisProspect->setArchived(0);
+            $thisProspect->setLastAction(2);
+            $thisProspect->setLastActionDate($today);
+            $thisProspect->setNextAction(2);
+            //Demandeur : 1-prospect, 2-commercial, 3-automatique
+            $thisProspect->setApplicant(1);
+            $thisProspect->setNextActionDate($today);
+            $thisProspect->setInformation($information."<p></p><p><b>".$today2." - Demande de devis</b></p>");
+
+            $thisProspectInformation -> setCompany($formProspectInfo -> getCompany());
+            $thisProspectInformation -> setEmail($formProspectInfo -> getEmail());
+            $thisProspectInformation -> setPhone($formProspectInfo -> getPhone());
+            $thisProspectInformation -> setRespCivility($formProspectInfo -> getRespCivility());
+            $thisProspectInformation -> setRespName($formProspectInfo -> getRespName());
+            $thisProspectInformation -> setSiret($formProspectInfo -> getSiret());
+            $thisProspectInformation -> setActivity($formProspectInfo -> getActivity());
+            $thisProspectInformation -> setPostalCode($formProspectInfo -> getPostalCode());
+            $thisProspectInformation -> setLocality($formProspectInfo -> getLocality());
+
+            $thisProspect -> setProspectInformation($thisProspectInformation);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($thisProspect);
+            $em->persist($thisProspectInformation);
+            $em->flush();
+
+
+            return $this->render('owlHome.html.twig', array("this" => $thisProspect, "existingProspect" => $NL));
+
+        }
 
 
 
-    public function formContactDisplay(Request $request, ProspectRepository $prospectRepository)
+
+
+
+        return $this->render('owlContact.html.twig',
+            array(
+                'formContactDisplay' => $formRequest->createView(),
+                'formQuote' => $formQuote->createView()
+
+    )
+        );
+}
+
+
+
+    public function formContactDisplay2(Request $request, ProspectRepository $prospectRepository)
     {
 
         // Création du formulaire avec une nouvelle entité

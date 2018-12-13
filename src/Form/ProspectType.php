@@ -29,7 +29,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use App\Entity\Prospect;
-
+use App\Entity\ProspectLastAction;
+use App\Entity\ProspectNextAction;
 
 
 
@@ -79,30 +80,52 @@ class ProspectType extends AbstractType
                 'required' => false,
             ))
 
-            ->add('lastAction', HiddenType::class, array(
-                'required' => false,
-            ))
+//            ->add('lastActionDate', DateType::class, array(
+//                'required' => false,
+//            ))
+
+            ->add('lastAction', EntityType::class,
+                array(
+                    'class' => ProspectLastAction::class,
+                    'choice_label' => 'action',
+                    'query_builder' => function (EntityRepository $repo) {
+                        return $repo->createQueryBuilder('las')
+                            ->where('las.id >= :id')
+                            ->setParameter('id', 1);}
+                )
+            )
 
             ->add('lastActionDate', HiddenType::class, array(
                 'required' => false,
             ))
 
-            ->add('nextAction', HiddenType::class, array(
+            ->add('nextActionDate', DateType::class, array(
                 'required' => false,
             ))
 
 
-            ->add('nextActionDate', HiddenType::class, array(
-                'required' => false,
-            ))
+            ->add('nextAction', EntityType::class,
+                array(
+                    'class' => ProspectNextAction::class,
+                    'choice_label' => 'action',
+                    'query_builder' => function (EntityRepository $repo) {
+                        return $repo->createQueryBuilder('nes')
+                            ->where('nes.id >= :id')
+                            ->setParameter('id', 1);}
+                )
+            )
 
             ->add('applicant', HiddenType::class, array(
                 'required' => false,
             ))
 
-            ->add('information', HiddenType::class, array(
+            ->add('information', TextareaType::class, array(
                 'required' => false,
-            ))
+                'label' => false,
+                'attr' => array(
+                    'placeholder' => 'Votre message',
+                    ))
+            )
 
             ->add('save', SubmitType::class, ['attr' => ['class' => 'btn btn btn-info buttonValid btnSave']]);
 

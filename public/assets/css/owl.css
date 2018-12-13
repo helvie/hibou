@@ -1204,10 +1204,30 @@ input.form-control::placeholder {
     /*position: absolute;*/
     top: 0;
     padding-top: 0;
-    margin-top: 35px;
+    margin-top: 0;
 }
 
 .option {
     color : #999;
+
+}
+
+.menuSelect:focus {
+    color:#999999;
+}
+
+#formControlSelect1 {
+    margin-top:25px;
+}
+
+#formControlSelect2 {
+    margin-top:15px;
+    margin-bottom: 30px;
+}
+
+
+.textarea::placeholder {
+    font-size:18px;
+    color: #999999;
 
 }

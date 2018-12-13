@@ -83,13 +83,6 @@ class ProspectInformationType extends AbstractType
             ))
 
 
-            ->add('email', EmailType::class, array(
-                'required' => true,
-                'attr' => array(
-                    'placeholder' => 'Adresse mail',
-                )
-            ))
-
 
             ->add('postalCode', NumberType::class, array(
                 'required' => false,
@@ -112,6 +105,7 @@ class ProspectInformationType extends AbstractType
                 )
             ))
 
+            ->add('prospect', ProspectType::class)
 
             ->add('save2', SubmitType::class, ['attr' => ['class' => 'btn btn btn-info buttonValid btnSave']]);
 
