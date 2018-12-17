@@ -31,7 +31,7 @@ class Prospect
 
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string")
      * @Assert\Length(min=2,max=100,minMessage="Veuillez saisir 2 caractères minimum", maxMessage="Veuillez saisir un maximum de 100 caractères")
      */
 
@@ -111,7 +111,7 @@ class Prospect
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProspectNextAction", cascade="persist")
+     * @ORM\ManyToOne(targetEntity="ProspectNextAction", cascade="persist", inversedBy="prospects")
      * @ORM\JoinColumn(nullable=true)
      */
 
@@ -119,7 +119,7 @@ class Prospect
 
 
     /**
-     * @Assert\GreaterThan("today")
+     * @Assert\GreaterThanOrEqual("today")
      * @ORM\Column(type="date")
      */
 

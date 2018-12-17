@@ -987,7 +987,7 @@ input.form-control::placeholder {
     color:#000;
     text-align:left;
     padding:80px;
-    margin-bottom:50px;
+    /*margin-bottom:50px;*/
 }
 
 .devisForm {
@@ -1230,4 +1230,158 @@ input.form-control::placeholder {
     font-size:18px;
     color: #999999;
 
+}
+
+.divProspect1 {
+    background-color : white;
+    padding : 20px;
+    border-radius : 10px;
+    margin : 20px;
+
+}
+
+.divProspect1 p {
+    color : #888;
+}
+
+.cieName {
+    font-size: 28px;
+    color: #113441;
+}
+
+.cieText {
+    color: #113441;
+}
+
+.divProspect2 {
+    background-color : #113441;
+    padding : 20px;
+    border-radius : 10px;
+    margin : 20px;
+
+}
+
+.divProspect2 p {
+    color : #888;
+}
+
+.cieText p {
+    color : #fff;
+}
+
+.hidden {
+    display:none;
+}
+
+/*.prospectFollowUp {*/
+    /*padding:20px;*/
+    /*!*border:1px solid #888888;*!*/
+    /*font-size : 18px;*/
+    /*margin:20px 0;*/
+
+/*}*/
+
+.prospectFollowUp span {
+    margin-right : 10px;
+}
+
+.prospectFollowUp textarea {
+    vertical-align : top;
+    font-size : 18px;
+}
+
+.prospectFollowUp select {
+    font-size : 18px;
+    min-height: 40px;
+    color:#888888;
+}
+
+
+.prospectFollowUp .btn-primary {
+    vertical-align : top;
+    border-color:white;
+    background-color:#fff;
+
+}
+
+.prospectFollowUp .inputDate {
+    border-color:#dddddd;
+    margin-top: 20px;
+}
+
+legend.scheduler-border {
+    width:inherit; /* Or auto */
+    padding:0 10px; /* To give a bit of padding on the left and right */
+    border-bottom:none;
+    color : #999999;
+}
+
+fieldset.scheduler-border {
+    border: solid 1px #999999 !important;
+    /*padding: 0 10px 10px 10px;*/
+    border-bottom: none;
+    padding:0 20px 20px 20px;
+    /*border:1px solid #888888;*/
+    font-size : 18px;
+    margin:30px 0;
+}
+
+.prospectTitle {
+    text-align: center;
+    padding-bottom:50px;
+}
+
+.prospectTitle h1 {
+    color: white;
+}
+
+.formArticle input {
+    font-size:18px;
+}
+
+.formArticle p {
+    font-size:18px;
+}
+
+.formSection {
+    /*margin-top:50px;*/
+    margin-bottom:50px;
+}
+
+.btn {
+    height : 50px;
+    width: 150px;
+}
+
+.upImageP {
+    color : #888888;
+    font-size:14px;
+}
+
+input[type="file"] {
+    display: block;
+}
+
+.formArticle {
+    font-size : 18px;
+    font-family : "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color : #949494;
+}
+
+.formArticle .simpleLabel input {
+    height : 50px;
+
+}
+
+#article_categories {
+    border: none;
+    -webkit-box-shadow:none;
+}
+
+#article_categories label {
+    margin-right: 15px;
+    margin-left: 5px;
+    font-size: 18px;
+    font-family: "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #949494;
 }

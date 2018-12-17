@@ -172,7 +172,7 @@
 
                                 <div class="form-group contactSelect1">
 
-                                    <select class="form-control menuSelect daysMenu"  id="formControlSelect1" >
+                                    <select class="form-control menuSelect daysMenu"  id="formControlSelect1">
 
                                         <option value="" style="color:#ffbb00;" disabled selected>Jour où vous souhaitez être rappelé</option>
 
@@ -202,7 +202,10 @@
 
                                     <select class="form-control menuSelect hoursMenu" id="formControlSelect2" >
 
-                                        <option value="" style="color:#ffbb00;" disabled selected>Choisissez un créneau horaire</option>
+                                        <option value= "" style="color:#ffbb00;" disabled selected>Choisissez un créneau horaire</option>
+                                        <option value=1 id="hour8">Rappeler entre 8h et 10h</option>
+                                        <option value=2 id="hour10">Rappeler entre 10h et 12h</option>
+                                        <option value=2 id="hour14">Rappeler entre 14h et 16h</option>
 
                                     </select>
 
@@ -241,11 +244,9 @@
                                     {{ form_row(formContactDisplay.nextAction, {'attr': {'required': false, 'class' : 'form-control'}}) }}
                                 </div>
 
-                                <div class="card1-footer ">
-                                    {{ form_row(formContactDisplay.save, {'attr': {'class' : 'form-control btn btn-fill btn-rose'},'label': 'Valider'}) }}
-                                </div>
-
                                 <div class="col hiddenDiv" style="display:none;">
+
+                                    {{ form_row(formContactDisplay.save, {'attr': {'class' : 'form-control btn btn-fill btn-rose btnContactSave'},'label': 'Valider'}) }}
 
                                     {{ form_widget(formContactDisplay.nextActionDate.day, {'attr': {'required': false, 'class' : 'date endDateDay form-control'}}) }}
 
@@ -256,6 +257,7 @@
                                 </div>
 
                                 {{ form_end(formContactDisplay) }}
+                                <button class="form-control btn btn-fill btn-rose validContactForm" style="width:125px;">Valider</button>
 
 
                             </div>
@@ -329,6 +331,10 @@
                                     {{ form_errors(formQuote.activity) }}
                                 </div>
 
+                                <div>
+                                    {{ form_widget(formQuote.route, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formQuote.route) }}
+                                </div>
 
                                 <div>
                                     {{ form_widget(formQuote.postalCode, {'attr': {'required': true, 'class' : 'form-control'}}) }}
@@ -347,7 +353,7 @@
                                     'form-control textarea',rows : "4", cols :"50", "placehoder" : "Votre message"}}) }}
                                 </div>
 
-                                {{ form_widget(formQuote.prospect, {'attr': {'required': true, 'class' : 'form-control', 'style':'display:none'}}) }}
+                                {{ form_widget(formQuote.prospect, {'attr': {'required': true, 'class' : 'form-control', }}) }}
 
 
                             </div>
@@ -363,64 +369,7 @@
 
                                 {{ form_end(formQuote) }}
 
-
-                                {#<form method="#" action="#">#}
-
-                                    {#<div class="form-group">#}
-                                        {#<input type="text" class="form-control" id="exampleEmail" placeholder="Nom de la société">#}
-                                    {#</div>#}
-
-                                    {#<div class="form-group">#}
-                                        {#<input type="email" class="form-control" id="examplePass" placeholder="Nom du responsable">#}
-                                    {#</div>#}
-
-                                    {#<div class="form-group">#}
-                                        {#<input type="email" class="form-control" id="examplePass" placeholder="Adresse mail">#}
-                                    {#</div>#}
-
-                                    {#<div class="form-group">#}
-                                        {#<input type="text" class="form-control" id="exampleEmail" placeholder="Numéro de siret">#}
-                                    {#</div>#}
-
-                                    {#<div class="form-group">#}
-                                        {#<input type="email" class="form-control" id="examplePass" placeholder="Domaine d'activité">#}
-                                    {#</div>#}
-
-                                    {#<div class="form-group">#}
-                                        {#<input type="text" class="form-control" id="exampleEmail" placeholder="téléphone">#}
-                                    {#</div>#}
-
-                                    {#<div class="form-group">#}
-                                        {#<input type="email" class="form-control" id="examplePass" placeholder="Code postal">#}
-                                    {#</div>#}
-
-                                    {#<div class="form-group">#}
-                                        {#<input type="text" class="form-control" id="exampleEmail" placeholder="Ville">#}
-                                    {#</div>#}
-
-                                    {#<div class="form-group NLSelect1">#}
-
-                                        {#<select class="form-control selectpicker" data-style="btn btn-link" id="formControlSelect1" >#}
-                                            {#<option value="" style="color:#ffbb00;" disabled selected>Select your option</option>                                        <option>rzerzer</option>#}
-                                            {#<option>zere</option>#}
-                                            {#<option>kjlkl</option>#}
-                                            {#<option>oiuiiouio</option>#}
-                                            {#<option>kljkljiouoei</option>#}
-                                        {#</select>#}
-
-                                    {#</div>#}
-
-                                    {#<div class="form-group">#}
-                                        {#<textarea type="textarea" class="form-control" id="textAreaDevis" placeholder="Commentaires"></textarea>#}
-                                    {#</div>#}
-
-                                {#</form>#}
-
                             </div>
-
-                            {#<div class="card1-footer ">#}
-                                {#<button type="submit" class="btn btn-fill btn-rose">S'inscrire</button>#}
-                            {#</div>#}
                         </div>
                     </div>
                 </div>
@@ -450,7 +399,14 @@
 
         var nextDate = "";
 
-        $(".hoursMenu").hide();
+        //--------------------------------------------------------------------------------------------------------
+
+        $("#prospect_information_company").on("blur", function() {
+            console.log("perte focus");
+            $("#prospect_information_prospect_name").val($("#prospect_information_company").val());
+        });
+
+        //---------------------------------------------------------------------------------------------------------
 
 
         Date.prototype.addDays = function(days) {
@@ -458,129 +414,86 @@
             return this;
         };
 
+        //---------------------------------------------------------------------------------------------------------
+
         var tableMois = new Array(1,2,3,4,5,6,7,8,9,10,11,12);
 
         $("#prospect_lastAction").val(12);
 
-        nextDate = new Date();
+        // nextDate = new Date();
+        //
+        // $("#formControlSelect2").change(function(){
+        //     $("#prospect_nextAction").val($("#formControlSelect2").val());
+        // });
+        //
+        // $("#prospect_nextActionDate_month").val(tableMois[nextDate.getMonth()]);
+        // $("#prospect_nextActionDate_year").val(nextDate.getFullYear());
+        // $("#prospect_nextActionDate_day").val(nextDate.getDate());
+        // $("#prospect_nextAction").val(new Date());
 
-        $("#formControlSelect2").change(function(){
-            $("#prospect_nextAction").val($("#formControlSelect2").val());
-        });
 
-        $("#prospect_nextActionDate_month").val(tableMois[nextDate.getMonth()]);
-        $("#prospect_nextActionDate_year").val(nextDate.getFullYear());
-        $("#prospect_nextActionDate_day").val(nextDate.getDate());
-        $("#prospect_nextAction").val(new Date());
 
-        $("#contactChoiceTel").on("change", function(){
-            if($("#contactChoiceTel").prop('checked')){
-                nextDate = new Date();
-                $("#prospect_lastAction").val(12);
-                $("#prospect_nextActionDate_month").val(tableMois[nextDate.getMonth()]);
-                $("#prospect_nextActionDate_year").val(nextDate.getFullYear());
-                $("#prospect_nextActionDate_day").val(nextDate.getDate());
-                $(".daysMenu").show();
-            }
-        });
+        //----------------------------------------------------------------------------------------------------
 
-        $("#contactChoiceMail").on("change", function(){
+        $(".hoursMenu").hide();
+
+        var nextDate = new Date();
+        var day = nextDate.getDay();
+        var hour = nextDate.getHours();
+
+        $(".validContactForm").on("click", function(){
+
             if($("#contactChoiceMail").prop('checked')) {
-                nextDate = new Date();
-                $("#prospect_lastAction").val(11);
-                $("#prospect_nextActionDate_month").val(tableMois[nextDate.getMonth()]);
-                $("#prospect_nextActionDate_year").val(nextDate.getFullYear());
-                $("#prospect_nextActionDate_day").val(nextDate.getDate());
-                $(".daysMenu").hide()
+
+                numLastAction = 11;
+                numNextAction = 6;
+
+                console.log(nextDate);
+
             }
-        });
+
+            else if($("#contactChoiceTel").prop('checked')){
+
+                numLastAction = 12;
+                numNextAction = $("#formControlSelect2").val();
+
+                if($(".daysMenu").val() != 0 || day == 0) {
+
+                    daysAdd = $(".daysMenu").val();
+                    nextDate.addDays(daysAdd);
+
+                    console.log(nextDate);
+                }
+
+            }
+
+            $("#prospect_lastAction").val(numLastAction);
+            $("#prospect_nextAction").val(numNextAction);
+            $("#prospect_nextActionDate_month").val(tableMois[nextDate.getMonth()]);
+            $("#prospect_nextActionDate_year").val(nextDate.getFullYear());
+            $("#prospect_nextActionDate_day").val(nextDate.getDate());
+
+            $(".btnContactSave").trigger("click");
+
+            });
+
 
         $(".daysMenu").on("change", function() {
 
             $(".hoursMenu").show();
 
-            nextDate = new Date();
-            var day = nextDate.getDay();
-            var hour = nextDate.getHours();
+            console.log("days menu "+$(".daysMenu").val());
 
-            $(".hoursMenu").empty();
+            if($(".daysMenu").val() == 0 && day != 0) {
 
-            if($(".daysMenu").val() != 0 || day == 0)  {
-
-                    daysAdd = $(".daysMenu").val();
-
-                    nextDate.addDays(daysAdd);
-
-                    $("#prospect_nextActionDate_month").val(tableMois[nextDate.getMonth()]);
-                    $("#prospect_nextActionDate_year").val(nextDate.getFullYear());
-                    $("#prospect_nextActionDate_day").val(nextDate.getDate());
-
-
-                var optionCat0 = document.createElement("OPTION");
-                    textCat = document.createTextNode("Choisissez un créneau horaire");
-                    optionCat0.setAttribute("disabled", true);
-                    optionCat0.setAttribute("style", "color:#ffbb00;");
-                    optionCat0.appendChild(textCat);
-                    optionCat0.selected = true;
-                    $(".hoursMenu").append(optionCat0);
-
-                    var optionCat0 = document.createElement("OPTION");
-                    textCat = document.createTextNode("Entre 8h et 10h");
-                    optionCat0.value = 1;
-                    optionCat0.appendChild(textCat);
-                    // optionCat0.selected = true;
-                    $(".hoursMenu").append(optionCat0);
-
-                    optionCat0 = document.createElement("OPTION");
-                    textCat = document.createTextNode("Entre 10h et 12h");
-                    optionCat0.value = 2;
-                    optionCat0.appendChild(textCat);
-                    // optionCat0.selected = true;
-                    $(".hoursMenu").append(optionCat0);
-
-                    optionCat0 = document.createElement("OPTION");
-                    textCat = document.createTextNode("Entre 14h et 16h");
-                    optionCat0.value = 3;
-                    optionCat0.appendChild(textCat);
-                    // optionCat0.selected = true;
-                    $(".hoursMenu").append(optionCat0);
-            }
-            else {
-
-                var optionCat0 = document.createElement("OPTION");
-                textCat = document.createTextNode("Choisissez un créneau horaire");
-                optionCat0.setAttribute("disabled", true);
-                optionCat0.setAttribute("style", "color:#ffbb00;");
-                optionCat0.appendChild(textCat);
-                optionCat0.selected = true;
-                $(".hoursMenu").append(optionCat0);
-
-                if (hour < 8) {
-                    var optionCat0 = document.createElement("OPTION");
-                    textCat = document.createTextNode("Entre 8h et 10h");
-                    optionCat0.value = 1;
-                    optionCat0.appendChild(textCat);
-                    $(".hoursMenu").append(optionCat0);
-                }
-                if (hour < 10) {
-                    optionCat0 = document.createElement("OPTION");
-                    textCat = document.createTextNode("Entre 10h et 12h");
-                    optionCat0.value = 2;
-                    optionCat0.appendChild(textCat);
-                    $(".hoursMenu").append(optionCat0);
-                }
-                if (hour < 14) {
-                    optionCat0 = document.createElement("OPTION");
-                    textCat = document.createTextNode("Entre 14h et 16h");
-                    optionCat0.value = 3;
-                    optionCat0.appendChild(textCat);
-                    $(".hoursMenu").append(optionCat0);
-                }
+                if (hour > 8) {$("#hour8").hide();}
+                if (hour > 10) {$("#hour10").hide();}
 
             }
-
 
         })
+
+        //--------------------------------------------------------------------------------------------------------
 
 
 

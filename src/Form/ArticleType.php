@@ -46,6 +46,20 @@ class ArticleType extends AbstractType
                 'required' => true,
             ))
 
+            ->add('role', TextType::class, array(
+                'required' => true,
+            ))
+
+            ->add('authorImage', FileType::class, array(
+                'label' => 'Photo de l\auteur',
+                'required' => false
+            ))
+
+            ->add('articleImage', FileType::class, array(
+                'label' => 'Image de l\article',
+                'required' => false
+            ))
+
             ->add('date', HiddenType::class, array(
                 'required' => true,
             ))

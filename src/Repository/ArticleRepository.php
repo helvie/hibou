@@ -27,16 +27,30 @@ class ArticleRepository extends ServiceEntityRepository
     //----------------------------------------------------------------------------------------------------------
 
 
-//    public function findCat($id)
-//    {
-//        $query = $this->createQueryBuilder('orp')
-//            ->where('orp.id = :id')
-//            ->setParameter('id', $id)
-//            ->addSelect('orp')
-//            ->getQuery();
-//
-//        return $query;
-//
-//    }
+    public function findArticleById($id)
+    {
+        $query = $this->createQueryBuilder('art')
+            ->leftJoin('art.categories', 'cat')
+            ->where('art.id = :id')
+            ->setParameter('id', $id)
+            ->addSelect('art', 'cat')
+            ->getQuery();
 
+        return $query->getOneOrNullResult();
+
+    }
+    //----------------------------------------------------------------------------------------------------------
+
+
+    public function findAllArticles()
+    {
+        $query = $this->createQueryBuilder('art')
+            ->leftJoin('art.categories', 'cat')
+            ->where('1 = 1')
+            ->addSelect('art', 'cat')
+            ->getQuery();
+
+        return $query;
+
+    }
 }

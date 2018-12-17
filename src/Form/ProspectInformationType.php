@@ -83,6 +83,16 @@ class ProspectInformationType extends AbstractType
             ))
 
 
+            ->add('route', TextType::class, array(
+                'required' => false,
+                'attr' => array(
+                    'class' => 'route',
+                    'name' => 'route',
+                    'placeholder' => 'Voie (n° et nom)',
+
+                )
+            ))
+
 
             ->add('postalCode', NumberType::class, array(
                 'required' => false,

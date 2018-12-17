@@ -101,6 +101,10 @@ class ProspectInformation
 
 
 
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $route;
 
 
     public function getId()
@@ -170,7 +174,21 @@ class ProspectInformation
         $this->siret = $siret;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getRoute()
+    {
+        return $this->route;
+    }
 
+    /**
+     * @param mixed $route
+     */
+    public function setRoute($route): void
+    {
+        $this->route = $route;
+    }
 
 
     /**

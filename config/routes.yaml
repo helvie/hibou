@@ -18,50 +18,39 @@ owlBlogDisplay:
     path: /owlBlogDisplay
     controller: App\Controller\DefaultController::owlBlogDisplay
 
-articleAdmin:
-    path: /articleAdmin
-    controller: App\Controller\ArticleController::articleAdminDisplay
+adminArticle:
+    path: /adminArticle
+    controller: App\Controller\DefaultController::adminArticleDisplay
+
+adminProspect:
+    path: /adminProspect
+    controller: App\Controller\DefaultController::adminProspectDisplay
+
+nextActionSave:
+    path: /nextActionSave
+    controller: App\Controller\DefaultController::nextActionSave
+
+lastActionSave:
+    path: /lastActionSave
+    controller: App\Controller\DefaultController::lastActionSave
 
 article:
     path: /article
-    controller: App\Controller\ArticleController::articleDisplay
+    controller: App\Controller\DefaultController::articleDisplay
 
-addComment:
-    path: /addComment
-    controller: App\Controller\ArticleController::addComment
-
-
-commentResponseUpdate:
-    path: /commentResponseUpdate
-    controller: App\Controller\ArticleController::commentResponseUpdate
-
-
-commentResponseTrash:
-    path: /commentResponseTrash
-    controller: App\Controller\ArticleController::commentResponseTrash
-
-
-commentUpdate:
-    path: /commentUpdate
-    controller: App\Controller\ArticleController::commentUpdate
-
-
-commentTrash:
-    path: /commentTrash
-    controller: App\Controller\ArticleController::commentTrash
 
 articleTrash:
     path: /articleTrash
-    controller: App\Controller\ArticleController::articleTrash
+    controller: App\Controller\DefaultController::articleTrash
 
 articleUpdate:
     path: /articleUpdate
-    controller: App\Controller\ArticleController::articleUpdate
+    controller: App\Controller\DefaultController::articleUpdate
 
 articleFormDisplay:
     path: /articleFormDisplay
-    controller: App\Controller\ArticleController::articleFormDisplay
+    controller: App\Controller\DefaultController::articleFormDisplay
 
-commentVisibility:
-    path: /commentVisibility
-    controller: App\Controller\ArticleController::commentVisibility
+#deleteAuthorImage:
+#    path: /adminDeleteAuthorImage
+#    controller : App\Controller\DefaultController::deleteAuthorImage

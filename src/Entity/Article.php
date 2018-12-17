@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Validator\Constraints as AcmeAssert;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping\JoinTable;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OwlArticleRepository")
@@ -42,6 +44,16 @@ class Article
     private $author;
 
 
+
+    /**
+     * @ORM\Column(type="string", length=30)
+     * @Assert\Length(min=2,max=30,minMessage="Veuillez saisir 2 caractères minimum", maxMessage="Veuillez saisir un maximum de 30 caractères")
+     */
+    private $role;
+
+
+
+
     /**
      * @Assert\GreaterThan("today")
      * @ORM\Column(type="date")
@@ -56,25 +68,26 @@ class Article
     private $updateDate;
 
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Category", mappedBy="articles", orphanRemoval=true)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $categories;
+
+//    /**
+//     * @ORM\ManyToMany(targetEntity="Category", mappedBy="articles", orphanRemoval=true)
+//     * @JoinTable(name="category_article")
+//     */
+//    private $categories;
 
 
     /**
-     * @ORM\Column(type="string", length=3000)
-     * @Assert\Length(min=2,max=3000,minMessage="Veuillez saisir 2 caractères minimum ", maxMessage="Veuillez saisir un maximum de 3000 caractères")
+     * @ORM\Column(type="string", length=16000)
+     * @Assert\Length(min=2,max=16000,minMessage="Veuillez saisir 2 caractères minimum ", maxMessage="Veuillez saisir un maximum de 16000 caractères")
      */
     private $text;
 
 
-    /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="article", cascade="all", orphanRemoval=true)
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $comments;
+//    /**
+//     * @ORM\OneToMany(targetEntity="Comment", mappedBy="article", cascade="all", orphanRemoval=true)
+//     * @ORM\JoinColumn(nullable=true)
+//     */
+//    private $comments;
 
     /**
      * @ORM\Column(type="boolean")
@@ -88,12 +101,54 @@ class Article
     private $valid;
 
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Assert\File(
+    mimeTypes={"image/jpeg", "image/png", "image/jpg"}, maxSize = "300k", maxSizeMessage = "Veuillez choisir une image de moins de 300 ko",  mimeTypesMessage = "Veuillez choisir un fichier de format Jpeg ou PNG")
+     */
+    private $authorImage;
+
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Assert\File(
+    mimeTypes={"image/jpeg", "image/png", "image/jpg"}, maxSize = "300k", maxSizeMessage = "Veuillez choisir une image de moins de 300 ko",  mimeTypesMessage = "Veuillez choisir un fichier de format Jpeg ou PNG")
+     */
+    private $articleImage;
+
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection|Category[]
+     *
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="articles")
+     * @ORM\JoinTable(
+     *  name="article_category",
+     *  joinColumns={
+     *      @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+     *  },
+     *  inverseJoinColumns={
+     *      @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     *  }
+     * )
+     */
+    protected $categories;
+
+
+    /**
+     * Default constructor, initializes collections
+     */
     public function __construct()
     {
-
         $this->categories = new ArrayCollection();
-
     }
+
+
+//    public function __construct()
+//    {
+//
+//        $this->categories = new ArrayCollection();
+//
+//    }
 
 
 
@@ -129,6 +184,17 @@ class Article
 
 
 
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+
+    public function setRole($role)
+    {
+        $this->role = $role;
+    }
+
     public function getDate()
     {
         return $this->date;
@@ -154,40 +220,68 @@ class Article
     }
 
 
+//
+//    public function getCategories()
+//    {
+//        return $this->categories;
+//    }
+//
+//
+//    public function addCategory(Category $category)
+//    {
+//        $this->categories[]=$category;
+//    }
+//
+//    public function removeCategory(Category $category)
+//    {
+//        $this->categories->removeElement($category);
+//    }
+
+
 
     public function getCategories()
     {
         return $this->categories;
     }
 
-
+    /**
+     * @param Category $category
+     */
     public function addCategory(Category $category)
     {
-        $this->categories[]=$category;
+        if ($this->categories->contains($category)) {
+            return;
+        }
+        $this->categories->add($category);
+        $category->addArticle($this);
     }
-
+    /**
+     * @param Category $category
+     */
     public function removeCategory(Category $category)
     {
+        if (!$this->categories->contains($category)) {
+            return;
+        }
         $this->categories->removeElement($category);
+        $category->removeArticle($this);
     }
 
-
-
-    public function getComments()
-    {
-        return $this->comments;
-    }
-
-
-    public function addComment(Comment $comment)
-    {
-        $this->comments[]=$comment;
-    }
-
-    public function removeComment(Comment $comment)
-    {
-        $this->comments->removeElement($comment);
-    }
+//    public function getComments()
+//    {
+//        return $this->comments;
+//    }
+//
+//
+//    public function addComment(Comment $comment)
+//    {
+//        $this->comments[]=$comment;
+//    }
+//
+//    public function removeComment(Comment $comment)
+//    {
+//        $this->comments->removeElement($comment);
+//    }
 
 
 
@@ -214,6 +308,33 @@ class Article
         $this->visible = $visible;
     }
 
+
+    public function getAuthorImage()
+    {
+        return $this->authorImage;
+    }
+
+
+    public function setAuthorImage($authorImage)
+    {
+        $this->authorImage = $authorImage;
+
+        return $this;
+    }
+
+
+    public function getArticleImage()
+    {
+        return $this->articleImage;
+    }
+
+
+    public function setArticleImage($articleImage)
+    {
+        $this->articleImage = $articleImage;
+
+        return $this;
+    }
 
 
     public function getValid()

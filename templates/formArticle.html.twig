@@ -3,35 +3,104 @@
 {#----------------------------- Page formulaire d'ajout d'un organisme ---------------------------#}
 
 
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
+
+
+
 
 {% block content %}
+    <div class="yellowBlock">
+
+        {% set art = app.request.query.get("art") %}
 
 
-    <div class = "container col-lg-6 col-lg-offset-3">
+        {% if art == 0 %}
+
+            {% set subText = "Création d'un article" %}
+
+        {% else %}
+
+            {% set subText = "Modification d'un article" %}
+
+        {% endif %}
+
+
+        <h1 style="padding-top:20px;margin-top:0;">{{ subText }}</h1>
+    </div>
+
+
+    <div class = "container col-lg-6 col-lg-offset-3 formArticle" style="padding-top:50px;">
 
         {{ form_start(form, {'attr': {'class': 'form-group'}}) }}
 
+
+        <div class = "formSection simpleLabel">
             {{ form_label(form.title, 'Titre :') }}
             {{ form_widget(form.title, {'attr': {'required': true, 'class' : 'form-control'}}) }}
             {{ form_errors(form.title) }}
+        </div>
 
-            {{ form_label(form.author, 'Auteur :') }}
+        <div class = "formSection simpleLabel">
+        {{ form_label(form.author, 'Auteur :') }}
             {{ form_widget(form.author, {'attr': {'required': true, 'class' : 'form-control'}}) }}
             {{ form_errors(form.author) }}
+        </div>
 
+
+        <div class = "formSection simpleLabel">
+            {{ form_label(form.role, 'Rôle de l\'auteur :') }}
+            {{ form_widget(form.role, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+            {{ form_errors(form.role) }}
+        </div>
+
+        <div class="formSection upImage">
+
+            {{ form_label(form.authorImage, 'Photo de l\'auteur :') }}
+
+            <p class="upImageP">L'image doit être en format Jpeg ou Png et ne doit pas dépasser 2 MO</p>
+            <div id = "savedImage"></div>
+
+            <div style="float:left; margin-right:10px;"><a class="glyphicon glyphicon-refresh undoImage"></a></div>
+            <div style="float:none" >{{ form_widget(form.authorImage, {'attr': {'required': false, 'class': 'file-loading'}} ) }}</div>
+
+            {{ form_errors(form.authorImage) }}
+
+        </div>
+
+        <div class="formSection upImage">
+
+            {{ form_label(form.articleImage, 'Image de l\'article :') }}
+
+            <p class="upImageP">L'image doit être en format Jpeg ou Png et ne doit pas dépasser 2 MO</p>
+            <div id = "savedImage"></div>
+
+            <div style="float:left; margin-right:10px;"><a class="glyphicon glyphicon-refresh undoImage"></a></div>
+            <div style="float:none" >{{ form_widget(form.articleImage, {'attr': {'required': false, 'class': 'file-loading'}} ) }}</div>
+
+            {{ form_errors(form.articleImage) }}
+
+        </div>
+
+        <div class = "formSection simpleLabel">
             {{ form_label(form.text, 'Texte :') }}
             {{ form_widget(form.text, {'attr': {'required': true, 'class' : 'form-control'}}) }}
             {{ form_errors(form.text) }}
+        </div>
 
-            {{ form_label(form.categories, 'Catégories :') }}
-            {{ form_widget(form.categories, {'attr': {'required': true, 'class' : 'categories form-control'}}) }}
+        <div class = "formSection categoriesArt">
+            {{ form_widget(form.categories, {'attr': {'required': true, 'display':'block', 'class' : 'form-control  categories' }}) }}
             {{ form_errors(form.categories) }}
+        </div>
 
-            {{ form_label(form.visible, 'Visible :') }}
+        <div class = "formSection">
+            {{ form_label(form.visible, 'Article visible :') }}
             {{ form_widget(form.visible, {'attr': {'required': false, 'class' : 'visible'}}) }}
             {{ form_errors(form.visible) }}
+        </div>
 
+        <div class = "formSection">
+            {{ form_widget(form.submit, {'attr': {'class' : 'form-control btn btn-fill btn-rose btn-owl'}}) }}
+        </div>
 
 
         {{ form_end(form) }}
@@ -39,3 +108,85 @@
     </div>
 
 {% endblock %}
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+
+
+        // Au clic sur l'icône d'annulation de sélection d'image
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+        $(".undoImage").click(function()
+
+        {
+            // Remise du champ de formulaire à vide
+
+            $("#article_image").val("");
+
+        });
+
+        //
+        // // Au clic sur l'icône de suppression d'une image en BDD
+        // //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //
+        //
+        // $("#savedImage").on("click", ".deleteImage", function()
+        //
+        // {
+        //
+        //     // Déclenchement de la fonction de suppression d'image après confirmation
+        //
+        //     if (confirm("L'image sera supprimée définitivement ! Etes-vous sûr ?"))
+        //
+        //     {
+        //         deleteImage(imageName, artId);
+        //     }
+        //
+        // });
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Suppression d'une image ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+        // function deleteImage(imageName, artId){
+        //
+        //     // Déclenchement du controleur de suppression d'image
+        //
+        //     jQuery.ajax({
+        //         url: "deleteAuthorImage",
+        //         type: "POST",
+        //         data:
+        //             {
+        //                 imageName: imageName,
+        //                 orgPubId: artId,
+        //
+        //             },
+        //         dataType: 'json',
+        //
+        //         success: function(response){
+        //
+        //             // Suppression de l'affichage du lien de l'image
+        //
+        //             $("#savedImage").empty();
+        //
+        //             alert("L'image a bien été supprimée")
+        //
+        //             console.log(response)
+        //
+        //         },
+        //
+        //         error: function(){
+        //             dataResponse = [];
+        //             console.log("raté!");
+        //         }
+        //
+        //     });
+        // }
+
+</script>
+{% endblock %}
+

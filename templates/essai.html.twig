@@ -1,47 +1,15 @@
+{% extends 'base.html.twig' %}
 
-<!DOCTYPE html>
 
-<html>
+    {% block logo %}
 
-<head>
 
-    <meta charset="UTF-8">
-
-    <title>{% block title %}Asso{% endblock %}</title>
-
-    {% block stylesheets %}
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-        <link href="{{ asset('assets/css/anim.css') }}" rel="stylesheet" />
 
     {% endblock %}
 
-</head>
+    {% block content %}
 
-<body>
-
-{#<div><img id="photo" src="../images/redCircle1a.png"/></div>#}
-{#<div><img id="photo" src="../images/redCircle1b.png"/></div>#}
-{#<div><img id="photo" src="../images/redCircle1c.png"/></div>#}
-{#<div><img id="photo" src="../images/redCircle1d.png"/></div>#}
-
-<canvas id="canvas" width="900px" height="500px" style="border:2px orange solid"></canvas>
-
-<div id="gerard"></div>
+{{ dump(data) }}
 
 
-{% block javascripts %}
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/1...nt/ckeditor.js"></script>
-    <script src="[ckeditor-build-path]/ckeditor.js"></script>
-    <script src="{{ asset('assets/js/anim.js') }}"></script>
-
-
-{% endblock %}
-
-
-</body>
-
-</html>
+    {% endblock %}

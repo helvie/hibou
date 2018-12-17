@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    persons_img_directory: '%kernel.project_dir%/public/assets/img/persons'
 
 services:
     # default configuration for services in *this* file
@@ -34,3 +35,4 @@ services:
         class: Twig_Extensions_Extension_Intl
         tags:
         - { name: twig.extension }
+

@@ -23,7 +23,20 @@ class ProspectRepository extends ServiceEntityRepository
 
 
 
+    //----------------------------------------------------------------------------------------------------------
 
+
+    public function findById($id)
+    {
+        $query = $this->createQueryBuilder('pro')
+            ->where('pro.id = :id')
+            ->setParameter('id', $id)
+            ->addSelect('pro')
+            ->getQuery();
+
+        return $query->getFirstResult();
+
+    }
     //----------------------------------------------------------------------------------------------------------
 
 
@@ -36,6 +49,24 @@ class ProspectRepository extends ServiceEntityRepository
             ->getQuery();
 
         return $query->getFirstResult();
+
+    }
+
+    //----------------------------------------------------------------------------------------------------------
+
+
+    public function findAllProspects()
+    {
+        $query = $this->createQueryBuilder('pro')
+            ->where('1=1')
+            ->leftJoin('pro.prospectInformation', 'inf')
+            ->leftJoin('pro.lastAction', 'las')
+            ->leftJoin('pro.nextAction', 'nex')
+            ->orderBy('pro.nextActionDate')
+            ->addSelect('pro', 'las', 'nex')
+            ->getQuery();
+
+        return $query->getResult();
 
     }
 

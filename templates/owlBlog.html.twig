@@ -18,56 +18,33 @@
 
     {% block content %}
 
+        {% set art = app.request.query.get("art") %}
+
+        {% set artArray = articles[3] %}
+
+        {% set thisArt = ""  %}
+
+        {% for singleArt in artArray  %}
+            {% if singleArt.id == art %}
+                {% set thisArt = singleArt %}
+            {% endif %}
+        {% endfor %}
+
         <div class="section blueBlock section-our-team">
 
             <div class="container">
 
-                <h1>Parlons accessibilité...</h1>
+                <h1>{{ thisArt.title }}</h1>
 
             </div>
 
         </div>
 
-        <div class="section blueBlock section-our-team">
+        <div class="section blueBlock section-our-team" style="padding-bottom:0;">
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-9 whiteBlock blogResume">
-
-                        <p>Pourquoi dois-je rendre mon site accessible ?</p>
-                        <p>Le web est devenu un média incontournable  dans le secteur de l’information. Il est à présent essentiel à chacun, tant dans la vie professionnelle que dans la vie privée.
-                        L’accessibilité est une notion indispensable dans ce domaine. C’est devenu une obligation légale dans la majorité des sites publics dans le monde.
-                        L’accessibilité du Web c’est permettre toute personne, quelle qu’elle soit, d’accéder à la toile, en toute circonstance.</p>
-
-                        <p>Comme je suis pressé, je préférerais passer cette étape et le rendre accessible plus tard</p>
-                        <p>Ce ne serait pas très judicieux comme option. En effet, dans la vie courante, lorsque l’on souhaite rendre un environnement accessible, nous parlons généralement d’ajouter des éléments pour faciliter l’accès aux personnes handicapées… une rampe d’accès, etc… Mais lorsque nous parlons web, cela nécessite une  réflexion à la base même du projet, lors du cadrage de celui-ci. Et le fruit de cette réflexion modifiera fondamentalement la structure du futur site.</p>
-
-                        <p>Mais mes internautes ne présentent pas d’handicap, donc cela ne me concerne pas…</p>
-                        <p>Mais si, cela concerne toute personne qui surfe sur le net.
-                        Dans le web, l’accessibilité n’est pas «  l’accès à internet » à proprement parler, via un opérateur. Elle ne concerne pas non plus uniquement les personnes handicapées.
-                        Une personne qui, par exemple, dans la vie courante, se déplace en fauteuil roulant aura beaucoup plus de facilités à faire ses courses via internet que dans le supermarché du coin.
-                        C’est la raison pour laquelle, dans le web, on ne parle pas de personnes handicapées mais plus de personnes en situation de handicap, ce qui est totalement différent.
-                        Parmi ces personnes, nous trouvons, bien entendu, celles ayant certain handicap physique ou mental, désavantagées lors d’une navigation sur un site non adapté. Celles-ci représentent environ 10% de la population.
-                        Mais la navigation sur des sites web s’avère compliquée, voir impossible pour 20% des internautes en France,  notamment sur des sites institutionnels ou marchand peu intuitifs ou mal conçus.
-                        N’importe qui, devant son ordinateur, peut donc se retrouver un jour en situation de handicap.</p>
-
-                        <p>Vous me parlez de situation de handicap, mais il s’agit de quoi exactement ?</p>
-                        <p>Cela peut être dû à problème physiologique, difficulté à lire des petits caractères, blessure temporaire à la main, etc…
-                        Cela peut aussi être dû à de problèmes logistiques, colorimétrie d’un écran mal réglé, site optimisé pour un seul navigateur, module Flash manquant, notamment sur les smartphones et les tablettes, etc…
-                        Il est important d’avoir un site bien pensé, car l’internaute adaptera souvent sa navigation, en agrandissant les caractères, par exemple, ou en modifiant le contraste de son écran. Le site internet doit alors pouvoir s’adapter à ces modifications, sans se retrouver devant une page complètement déstructurée.</p>
-
-                        <p>Il existe donc des ordinateurs spéciaux existant pour chaque handicap ?</p>
-                        <p>Non, les outils pour surfer sur internet sont les même pour tous… un ordinateur de bureau, une tablette, etc…  Il ne s’agit donc pas d’ordinateurs particuliers mais de périphériques ou logiciels qui viennent s’ajouter à l’ordinateur
-                        Les non-voyants, se serviront juste d’un matériel complémentaire, afin de pallier à leur handicap. Il s’agira d’un logiciel vocalisant les données de l’écran, ou d’une plage braille permettant à l’utilisateur de décrypter le texte, grâce à des picots placés sous leurs doigts, par exemple.
-                        Les personnes étant limitées au niveau de la motricité, quand à elles, utiliseront d’autres aides, telles qu’un logiciel de dictée, un track ball (doté d’une boule, remplace la souris, mais ne nécessite pas de déplacement sur le bureau), une headmouse (remplace la souris en captant les mouvements de la tête), clavier virtuel, etc…
-                        Il existe tellement d’aides techniques facilitant la navigation, qu’il est impossible de toutes les lister.
-                        Mais alors, comment pourrais-je avoir un site internet spécialisé dans chaque handicap ?
-                        Il ne s’agit pas, pour le développeur qui travaille sur l’accessibilité, d’adapter le site aux différents handicaps, mais plutôt rendre le contenu accessible, et lisible par les différents matériels ou logiciel spécialisés.
-                        Rendre son site accessible, c’est donc rendre le contenu accessible aux internautes ?
-                        Pas seulement. L’accessibilité, c’est aussi permettre une communication « inter-automates », afin par exemple de permettre aux robots de moteur de recherches de mieux référencer les contenus ou faciliter le développement d’applications spécifiques reposant sur des interfaces web.
-                        Mais finalement, l’accessibilité, c’est quoi ?
-                        L’accessibilité, telle que souhaitée par Tim Berners-Lee, inventeur du web, c’est :
-                        « Mettre le Web et ses services à la disposition de tous les individus, quels que soient leur matériel ou logiciel, leur infrastructure réseau, leur langue maternelle, leur culture, leur localisation géographique, ou leurs aptitudes physiques ou mentales. »</p>
-
+                        {{ thisArt.text|raw }}
                     </div>
 
                     <div class="col-md-3 blueBlock">
@@ -76,13 +53,17 @@
                             <div class="content">
 
                                 <div class="avatar avatar-danger">
-                                    <img alt="..." class="img-circle" src="../assets/img/faces/face_6.jpg" />
+                                    <img alt="..." class="img-circle" src="{{ asset('assets/img/persons/'~thisArt.authorImage|e) }}" />
                                 </div>
 
                                 <div class="description">
-                                    <h3 class="big-text">Sylvie H.</h3>
-                                    <p class="small-text">Développeuse</p>
-                                    <p class="small-text">Nuage de tag</p>
+                                    <h3 class="big-text">{{ thisArt.author }}</h3>
+                                    <p class="small-text">{{ thisArt.role }}</p>
+                                    <p class="small-text">
+                                    {% for tag in thisArt.categories %}
+                                        {{ tag.name }}
+                                    {% endfor %}
+                                    </p>
                                 </div>
 
                             </div>
@@ -135,149 +116,94 @@
 
         </div>
 
-        <div class="yellowBlock blogArticles">
-            {#<div class="section">#}
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card card-blog card-plain">
-                                <a href="#gaia" class="header">
-                                    <img src="../assets/img/web1x.jpg" class="image-header">
-                                </a>
-                                <div class="blogTitleText">
-                                    <p>Jul 27</p>
-                                    <a href="#gaia" class="card-title">
-                                        <h2>How to Make the Perfect Statues</h2>
-                                    </a>
-                                    {#<div class="line-divider line-danger"></div>#}
-                                    <p>Food & Drink</p>
-                                </div>
-                            </div>
+<div class="yellowBlock blogArticles">
+{#<div class="section">#}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                {% for article in articles[0] %}
+                    <div class="card card-blog card-plain">
+                        <a class="header" href={{ path('owlBlogDisplay',{'art': article.id})}}>
+                        <img src="{{ asset('assets/img/persons/'~article.articleImage|e) }}" class="image-header">
+                        </a>
 
-                            <div class="card card-blog card-plain">
-                                <a href="#gaia" class="header">
-                                    <img src="../assets/img/web2x.jpg" class="image-header">
-                                </a>
-                                <div class="blogTitleText">
-                                    <p>Jul 27</p>
-                                    <a href="#gaia" class="card-title">
-                                        <h2>How to Make the Perfect Statues</h2>
-                                    </a>
-                                    {#<div class="line-divider line-danger"></div>#}
-                                    <p>Food & Drink</p>
-                                </div>
-                            </div>
+                        <div class="blogTitleText">
 
-                        </div>
+                            <p>{{ article.date|date("m/d/Y") }}</p>
 
+                            <a class="card-title" href={{ path('owlBlogDisplay',{'art': article.id})}}>
 
-                        <div class="col-md-4">
-                            <div class="card card-blog card-plain">
-                                <a href="#gaia" class="header">
-                                    <img src="../assets/img/web3x.jpg" class="image-header">
-                                </a>
-                                <div class="blogTitleText">
-                                    <p>Feb 17</p>
-                                    <a href="#gaia" class="card-title">
-                                        <h2>Nature & The Catch of the Day</h2>
-                                    </a>
-                                    {#<div class="line-divider line-danger"></div>#}
-                                    <p>Nature</p>
-                                </div>
-                            </div>
-                            <div class="card card-blog card-plain">
-                                <a href="#gaia" class="header">
-                                    <img src="../assets/img/web4x.jpg" class="image-header">
-                                </a>
-                                <div class="blogTitleText">
-                                    <p>Mar 27</p>
-                                    <a href="#gaia" class="card-title">
-                                        <h2>Breathing in the Crisp Air of Lake Lucerne</h2>
-                                    </a>
-                                    {#<div class="line-divider line-danger"></div>#}
-                                    <p>Business & Travel</p>
-                                </div>
-                            </div>
-                        </div>
+                                <h2>{{ article.title }}</h2>
 
-                        <div class="col-md-4">
+                            </a>
 
-                            <div class="card card-blog card-plain">
-                                <a href="#gaia" class="header">
-                                    <img src="../assets/img/web5x.jpg" class="image-header">
-                                </a>
-                                <div class="blogTitleText">
-                                    <p>Feb 17</p>
-                                    <a href="#gaia" class="card-title">
-                                        <h2>17 Best Nature Images</h2>
-                                    </a>
-                                    {#<div class="line-divider line-danger"></div>#}
-                                    <p>Images</p>
-                                </div>
-                            </div>
-                            <div class="card card-blog card-plain">
-                                <a href="#gaia" class="header">
-                                    <img src="../assets/img/web6x.jpg" class="image-header">
-                                </a>
-                                <div class="blogTitleText">
-                                    <p>Feb 17</p>
-                                    <a href="#gaia" class="card-title">
-                                        <h2>17 Best Nature Images</h2>
-                                    </a>
-                                    {#<div class="line-divider line-danger"></div>#}
-                                    <p>Images</h6>
-                                </div>
-                            </div>
+                            <div class="line-divider line-danger"></div>
+                            <p>
+                            {% for tag in article.categories %}
+                                {{ tag.name }}
+                            {% endfor %}
+                            </p>
                         </div>
                     </div>
-                {#</div>#}
+                {% endfor %}
             </div>
-        </div>
-        <div class="beigeBlock section">
-            <div class="container">
-                <div class="title-area">
-                    <h2>Rester informé</h2>
-                </div>
+            <div class="col-md-4">
+                {% for article in articles[1] %}
+                    <div class="card card-blog card-plain">
+                        <a class="header" href={{ path('owlBlogDisplay',{'art': article.id})}}>
+                            <img src="{{ asset('assets/img/persons/'~article.articleImage|e) }}" class="image-header">
+                        </a>
 
-                <div class="formBlock">
-                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1">
-                        <div class="card1 ">
-                            <div class="card1-header card1-header-rose card1-header-icon">
-                                <div class="card1-icon">
-                                    <i class="material-icons" style="color:#113441">mail_outline</i>
-                                </div>
-                                <!--<h4 class="card1-title">Stacked Form</h4>-->
-                            </div>
-                            <div class="card1-body ">
-                                <form method="#" action="#">
-                                    <div class="form-group">
-                                        <label for="name" class="bmd-label-floating">Nom et prénom ou société</label>
-                                        <input type="text" class="form-control" id="exampleEmail">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email" class="bmd-label-floating">Adresse mail</label>
-                                        <input type="email" class="form-control" id="examplePass">
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value=""> S'inscrire à la newsletter
-                                            <span class="form-check-sign">
-                                            <span class="check">
-                                            </span>
-                                        </span>
-                                        </label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="card1-footer ">
-                                <button type="submit" class="btn btn-fill btn-rose">S'inscrire</button>
-                            </div>
+                        <div class="blogTitleText">
+
+                            <p>{{ article.date|date("m/d/Y") }}</p>
+
+                            <a class="card-title" href={{ path('owlBlogDisplay',{'art': article.id})}}>
+
+                                <h2>{{ article.title }}</h2>
+
+                            </a>
+
+                            <div class="line-divider line-danger"></div>
+                            <p>
+                                {% for tag in article.categories %}
+                                    {{ tag.name }}
+                                {% endfor %}
+                            </p>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-4">
+                {% for article in articles[2] %}
+                    <div class="card card-blog card-plain">
+                        <a class="header" href={{ path('owlBlogDisplay',{'art': article.id})}}>
+                            <img src="{{ asset('assets/img/persons/'~article.articleImage|e) }}" class="image-header">
+                        </a>
 
+                        <div class="blogTitleText">
+
+                            <p>{{ article.date|date("m/d/Y") }}</p>
+
+                            <a class="card-title" href={{ path('owlBlogDisplay',{'art': article.id})}}>
+
+                                <h2>{{ article.title }}</h2>
+
+                            </a>
+
+                            <div class="line-divider line-danger"></div>
+                            <p>
+                                {% for tag in article.categories %}
+                                    {{ tag.name }}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
+    </div>
+</div>
 
 
 
