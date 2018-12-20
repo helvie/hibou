@@ -19,7 +19,7 @@ use App\Validator\Constraints as AcmeAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table(name="user")
+ * @ORM\Table(name="owl_user")
  * @UniqueEntity("email", message="Cet email est déjà utilisé, veuillez en choisir un autre")
  * @UniqueEntity("username", message="Ce nom d'utilisateur est déjà utilisé, veuillez en choisir un autre")
  */
