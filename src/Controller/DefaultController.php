@@ -79,6 +79,19 @@ class DefaultController extends Controller
 
     }
 
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+    public function owlAgencyDisplay(Request $request, ArticleRepository $articleRepository)
+    {
+
+        return $this-> render("owlAgency.html.twig");
+
+    }
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -100,6 +113,9 @@ class DefaultController extends Controller
     {
 
         $articles = $articleRepository -> findAllArticles()->getArrayResult();
+
+        $latestArticle = end($articles);
+        $latestArticleId = $latestArticle["id"];
 
         $var = 1;
         $array1 = [];
@@ -135,7 +151,8 @@ class DefaultController extends Controller
         return $this-> render("owlBlog.html.twig", array
         (
 
-            'articles' => $articleArray
+            'articles' => $articleArray,
+            'latestArticleId' => $latestArticleId
         ));
 
     }
@@ -176,7 +193,9 @@ class DefaultController extends Controller
     public function owlHomeDisplay(Request $request, ProspectRepository $prospectRepository, LastActionRepository $lastActionRepository, NextActionRepository $nextActionRepository)
     {
 
-        // Création du formulaire avec une nouvelle entité
+        $cardsArray = array("1blue", "2blue", "1green", "2green", "1pink", "2pink", "1red", "2red", "1yellow", "2yellow", "1owl", "2owl");
+
+        shuffle($cardsArray);
 
         $formProspect = new Prospect();
 
@@ -236,9 +255,12 @@ class DefaultController extends Controller
 
         return $this->render('owlHome.html.twig', [
             'formNL' => $formNL->createView(),
+            "cardsArray" => $cardsArray,
+
         ]);
 
     }
+
 
 
 
@@ -589,7 +611,17 @@ class DefaultController extends Controller
     public function essai(Request $request, ArticleRepository $articleRepository)
     {
 
-        return $this-> render("essai.html.twig");
+        $cardsArray = array("1blue", "2blue", "1green", "2green", "1pink", "2pink", "1red", "2red", "1yellow", "2yellow", "1owl", "2owl");
+
+
+
+
+        shuffle($cardsArray);
+
+
+        return $this-> render("essai.html.twig", array(
+            "cardsArray" => $cardsArray,
+        ));
 
     }
 

@@ -122,7 +122,7 @@ class Article
      *
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="articles")
      * @ORM\JoinTable(
-     *  name="article_category",
+     *  name="owl_article_category",
      *  joinColumns={
      *      @ORM\JoinColumn(name="article_id", referencedColumnName="id")
      *  },

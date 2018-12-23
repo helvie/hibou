@@ -3,7 +3,7 @@
 {#----------------------------- Page formulaire d'ajout d'un organisme ---------------------------#}
 
 
-{% extends 'base2.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block content %}
 
@@ -23,74 +23,24 @@
                 <div class="articleText">
 
                 <p>
-                    <a href="{{ path('article',{'art':article.id}) }}" class="btn btn-sm btn-default">Voir l'article</a>
+                    <a href="{{ path('article',{'art':article.id}) }}" class="btn btn-fill btn-owl" style="padding:14px 15px;">Voir l'article</a>
 
-                    <a class="glyphicon glyphicon-pencil link articleUpdate" id="up{{ article.id }}" href="{{ path('articleFormDisplay',{'art':article.id}) }}"></a>
+                    <a class="glyphicon glyphicon-pencil link articleUpdate" style="margin-right:10px; margin-left:10px;" id="up{{ article.id }}" href="{{ path('articleFormDisplay',{'art':article.id}) }}"></a>
                     {#<span class="glyphicon glyphicon-pencil link articleUpdate" id="up{{ article.id }}"></span>#}
                     <span class="glyphicon glyphicon-trash link articleTrash" id="tr{{ article.id }}"></span>
 
                 </p>
 
                 <p>
-                    {{ article.author ~ ', le ' ~ article.updateDate|date('d/m/Y') ~ ' - "' ~ article.title ~ '"' }}
+                    {{ article.author ~ ', le ' ~ article.date|date('d/m/Y') ~ ' (modifié le ' ~ article.updateDate|date('d/m/Y') ~  ') - "' ~ article.title ~ '"' }}
                 </p>
 
 
-                    <p>{{ article.text|slice(0, 300)|raw }}</p>
-
-
-                <div class = "articleComment" id="art{{ article.id }}">
-
-                    {#{% for comment in article.comments %}#}
-
-                        {#<div id="com{{ comment.id }}">#}
-
-                        {#<p style="color:rebeccapurple; margin-top:5px; margin-bottom:5px; margin-left:20px;">#}
-
-
-                            {#{% if comment.valid == 0 %}#}
-
-
-                        {#<span class="glyphicon glyphicon-eye-close link commentVisibility" id="up{{ comment.id }}"></span>#}
-                            {#{% elseif comment.valid == 1 %}#}
-                                {#<span class="glyphicon glyphicon-eye-open link commentVisibility" id="up{{ comment.id }}"></span>#}
-                            {#{% endif %}#}
-
-                            {#<span class="glyphicon glyphicon-pencil link commentUpdate" id="up{{ comment.id }}"></span>#}
-                        {#<span class="glyphicon glyphicon-trash link commentTrash" id="tr{{ comment.id }}"></span>#}
-
-                                {#<span class="commentText">{{ comment.text }}</span>#}
-
-                            {#</p>#}
-
-                            {#{% for response in comment.commentResponses %}#}
-
-                                {#<p style="color:gray; margin-top:5px; margin-bottom:5px; margin-left:20px;">#}
-
-                                {#{% if response.valid == 0 %}#}
-                                    {#<span class="glyphicon glyphicon-eye-close link commentResponseVisibility" id="up{{ response.id }}"></span>#}
-                                {#{% elseif response.valid == 1 %}#}
-                                    {#<span class="glyphicon glyphicon-eye-open link commentResponseVisibility" id="up{{ response.id }}"></span>#}
-                                {#{% endif %}#}
-                                {#<span class="glyphicon glyphicon-pencil link commentResponseUpdate" id="up{{ response.id }}"></span>#}
-                                {#<span class="glyphicon glyphicon-trash link commentResponseTrash" id="tr{{ response.id }}"></span>#}
-
-                                    {#<span class="commentText">{{ response.text }}</span>#}
-
-                                {#</p>#}
-
-                            {#{% endfor %}#}
-
-                        {#</div>#}
-
-                    {#{% endfor %}#}
-
-                    <hr/>
+                    <p>{{ article.text|slice(0, 600)|raw }}</p>
 
                 </div>
 
-                </div>
-
+                <hr/>
 
         {% endfor %}
 

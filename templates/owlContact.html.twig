@@ -16,19 +16,31 @@
                 z-index:80;
             }
 
-        </style>
+
+            body
+            {
+                background-color:#113441;
+            }
+            .headSection
+            {
+                background-color:#113441;
+            }
+            </style>
 
     {% endblock %}
 
+
     {% block logo %}
 
-        <div class="headSection blueBlockHead";>
+        <div class="headSection";>
 
                 {#<div class="container">#}
                 <div class="content blueBlock">
 
-                    <div class="blueHeadImg">
-                        <img alt="..." src="../assets/img/logoBleu.png"/>
+                    <div class="blueHeadImg logoOwl">
+                        <a href={{ path('index') }}>
+                            <img href={{ path('index') }} alt="..." src="../assets/img/logoWhite.png" style="z-index:1;position:absolute;"/>
+                        </a>
                     </div>
 
                 </div>
@@ -39,39 +51,49 @@
     {% block content %}
 
         <div class="section blueBlock section-our-team">
-            <div class="container">
-                <!--<div class="text-area">-->
-                <h1>Nos références</h1>
+            {#<div class="container">#}
+                {#<!--<div class="text-area">-->#}
+                {#<h1>Contact et devis</h1>#}
 
-                <div class="title-area">
-                    <h2>Réalisation de sites</h2>
-                    <div class="separator separator-danger">♦</div>
+                {#<div class="title-area">#}
+                    {#<h2>Un projet ? Une question ?</h2>#}
+                    {#<div class="separator separator-danger">♦</div>#}
 
+                {#</div>#}
+                {#<p class="description">#}
+                    {#Si comme Mamie Jeannine, vos clients rêvent d’un web plus accessible. Si comme nous, vous souhaitez les 10% de personnes touchées par le handicap rejoignent la communauté des geekers. Si souhaitez augmenter votre référencement naturel, baisser votre taux de rebond et augmenter votre chiffre d’affaires, contactez-nous ! Une équipe d’expert vous attend. Ensemble, rendons possible votre projet.                </p>#}
+            {#</div>#}
+            <h1>Contact et devis</h1>
+            <div class="title-area">
+                <h2 style="margin-top:0; padding-top:35px;">Un projet ? Une question ?</h2>
+                <div class="separator separator-danger">♦</div>
+                <div class="description divDescription">
+                    <p>
+                        Si comme Mamie Jeannine, vos clients rêvent d’un web plus accessible. Si comme nous, vous souhaitez les 10% de personnes touchées par le handicap rejoignent la communauté des geekers. Si souhaitez augmenter votre référencement naturel, baisser votre taux de rebond et augmenter votre chiffre d’affaires, contactez-nous ! Une équipe d’experts vous attend. Ensemble, rendons possible votre projet !             </p>
+                    </p>
                 </div>
-                <p class="description">
-                    Mauris id sagittis est. Integer a mauris nec augue cursus molestie. Vivamus ut lectus non felis condimentum tempor. Praesent efficitur semper congue. Duis nec nisi libero. Pellentesque aliquam quam nec massa faucibus, nec mollis dui maximus. Aliquam ornare et mi et convallis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis in elementum orci. Sed a tempor tortor. Nam massa nibh, placerat at leo et, tincidunt pretium ex. Phasellus lectus felis, pretium ut ornare et, pharetra ac turpis. Integer non aliquam tellus. Vestibulum malesuada sed magna vel pretium. Pellentesque posuere interdum lectus id consequat. Praesent aliquam justo a quam efficitur tempus.
-                </p>
             </div>
 
-            <div class="container">
+            <div class="container networksIconBlock2">
 
                 <div class="row">
 
-                    <div class="col-md-4 col-md-offset-4 text-center" style="margin-bottom:50px;">
+                    <div class="col-md-4 col-md-offset-4 col-xs-12 text-center networksIconDiv" style="padding-top:0;">
 
-                        <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/facebook.png" style="width:50px;height:50px"/></div>
-                        <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/instagram.png" style="width:50px;height:50px"/></div>
-                        <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/twitter.png" style="width:50px;height:50px"/></div>
-                        <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/linkedin.png" style="width:50px;height:50px"/></div>
-
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center"> <img alt="..." src="../assets/img/facebook.png"/></div>
+                            <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center"> <img alt="..." src="../assets/img/instagram.png"/></div>
+                            <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center"> <img alt="..." src="../assets/img/twitter.png"/></div>
+                            <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center"> <img alt="..." src="../assets/img/linkedin.png"/></div>
+                        </div>
                     </div>
 
-                    <div class="col-md-4 text-center">
-                        <div class="col-md-12 text-center" style="height:60px;">
-                            <div style="width:400px;margin:auto;">
-                                <button type="button" class="btn btn-fill btn-owl">
-                                    Subscribe
-                                </button>
+                    <div class="col-md-4 col-xs-12 text-center">
+                        <div class="col-md-12 text-center" style="height:60px; margin-top:80px;">
+                            <div>
+                                <a class="btn btn-fill btn-owl"  href={{ path('owlContactDisplay')}}>
+                                    Défiez-nous !
+                                </a>
 
                             </div>
                         </div>
@@ -127,7 +149,7 @@
 
 
             <div class="container">
-                <div class="formBlock contactForm1">
+                <div class="formBlock contactForm1" id="contactAnchor">
                     <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1">
                         <div class="card1">
 
@@ -272,7 +294,7 @@
         </div>
 
 
-        <div class="contactForm2" style="position:absolute; text-align:center; width:100%;" >
+        <div class="contactForm2" id="quote" style="position:absolute; text-align:center; width:100%;" >
             <div class="container">
                 <div class="formBlock contactForm2">
                     <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1">
@@ -298,7 +320,7 @@
                                     {{ form_errors(formQuote.company) }}
                                 </div>
 
-                                <div class="form-group respCivility">
+                                <div class="form-group respCivility" style="padding-bottom: 0;">
                                     {{ form_widget(formQuote.respCivility, {'attr': {'required': true, 'style':'display:inlineBlock','class' : 'form-control'}}) }}
                                     {{ form_errors(formQuote.respCivility) }}
                                 </div>
@@ -353,7 +375,17 @@
                                     'form-control textarea',rows : "4", cols :"50", "placehoder" : "Votre message"}}) }}
                                 </div>
 
-                                {{ form_widget(formQuote.prospect, {'attr': {'required': true, 'class' : 'form-control', }}) }}
+
+                                <div style="display:none;">
+                                    {{ form_widget(formQuote.prospect, {'attr': {'required': true, 'class' : 'form-control', 'label':false  }}) }}
+
+                                    {{ form_widget(formQuote.prospect.name, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
+                                {{ form_widget(formQuote.prospect.lastAction, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
+                                {{ form_widget(formQuote.prospect.lastActionDate, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
+                                {{ form_widget(formQuote.prospect.nextAction, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
+                                {{ form_widget(formQuote.prospect.nextActionDate, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
+
+                                </div>
 
 
                             </div>
@@ -363,7 +395,7 @@
 
                             <div>
 
-                                <div class="card1-footer ">
+                                <div class="card1-footer " style="padding:0.9375rem 20px;">
                                     {{ form_row(formQuote.save2, {'attr': {'class' : 'form-control btn btn-fill btn-rose'},'label': 'Valider'}) }}
                                 </div>
 

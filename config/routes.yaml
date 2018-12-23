@@ -1,6 +1,14 @@
+essai:
+    path: /essai
+    controller: App\Controller\DefaultController::essai
+
 index:
     path: /
     controller: App\Controller\DefaultController::owlHomeDisplay
+
+owlAgencyDisplay:
+    path: /owlAgencyDisplay
+    controller: App\Controller\DefaultController::owlAgencyDisplay
 
 owlServicesDisplay:
     path: /owlServicesDisplay

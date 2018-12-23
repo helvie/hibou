@@ -1,14 +1,25 @@
 {% extends 'base.html.twig' %}
 
+    {% block stylesheets %}
+        {{ parent() }}
+        <style>
+            body
+            {background-color:#113441;}
+            .headSection
+            {background-color:#113441;}
+        </style>
+    {% endblock %}
 
     {% block logo %}
 
-        <div class="headSection blueBlockHead">
+        <div class="headSection">
 
                 <div class="content blueBlock">
 
-                    <div class="blueHeadImg">
-                        <img alt="..." src="../assets/img/logoBleu.png"/>
+                    <div class="blueHeadImg logoOwl">
+                        <a  href={{ path('index') }}>
+                            <img href={{ path('index') }} alt="..." src="../assets/img/logoWhite.png" style="z-index:1;position:absolute;"/>
+                        </a>
                     </div>
 
                 </div>
@@ -18,7 +29,12 @@
 
     {% block content %}
 
-        {% set art = app.request.query.get("art") %}
+        {% if app.request.query.get("art") %}
+            {% set art = app.request.query.get("art") %}
+        {% else %}
+            {% set art = latestArticleId %}
+        {% endif %}
+
 
         {% set artArray = articles[3] %}
 
@@ -40,10 +56,10 @@
 
         </div>
 
-        <div class="section blueBlock section-our-team" style="padding-bottom:0;">
+        <div class="section blueBlock section-our-team oneArticle" style="padding-bottom:0;">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="col-md-9 whiteBlock blogResume">
+                    <div class="col-md-9 whiteBlock blogResume" style="text-align:justify">
                         {{ thisArt.text|raw }}
                     </div>
 
@@ -58,8 +74,8 @@
 
                                 <div class="description">
                                     <h3 class="big-text">{{ thisArt.author }}</h3>
-                                    <p class="small-text">{{ thisArt.role }}</p>
-                                    <p class="small-text">
+                                    <p class="small-text" style="text-align:center;">{{ thisArt.role }}</p>
+                                    <p class="small-text" style="text-align:center;">
                                     {% for tag in thisArt.categories %}
                                         {{ tag.name }}
                                     {% endfor %}
@@ -76,15 +92,15 @@
         {#</div>#}
 </div>
         <div class="whiteBlock networksIconBlock">
-
-            <div class="col-md-4 col-md-offset-4 text-center networksIconDiv">
+            <div class="row">
+            <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1 text-center networksIconDiv">
 
             <h2 style="padding-bottom:30px;">Partager cet article</h2>
 
-                <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/facebookBlue.png" style="width:50px;height:50px"/></div>
-                <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/instaBlue.png" style="width:50px;height:50px"/></div>
-                <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/twitterBlue.png" style="width:50px;height:50px"/></div>
-                <div class="col-md-3 text-center"> <img alt="..." src="../assets/img/linkedinBlue.png" style="width:50px;height:50px"/></div>
+                <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center"> <img alt="..." src="../assets/img/facebookBlue.png"/></div>
+                <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center"> <img alt="..." src="../assets/img/instaBlue.png"/></div>
+                <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center"> <img alt="..." src="../assets/img/twitterBlue.png"/></div>
+                <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center"> <img alt="..." src="../assets/img/linkedinBlue.png"/></div>
 
                 {#</div>#}
 
@@ -93,26 +109,41 @@
                 {#</div>#}
 
             </div>
+        </div>
 
+            <div class="row">
 
-            <div class="col-md-12 text-center">
-                <div class="col-md-4 col-md-offset-4 text-center" >
-                <div style="height:170px;padding:60px;" >
-                    <div style="float:left;">
-                        <button type="button" class="btn btn-fill btn-owl">
-                            Subscribe
-                        </button>
-                    </div>
-                    <div style="float:right">
-                        <button type="button" class="btn btn-fill btn-owl">
-                            Subscribe
-                        </button>
-                    </div>
-                    <div style="float:none;clear:both;">
-                    </div>
+            <div class="col-md-8 col-md-offset-2 text-center" style="min-height:60px;padding-top:50px;">
+                <div class="col-md-6 text-center">
+                    <a class="btn btn-fill btn-owl"  href={{ path('owlReferencesDisplay')}}>
+                        Découvrez nos références
+                    </a>
                 </div>
+                <div class="col-md-6 text-center">
+                    <a class="btn btn-fill btn-owl" href={{ path('owlContactDisplay')}}>
+                        Contactez-nous
+                    </a>
                 </div>
             </div>
+            </div>
+            {#<div class="col-md-12 text-center">#}
+                {#<div class="col-md-4 col-md-offset-4 text-center" >#}
+                {#<div style="height:170px;padding:60px;" >#}
+                    {#<div style="float:left;">#}
+                        {#<button type="button" class="btn btn-fill btn-owl">#}
+                            {#Subscribe#}
+                        {#</button>#}
+                    {#</div>#}
+                    {#<div style="float:right">#}
+                        {#<button type="button" class="btn btn-fill btn-owl">#}
+                            {#Subscribe#}
+                        {#</button>#}
+                    {#</div>#}
+                    {#<div style="float:none;clear:both;">#}
+                    {#</div>#}
+                {#</div>#}
+                {#</div>#}
+            {#</div>#}
 
         </div>
 
@@ -123,6 +154,7 @@
             <div class="col-md-4">
                 {% for article in articles[0] %}
                     <div class="card card-blog card-plain">
+
                         <a class="header" href={{ path('owlBlogDisplay',{'art': article.id})}}>
                         <img src="{{ asset('assets/img/persons/'~article.articleImage|e) }}" class="image-header">
                         </a>
@@ -137,7 +169,7 @@
 
                             </a>
 
-                            <div class="line-divider line-danger"></div>
+                            {#<div class="line-divider line-danger"></div>#}
                             <p>
                             {% for tag in article.categories %}
                                 {{ tag.name }}
@@ -164,7 +196,7 @@
 
                             </a>
 
-                            <div class="line-divider line-danger"></div>
+                            {#<div class="line-divider line-danger"></div>#}
                             <p>
                                 {% for tag in article.categories %}
                                     {{ tag.name }}
@@ -191,7 +223,7 @@
 
                             </a>
 
-                            <div class="line-divider line-danger"></div>
+                            {#<div class="line-divider line-danger"></div>#}
                             <p>
                                 {% for tag in article.categories %}
                                     {{ tag.name }}

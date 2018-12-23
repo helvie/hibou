@@ -11,6 +11,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-size: 100%;
+    background-color: #ffbb00;
 }
 @media (min-width: 58em) {
     body {
@@ -59,7 +60,7 @@ h6,
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-family: "Poppins", "Times New Roman", serif;
-    color: #113441;
+    color: #000000;
 
 }
 h1 a,
@@ -223,10 +224,23 @@ a:hover {
 }
 
 .section .title-area .description {
+    text-align: justify;
     font-size: 18px;
     color: #FFFFFF;
     line-height:27px;
 }
+
+.descriptionText {
+    text-align: justify;
+    font-size: 18px;
+    color: #FFFFFF;
+    line-height:27px;
+}
+
+.yellowBlock .title-area .description {
+    color: #000000;
+}
+
 
 .separator {
     color: #ffffff;
@@ -249,6 +263,22 @@ a:hover {
     float: right;
 }
 
+
+
+.yellowBlock .separator {
+    color: #000000;
+}
+
+.yellowBlock .separator:before, .yellowBlock .separator:after {
+    color: #000000;
+    border: 1px solid #000000;
+
+}
+
+
+
+
+
 .btn,
 .navbar .navbar-nav > li > a.btn {
     /*border-width: 1px;*/
@@ -259,11 +289,11 @@ a:hover {
     line-height: 1.2em;
     /*opacity: 0.8;*/
     /*filter: alpha(opacity=80);*/
-    padding: 10px 15px;
+    padding: 8px 5px;
     /*border-color: #888888;*/
     color: #000000;
     /*text-transform: uppercase;*/
-    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.5);
 }
 
 .btn:hover, .btn:focus, .btn:active, .btn.active, .open > .btn.dropdown-toggle,
@@ -478,6 +508,11 @@ a:hover {
     max-width: 110px;
     margin: 0 auto;
 }
+
+.oneArticle .avatar {
+    min-width:180px;
+}
+
 .avatar img {
     width: 100%;
     height: auto;
@@ -485,6 +520,10 @@ a:hover {
 
 .avatar-danger {
     border-color: #113441;
+}
+
+.card-member .avatar {
+    margin-top: 10px;
 }
 
 .img-circle.img-profile {
@@ -501,9 +540,9 @@ a:hover, a:focus {
     text-decoration: none;
 }
 
-.description {
-    margin-bottom: 50px;
-}
+/*.description {*/
+    /*margin-bottom: 50px;*/
+/*}*/
 
 .big-text {
     font-size: 18px;
@@ -534,27 +573,28 @@ a:hover, a:focus {
 
 .yellowBlock {
     background-color: #ffbb00;
-    color: #FFFFFF;
+    color: #000000;
     padding-bottom : 70px;
     padding-top:0px;
     text-align:center;
 }
 
+
 .yellowBlock p {
-    color: #FFFFFF;
+    color: #000000;
 }
 
 .yellowBlock h2 {
-    color: #FFFFFF;
+    color: #000000;
 }
 
 .yellowBlock h1 {
-    color: #FFFFFF;
+    color: #000000;
 }
 
 .whiteBlock {
     background-color: #FFFFFF;
-    color: #113441;
+    color: #000000;
 ;
     padding-bottom : 70px;
 }
@@ -562,19 +602,20 @@ a:hover, a:focus {
 
 .beigeBlock {
     background-color: #F9E9BE;
-    color: #113441;
+    color: #000000;
     padding-bottom : 70px;
 
 }
 
 .beigeBlock h2 {
-    color: #113441;
+    color: #000000;
 }
 
 .blueBlock {
     background-color: #113441;
     color: #FFFFFF;
     padding-bottom:70px;
+    padding-top: 0px;
 }
 
 .blueBlock h2 {
@@ -592,15 +633,27 @@ a:hover, a:focus {
     text-align: center;
 }
 
+
+.blueBlock .description p {
+    color: #FFFFFF;
+    text-align: justify;
+}
+
 .greyBlock {
-    background-color: #949494;
+    background-color: #555555;
     color: #FFFFFF;
 }
 
-.flip-container {
+.team .flip-container {
     margin-left:auto;
     margin-right:auto;
 }
+
+.game .flip-container {
+    margin-left:auto;
+    margin-right:auto;
+}
+
 
 .imgService {
     margin-bottom : 30px;
@@ -752,7 +805,7 @@ a:hover, a:focus {
     text-align : left;
 }
 
-#myCarousel .carousel-caption h3 {
+#myCarousel .carousel-caption .name {
     text-align : right;
 }
 /* darken the control area */
@@ -937,7 +990,7 @@ input.form-control::placeholder {
 }
 
 .whiteBlock p {
-    color: #113441;
+    color: #000000;
 }
 
 .blogResume p {
@@ -957,12 +1010,12 @@ input.form-control::placeholder {
 }
 
 .blogArticles p {
-    color:#113441;
+    color:#000000;
 }
 
 
 .blogArticles h2 {
-    color:#113441;
+    color:#000000;
 }
 
 .team p {
@@ -977,6 +1030,20 @@ input.form-control::placeholder {
 .team {
     text-align: center;
 }
+
+.team2 p {
+    color:#000000;
+}
+
+.team2 h3 {
+    color:#000000;
+    padding-top:10px;
+}
+
+.team2 {
+    text-align: center;
+}
+
 
 .authorMail {
     margin-top:40px;
@@ -1034,8 +1101,13 @@ input.form-control::placeholder {
     }
 
     .section .title-area .description {
-        font-size: 15px;
+        font-size: 18px;
         line-height: 23px;
+    }
+
+    .title-area {
+        text-align: justify;
+
     }
 
     .content-blog p {
@@ -1099,8 +1171,9 @@ input.form-control::placeholder {
 
 
 .btn-owl {
-    margin-bottom: 20px;
+    /*margin-bottom: 5px;*/
     z-index: 1;
+    /*width: 270px;*/
 }
 
 .speDescriptive {
@@ -1111,9 +1184,9 @@ input.form-control::placeholder {
     text-align: center;
 }
 
-.serviceBlock {
-    margin-bottom: 50px;
-}
+/*.serviceBlock {*/
+    /*margin-bottom: 50px;*/
+/*}*/
 
 .divCenter2Btn {
     width:400px;
@@ -1139,9 +1212,6 @@ input.form-control::placeholder {
     z-index:81;
 }
 
-.blueBlockHead {
-    background-color:#113441;
-}
 
 .blueHeadImg {
     background-color:#113441;
@@ -1149,10 +1219,6 @@ input.form-control::placeholder {
     margin-left:50px;
 }
 
-.blueBlockHead img {
-    width: 140px;
-    height: 140px;
-}
 
 .articleAvatar {
     text-align:center;
@@ -1177,11 +1243,11 @@ input.form-control::placeholder {
 }
 
 .btn-rose {
-    height: 36px;
+    height: 41px;
 }
 
 .formBlock .btn.btn-rose:hover {
-    height: 36px;
+    height: 41px;
 }
 
 .respCivility {
@@ -1349,8 +1415,8 @@ fieldset.scheduler-border {
 }
 
 .btn {
-    height : 50px;
-    width: 150px;
+    height : 41px;
+    width: 266px;
 }
 
 .upImageP {
@@ -1358,9 +1424,16 @@ fieldset.scheduler-border {
     font-size:14px;
 }
 
-input[type="file"] {
-    display: block;
+.upImage {
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
+
+/*input[type="file"] {*/
+    /*display: block;*/
+/*}*/
+
+
 
 .formArticle {
     font-size : 18px;
@@ -1384,4 +1457,217 @@ input[type="file"] {
     font-size: 18px;
     font-family: "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #949494;
+}
+
+.articleText {
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+
+.btn-owl.accessBtn {
+    width:170px;
+}
+
+.description p {
+    font-size : 18px;
+}
+
+.divDescription {
+    margin-top : 50px;
+}
+
+.flip {
+    -webkit-perspective: 800;
+    position: relative;
+    margin: 50px auto;
+    height: 216px;
+    width: 177px;
+    float: left;
+    margin: 5px;
+}
+
+.flip .gameCard.flipped {
+    -webkit-transform: rotatey(-180deg);
+}
+
+.flip .gameCard.flippedOk {
+    -webkit-transform: rotatey(-180deg);
+}
+
+.flip .gameCard {
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: 0.5s;
+}
+
+.flip .gameCard .face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    z-index: 2;
+}
+
+.flip .gameCard .front {
+    position: absolute;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.flip .gameCard .back {
+    -webkit-transform: rotatey(-180deg);
+    cursor: pointer;
+}
+
+
+.col-center-block {
+    float: none;
+    display: block;
+    margin: 0 auto;
+     /*margin-left: auto; margin-right: auto; */
+}
+
+.cardDiv {
+    margin-top:20px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 994px) {
+
+    .flip {
+        width: 130px;
+        height: 159px;
+    }
+
+    .gameImg {
+        width: 130px;
+        height: 159px;
+
+
+    }
+
+    .flip .gameCard {
+        height: 159px;
+        width: 130px;
+    }
+
+    .flip .gameCard .face2 {
+        height: 159px;
+        width: 130px;
+
+    }
+
+    .cardDiv {
+        margin-top:15px;
+        margin-bottom: 15px;
+    }
+
+}
+
+@media (max-width: 774px) {
+
+    .flip {
+        width: 95px;
+        height: 116px;
+    }
+
+    .gameImg {
+        width: 95px;
+        height: 116px;
+    }
+
+    .flip .gameCard {
+        width: 95px;
+        height: 116px;
+    }
+
+    .flip .gameCard .face {
+        /*width: 95px;*/
+        height: 116px;
+    }
+    .cardDiv {
+        margin-top:10px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 254px) {
+
+    .flip {
+        width: 65px;
+        height: 79px;
+    }
+
+    .gameImg {
+        width: 65px;
+        height: 79px;
+    }
+
+    .flip .gameCard {
+        width: 65px;
+        height: 79px;
+    }
+
+    .flip .gameCard .face2 {
+        /*width: 65px;*/
+        height: 79px;
+    }
+
+    .cardDiv {
+        margin-top:5px;
+        margin-bottom: 5px;
+    }
+
+}
+
+@media (max-width: 470px) {
+    .col-xs-3 {
+        width: 33%;
+    }
+}
+
+@media (max-width: 311px) {
+    .col-xs-3{
+        width:50%;
+    }
+
+}
+
+.socialImg img {
+    width:50px;
+    height:50px;
+}
+
+@media (max-width: 471px) {
+    .socialImg img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+
+@media (max-width: 470px) {
+    .networksIconBlock .col-xs-3, .networksIconBlock2 .col-xs-3 {
+        width: 25%;
+    }
+}
+
+/*@media (max-width: 311px) {*/
+    /*.networksIconBlock .col-xs-3{*/
+        /*width:50%;*/
+    /*}*/
+
+/*}*/
+
+.oneArticle p {
+    text-align
+    :justify;
+}
+
+
+@media (max-width: 674px) {
+    .logoOwl img {
+        width:71px;
+    }
 }

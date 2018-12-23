@@ -1,15 +1,182 @@
 {% extends 'base.html.twig' %}
 
 
-    {% block logo %}
-
-
-
-    {% endblock %}
-
     {% block content %}
+        {% block stylesheets %}
 
-{{ dump(data) }}
+            {{ parent() }}
 
+            <style>
+
+
+                /*.flip {*/
+                    /*-webkit-perspective: 800;*/
+                    /*position: relative;*/
+                    /*margin: 50px auto;*/
+                    /*height: 216px;*/
+                    /*width: 177px;*/
+                    /*float: left;*/
+                    /*margin: 5px;*/
+                /*}*/
+
+                /*.flip .gameCard.flipped {*/
+                    /*-webkit-transform: rotatey(-180deg);*/
+                /*}*/
+
+                /*.flip .gameCard.flippedOk {*/
+                    /*-webkit-transform: rotatey(-180deg);*/
+                /*}*/
+
+                /*.flip .gameCard {*/
+                    /*width: 100%;*/
+                    /*height: 100%;*/
+                    /*-webkit-transform-style: preserve-3d;*/
+                    /*-webkit-transition: 0.5s;*/
+                /*}*/
+
+                /*.flip .gameCard .face {*/
+                    /*width: 100%;*/
+                    /*height: 100%;*/
+                    /*position: absolute;*/
+                    /*-webkit-backface-visibility: hidden;*/
+                    /*z-index: 2;*/
+                /*}*/
+
+                /*.flip .gameCard .front {*/
+                    /*position: absolute;*/
+                    /*z-index: 1;*/
+                    /*cursor: pointer;*/
+                /*}*/
+
+                /*.flip .gameCard .back {*/
+                    /*-webkit-transform: rotatey(-180deg);*/
+                    /*cursor: pointer;*/
+                /*}*/
+
+
+                /*.col-center-block {*/
+                    /*float: none;*/
+                    /*display: block;*/
+                    /*margin: 0 auto;*/
+                    /*!* margin-left: auto; margin-right: auto; *!*/
+                /*}*/
+
+                /*.cardDiv {*/
+                    /*margin-top:20px;*/
+                    /*margin-bottom: 20px;*/
+                /*}*/
+            </style>
+
+        {% endblock %}
+
+        {#<div>#}
+
+            {#<p id="cardText">#}
+
+
+            {#</p>#}
+
+        {#</div>#}
+
+        {#<div class="game"  style="text-align:center;">#}
+            {#<div class="row">#}
+                {#<div class="col-md-6 col-md-offset-3">#}
+                    {#<div class="row">#}
+
+                        {#{% for card in cardsArray %}#}
+
+                        {#<div class="col-md-3 cardDiv">#}
+                            {#<div class="flip col-center-block" id={{ card }}>#}
+                                {#<div class="gameCard">#}
+                                    {#<div class="face front">#}
+                                        {#<img style = "border-radius:20px" src="../assets/img/backgroundCard.png">#}
+                                    {#</div>#}
+                                    {#<div class="face back">#}
+                                        {#<img style = "border-radius:20px"  src={{"../assets/img/"~ card|slice(1) ~".png"}}>#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+
+                        {#{% endfor %}#}
+
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+        {#</div>#}
 
     {% endblock %}
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+
+        var cardId1 = "";
+        var cardId2 = "";
+        var gerard = "";
+        var thisCard = "";
+
+        $(".gameCard").on("click", function(){
+
+            if(gerard == 1){
+                $(".flipped").removeClass("flipped")
+            }
+            gerard = 0;
+            $(this).addClass("flipped");
+
+            if(cardId1==""){
+                cardId1 = $(this).parent().attr("id").substr(1)
+            }
+                else
+                    {
+                        cardId2 = $(this).parent().attr("id").substr(1)
+                    }
+
+                    if(cardId1 != "" && cardId2 != ""){
+                        console.log("jeu complet");
+
+                        if(cardId1 == cardId2){
+                            $(".flipped").removeClass("flipped").addClass("flippedOk");
+
+                            if(cardId1 == "red"){
+                                $("#cardText").text("Quand ça marche pas ce projet... on voit rouge !")
+                            }
+                            if(cardId1 == "blue") {
+                                $("#cardText").text("Ca fait mal, des fois les bleus")
+
+                            }
+                            if(cardId1 == "green") {
+                                $("#cardText").text("Oh oui, se mettre au vert... le rêve !")
+
+                            }
+                            if(cardId1 == "pink") {
+                                $("#cardText").text("Du rose... rien que pour les filles !")
+
+                            }
+                            if(cardId1 == "yellow"){
+                                $("#cardText").text("C'est joli le jaune... c'est la couleur du soleil")
+
+
+                            }
+                            if(cardId1 == "owl") {
+                                $("#cardText").text("Mettez un hibou dans votre site !")
+
+                            }
+
+                            }
+                        else {
+                            gerard=1;
+                        }
+                        cardId1="";
+                        cardId2="";
+                    }
+
+        });
+
+
+    </script>
+
+{% endblock %}

@@ -71,11 +71,11 @@
 
             {{ form_label(form.articleImage, 'Image de l\'article :') }}
 
-            <p class="upImageP">L'image doit être en format Jpeg ou Png et ne doit pas dépasser 2 MO</p>
-            <div id = "savedImage"></div>
+            <p class="upImageP ">L'image doit être en format Jpeg ou Png et ne doit pas dépasser 2 MO</p>
+            <div class="" id = "savedImage"></div>
 
             <div style="float:left; margin-right:10px;"><a class="glyphicon glyphicon-refresh undoImage"></a></div>
-            <div style="float:none" >{{ form_widget(form.articleImage, {'attr': {'required': false, 'class': 'file-loading'}} ) }}</div>
+            <div  style="float:none" >{{ form_widget(form.articleImage, {'attr': {'required': false, 'class': 'file-loading'}} ) }}</div>
 
             {{ form_errors(form.articleImage) }}
 
@@ -99,7 +99,7 @@
         </div>
 
         <div class = "formSection">
-            {{ form_widget(form.submit, {'attr': {'class' : 'form-control btn btn-fill btn-rose btn-owl'}}) }}
+            {{ form_widget(form.submit, {'attr': {'class' : 'form-control btn btn-fill btn-rose btn-owl'}},{'value': 'Enregistrer'}) }}
         </div>
 
 
