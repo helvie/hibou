@@ -61,9 +61,9 @@ class ProspectInformationType extends AbstractType
 
             ->add('respName', TextType::class, array(
                 'required' => false,
-                'label' => 'Nom du responsable : ',
+                'label' => 'Nom : ',
                 'attr' => array(
-                    'placeholder' => 'Nom du responsable',
+                    'placeholder' => 'Nom',
                 )
             ))
 
