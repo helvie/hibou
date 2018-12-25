@@ -6,6 +6,10 @@ index:
     path: /
     controller: App\Controller\DefaultController::owlHomeDisplay
 
+contactForm:
+    path: /contactForm
+    controller: App\Controller\DefaultController::contactForm
+
 owlAgencyDisplay:
     path: /owlAgencyDisplay
     controller: App\Controller\DefaultController::owlAgencyDisplay

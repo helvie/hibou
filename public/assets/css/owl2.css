@@ -1,0 +1,80 @@
+
+.categories label {
+    margin-right : 30px;
+    margin-left : 5px;
+}
+
+.articleText li{
+    list-style:none;
+}
+
+.articleTrash {
+    padding : 5px;
+    background-color : brown;
+    color : white;
+    border-radius : 2px;
+}
+
+.articleUpdate {
+    padding : 5px;
+    background-color : darkolivegreen;
+    color : white;
+    border-radius : 2px;
+
+}
+
+.commentTrash, .commentUpdate,  .commentVisibility.glyphicon-eye-open {
+    padding : 5px;
+    background-color : #333377;
+    color : white;
+    border-radius : 2px;
+
+}
+
+
+.commentResponseTrash, .commentResponseUpdate, .commentResponseVisibility.glyphicon-eye-open {
+    padding : 5px;
+    background-color : dimgray;
+    color : white;
+    border-radius : 2px;
+
+}
+
+
+.commentResponseVisibility.glyphicon-eye-close {
+    padding : 5px;
+    background-color : #9db3f5;
+    color : #333377;
+    border-radius : 2px;
+}
+
+
+.commentVisibility.glyphicon-eye-close {
+    padding : 5px;
+    background-color : #9db3f5;
+    color : #333377;
+    border-radius : 2px;
+}
+
+
+
+li {
+    padding : 0px;
+}
+
+.content {
+    padding-top : 50px;
+}
+
+.btn-default{
+    background-color : #ddd;
+}
+
+hr {
+    margin-top : 50px;
+    margin-bottom : 50px;
+}
+
+.authorMail {
+    margin-top:40px;
+}

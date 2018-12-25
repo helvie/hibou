@@ -1,0 +1,116 @@
+
+
+{#----------------------------- Page formulaire d'ajout d'un organisme ---------------------------#}
+
+
+{% extends 'base.html.twig' %}
+
+
+    {% block stylesheets %}
+        {{ parent() }}
+
+        <style>
+
+            .contactForm1 {
+                z-index:80;
+            }
+
+            body
+            {
+                background-color:#113441;
+            }
+            .headSection
+            {
+                background-color:#113441;
+            }
+        </style>
+
+    {% endblock %}
+
+    {% block logo %}
+
+        <div class="headSection";>
+
+            {#<div class="container">#}
+            <div class="content blueBlock">
+
+                <div class="blueHeadImg logoOwl">
+                    <a href={{ path('index') }}>
+                        <img href={{ path('index') }} alt="..." src="../assets/img/logoWhite.png" style="z-index:1;position:absolute;"/>
+                    </a>
+                </div>
+
+            </div>
+            {#</div>#}
+        </div>
+    {% endblock %}
+
+{% block content %}
+    <div class="blueBlock">
+
+        <h1 style="padding-top:20px;margin-top:0;">Nous joindre par mail</h1>
+    </div>
+
+
+    {#<div class = "container col-lg-6 col-lg-offset-3" style="padding-top:50px;">#}
+
+    <div class="container">
+        <div class="formBlock contactForm1" id="contactAnchor">
+            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1">
+                <div class="card1">
+
+                    <div class="card1-header card1-header-rose card1-header-icon">
+                        <div class="card1-icon">
+                            <i class="material-icons" style="color:#113441">mail_outline</i>
+                        </div>
+                    </div>
+
+                        <div class="card1-body ">
+
+                            {{ form_start(form, {'attr': {'class': 'form-group'}} ) }}
+
+                            <div class="form-group">
+                                {{ form_widget(form.subject, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                {{ form_errors(form.subject) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_widget(form.name, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                {{ form_errors(form.name) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_widget(form.email, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                {{ form_errors(form.email) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_widget(form.message, {'attr': {'required': true, 'class' : 'form-control textarea'}}) }}
+                                {{ form_errors(form.message) }}
+                            </div>
+
+                            </div>
+                            <div class="card1-footer" style="margin-left:20px">
+                                {{ form_row(form.send, {'attr': {'class' : 'form-control btn btn-fill btn-rose'},'label': "Envoyer"}) }}
+                            </div>
+
+                            {{ form_end(form) }}
+
+
+                        </div>
+
+            </div>
+        </div>
+
+                    {#</div>#}
+                </div>
+            </div>
+        {#</div>#}
+
+
+
+    </div>
+</div>
+{% endblock %}
+
+

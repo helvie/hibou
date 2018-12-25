@@ -24,7 +24,11 @@ use Symfony\Component\HttpFoundation\Request;
 use DateTime;
 use DateInterval;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Validator\Constraints\Length;
 
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -270,7 +274,7 @@ class DefaultController extends Controller
 
 
     public function formContactDisplay(Request $request, ProspectRepository $prospectRepository, LastActionRepository
-                                        $lastActionRepository, NextActionRepository $nextActionRepository)
+                                        $lastActionRepository, NextActionRepository $nextActionRepository, \Swift_Mailer $mailer)
     {
 
         $formContactRequest = new Prospect();
@@ -331,6 +335,40 @@ class DefaultController extends Controller
             $em->persist($thisProspect);
             $em->flush();
 
+            if($lastAction == $lastActionRepository -> find(12)){
+                $requestPhone = 1;
+                $date = $formContactRequest -> getNextActionDate();
+                $hour = $formContactRequest -> getNextActionDate();
+
+                            }
+            else {
+                $requestPhone = 0;
+                $date = "";
+                $hour = "";
+                            }
+
+            $message = (new \Swift_Message("Demande de contact"))
+                ->setFrom($formContactRequest -> getEmail())
+                ->setTo("lehibouquigeek@gmail.com")
+                ->setBody(
+                    $this->renderView(
+                    // templates/emails/registration.html.twig
+                        'mailContactToAdmin.html.twig',
+                        array(
+                            'name' => $formContactRequest -> getName(),
+                            'email' => $formContactRequest -> getEmail(),
+                            'phone' => $formContactRequest -> getPhone(),
+                            'requestPhone' => $requestPhone,
+                            'date' => $date,
+                            'hour' => $hour,
+                            'message' => $formContactRequest -> getInformation(),
+                        )
+                    ),
+                    'text/html'
+                );
+
+            $mailer->send($message);
+
             return $this->render('owlReferences.html.twig', array('essai' => $formContactRequest));
 
     }
@@ -384,8 +422,6 @@ class DefaultController extends Controller
             $thisProspect->setInformation("<p>".$today2." - Demande de devis - Message : ".$newMessage."</p><p></p>".$information);
 
             $thisProspectInformation -> setCompany($formProspectInfo -> getCompany());
-//            $thisProspectInformation -> setEmail($formProspectInfo -> getEmail());
-//            $thisProspectInformation -> setPhone($formProspectInfo -> getPhone());
             $thisProspectInformation -> setRespCivility($formProspectInfo -> getRespCivility());
             $thisProspectInformation -> setRespName($formProspectInfo -> getRespName());
             $thisProspectInformation -> setSiret($formProspectInfo -> getSiret());
@@ -397,6 +433,12 @@ class DefaultController extends Controller
             $thisProspect -> setProspectInformation($thisProspectInformation);
             $thisProspectInformation -> setProspect($thisProspect);
 
+            if($formProspectInfo -> getRespCivility()==0){
+                $civ = "M.";
+            }
+            else{
+                $civ = "Mme";
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($thisProspect);
@@ -404,7 +446,32 @@ class DefaultController extends Controller
             $em->flush();
 
 
-            return $this->render('owlHome.html.twig', array("this" => $thisProspect, "existingProspect" => $NL));
+                $message = (new \Swift_Message("Demande de devis"))
+                ->setFrom($formProspectInfo -> getProspect() -> getEmail())
+                ->setTo("lehibouquigeek@gmail.com")
+                ->setBody(
+                    $this->renderView(
+                    // templates/emails/registration.html.twig
+                        'mailQuoteToAdmin.html.twig',
+                        array(
+                            'company' => $formProspectInfo -> getCompany(),
+                            'name' => $civ." ".$formProspectInfo -> getRespName(),
+                            'email' => $formProspectInfo -> getProspect() -> getEmail(),
+                            'phone' => $formProspectInfo -> getProspect() -> getPhone(),
+                            'siret' => $formProspectInfo -> getSiret(),
+                            'activity' => $formProspectInfo -> getActivity(),
+                            'address' => $formProspectInfo -> getRoute()." - ".$formProspectInfo -> getPostalCode()."".$formProspectInfo -> getLocality(),
+                            'message' => $formProspectInfo -> getProspect() -> getInformation(),
+                            )
+                    ),
+                    'text/html'
+                );
+
+            $mailer->send($message);
+
+
+
+            return $this->redirectToRoute('index');
 
         }
 
@@ -424,187 +491,214 @@ class DefaultController extends Controller
 
 
 
-    public function formContactDisplay2(Request $request, ProspectRepository $prospectRepository)
-    {
-
-        // Création du formulaire avec une nouvelle entité
-
-        $formProspect = new Prospect();
-        $formProspectInfo = new ProspectInformation();
-        $formContactRequest = new Prospect();
-
-        $formNL = $this->createForm(ProspectType::class, $formProspect);
-
-        $formQuote = $this->createForm(ProspectInformationType::class, $formProspectInfo);
-
-        $formRequest = $this->createForm(ProspectType::class, $formContactRequest);
-
-
-        $formNL->handleRequest($request);
-        $formQuote->handleRequest($request);
-        $formRequest->handleRequest($request);
-
-        $today = new dateTime();
-        $today2 = $today -> format('d/m/Y');
-        $today15 = new dateTime();
-        $today15 -> add(new DateInterval('P15D'));
-
-        if ($formRequest->isSubmitted() && $formNL->isValid()) {
-            $existingProspect = $prospectRepository->findOneByEmail($formProspect -> getEmail());
-
-            if($existingProspect != null){
-                $thisProspect = $existingProspect;
-                $quote = $thisProspect -> getQuoteRequest();
-                $NL = $thisProspect -> getNewsletterRequest();
-                $information = $thisProspect -> getInformation();
-            }
-            else{
-                $thisProspect = new Prospect();
-            }
-
-            $thisProspect->setQuoteRequest($quote);
-            $thisProspect->setNewsletterRequest($NL);
-            $thisProspect->setArchived(0);
-            $thisProspect->setLastAction($formContactRequest->getLastAction());
-            $thisProspect->setLastActionDate($today);
-            if($formContactRequest->getLastAction()==12)
-                {
-                    $thisProspect->setNextAction(6);
-                }
-            elseif($formContactRequest->getLastAction()==13)
-                {
-                    $thisProspect->setNextAction(1);
-
-                }
-            //Demandeur : 1-prospect, 2-commercial, 3-automatique
-            $thisProspect->setApplicant(1);
-            $thisProspect->setNextActionDate($today15);
-            $thisProspect -> setInformation($information."<p><b>Inscription à la newsletter - ".$today2."</b></p>");
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($thisProspect);
-            $em->flush();
-
-            // Redirection vers le formulaire d'activité
-
-            return $this->redirectToRoute('index');
-
-        }
-
-
-
-
-        if ($formNL->isSubmitted() && $formNL->isValid()) {
-
-            $existingProspect = $prospectRepository->findOneByEmail($formProspect -> getEmail());
-
-            if($existingProspect != null){
-                $thisProspect = $existingProspect;
-                $quote = $thisProspect -> getQuoteRequest();
-                $NL = $thisProspect -> getNewsletterRequest();
-                $information = $thisProspect -> getInformation();
-            }
-
-            else{
-                $thisProspect = new Prospect();
-            }
-
-            $thisProspect->setQuoteRequest($quote);
-            $thisProspect->setNewsletterRequest(1);
-            $thisProspect->setArchived(0);
-            $thisProspect->setLastAction(1);
-            $thisProspect->setLastActionDate($today);
-            $thisProspect->setNextAction(4);
-            //Demandeur : 1-prospect, 2-commercial, 3-automatique
-            $thisProspect->setApplicant(1);
-            $thisProspect->setNextActionDate($today15);
-            $thisProspect -> setInformation($information."<p><b>Inscription à la newsletter - ".$today2."</b></p>");
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($thisProspect);
-            $em->flush();
-
-            // Redirection vers le formulaire d'activité
-
-            return $this->redirectToRoute('index');
-
-        }
-
-        if ($formQuote->isSubmitted() && $formQuote->isValid()) {
-
-            $existingProspect = $prospectRepository->findOneByEmail($formProspectInfo -> getEmail());
-
-            if($existingProspect != null){
-
-                $thisProspect = $existingProspect;
-                $NL = $thisProspect -> getNewsletterRequest();
-                $information = $thisProspect -> getInformation();
-
-
-                if($thisProspect -> getProspectInformation() !=null){
-                    $thisProspectInformation = $thisProspect -> getProspectInformation();
-                }
-
-                else {
-                    $thisProspectInformation = new ProspectInformation();
-                }
-            }
-            else
-            {
-                $thisProspect = new Prospect();
-                $thisProspectInformation = new ProspectInformation();
-                $NL = 0;
-                $information = "";
-
-            }
-
-            $thisProspect -> setName($formProspectInfo -> getCompany());
-            $thisProspect -> setEmail($formProspectInfo -> getEmail());
-            $thisProspect->setQuoteRequest(1);
-            $thisProspect->setNewsletterRequest($NL);
-            $thisProspect->setInformationsRequest(0);
-            $thisProspect->setArchived(0);
-            $thisProspect->setLastAction(2);
-            $thisProspect->setLastActionDate($today);
-            $thisProspect->setNextAction(2);
-            $thisProspect->setNextActionDate($today15);
-            //Demandeur : 1-prospect, 2-commercial, 3-automatique
-            $thisProspect->setApplicant(1);
-            $thisProspect->setNextActionDate($today);
-            $thisProspect->setInformation($information."<p><b>Demande de devis - ".$today2."</b></p>");
-
-            $thisProspectInformation -> setCompany($formProspectInfo -> getCompany());
-            $thisProspectInformation -> setEmail($formProspectInfo -> getEmail());
-            $thisProspectInformation -> setRespCivility($formProspectInfo -> getRespCivility());
-            $thisProspectInformation -> setRespName($formProspectInfo -> getRespName());
-            $thisProspectInformation -> setSiret($formProspectInfo -> getSiret());
-            $thisProspectInformation -> setActivity($formProspectInfo -> getActivity());
-            $thisProspectInformation -> setPhone($formProspectInfo -> getPhone());
-            $thisProspectInformation -> setPostalCode($formProspectInfo -> getPostalCode());
-            $thisProspectInformation -> setLocality($formProspectInfo -> getLocality());
-
-            $thisProspect -> setProspectInformation($thisProspectInformation);
-
-
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($thisProspect);
-            $em->persist($thisProspectInformation);
-            $em->flush();
-
-
-            return $this->render('owlHome.html.twig', array("this" => $thisProspect, "existingProspect" => $NL));
-
-        }
-
-        // Affichage du formulaire d'activité
-
-        return $this->render('owlContact.html.twig', [
-            'formNL' => $formNL->createView(),
-            'formQuote' => $formQuote->createView()
-        ]);
-
-    }
+//    public function formContactDisplay2(Request $request, ProspectRepository $prospectRepository, \Swift_Mailer $mailer)
+//    {
+//
+//        // Création du formulaire avec une nouvelle entité
+//
+//        $formProspect = new Prospect();
+//        $formProspectInfo = new ProspectInformation();
+//        $formContactRequest = new Prospect();
+//
+//        $formNL = $this->createForm(ProspectType::class, $formProspect);
+//
+//        $formQuote = $this->createForm(ProspectInformationType::class, $formProspectInfo);
+//
+//        $formRequest = $this->createForm(ProspectType::class, $formContactRequest);
+//
+//
+//        $formNL->handleRequest($request);
+//        $formQuote->handleRequest($request);
+//        $formRequest->handleRequest($request);
+//
+//        $today = new dateTime();
+//        $today2 = $today -> format('d/m/Y');
+//        $today15 = new dateTime();
+//        $today15 -> add(new DateInterval('P15D'));
+//
+//        if ($formRequest->isSubmitted() && $formNL->isValid()) {
+//            $existingProspect = $prospectRepository->findOneByEmail($formProspect -> getEmail());
+//
+//            if($existingProspect != null){
+//                $thisProspect = $existingProspect;
+//                $quote = $thisProspect -> getQuoteRequest();
+//                $NL = $thisProspect -> getNewsletterRequest();
+//                $information = $thisProspect -> getInformation();
+//            }
+//            else{
+//                $thisProspect = new Prospect();
+//            }
+//
+//            $thisProspect->setQuoteRequest($quote);
+//            $thisProspect->setNewsletterRequest($NL);
+//            $thisProspect->setArchived(0);
+//            $thisProspect->setLastAction($formContactRequest->getLastAction());
+//            $thisProspect->setLastActionDate($today);
+//            if($formContactRequest->getLastAction()==12)
+//                {
+//                    $thisProspect->setNextAction(6);
+//                }
+//            elseif($formContactRequest->getLastAction()==13)
+//                {
+//                    $thisProspect->setNextAction(1);
+//
+//                }
+//            //Demandeur : 1-prospect, 2-commercial, 3-automatique
+//            $thisProspect->setApplicant(1);
+//            $thisProspect->setNextActionDate($today15);
+//            $thisProspect -> setInformation($information."<p><b>Inscription à la newsletter - ".$today2."</b></p>");
+//
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($thisProspect);
+//            $em->flush();
+//
+//            // Redirection vers le formulaire d'activité
+//
+//            return $this->redirectToRoute('index');
+//
+//        }
+//
+//
+//
+//
+//        if ($formNL->isSubmitted() && $formNL->isValid()) {
+//
+//            $existingProspect = $prospectRepository->findOneByEmail($formProspect -> getEmail());
+//
+//            if($existingProspect != null){
+//                $thisProspect = $existingProspect;
+//                $quote = $thisProspect -> getQuoteRequest();
+//                $NL = $thisProspect -> getNewsletterRequest();
+//                $information = $thisProspect -> getInformation();
+//            }
+//
+//            else{
+//                $thisProspect = new Prospect();
+//            }
+//
+//            $thisProspect->setQuoteRequest($quote);
+//            $thisProspect->setNewsletterRequest(1);
+//            $thisProspect->setArchived(0);
+//            $thisProspect->setLastAction(1);
+//            $thisProspect->setLastActionDate($today);
+//            $thisProspect->setNextAction(4);
+//            //Demandeur : 1-prospect, 2-commercial, 3-automatique
+//            $thisProspect->setApplicant(1);
+//            $thisProspect->setNextActionDate($today15);
+//            $thisProspect -> setInformation($information."<p><b>Inscription à la newsletter - ".$today2."</b></p>");
+//
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($thisProspect);
+//            $em->flush();
+//
+//            // Redirection vers le formulaire d'activité
+//
+//            return $this->redirectToRoute('owlServicesDisplay');
+//
+//        }
+//
+//        if ($formQuote->isSubmitted() && $formQuote->isValid()) {
+//
+//            $existingProspect = $prospectRepository->findOneByEmail($formProspectInfo -> getEmail());
+//
+//            if($existingProspect != null){
+//
+//                $thisProspect = $existingProspect;
+//                $NL = $thisProspect -> getNewsletterRequest();
+//                $information = $thisProspect -> getInformation();
+//
+//
+//                if($thisProspect -> getProspectInformation() !=null){
+//                    $thisProspectInformation = $thisProspect -> getProspectInformation();
+//                }
+//
+//                else {
+//                    $thisProspectInformation = new ProspectInformation();
+//                }
+//            }
+//            else
+//            {
+//                $thisProspect = new Prospect();
+//                $thisProspectInformation = new ProspectInformation();
+//                $NL = 0;
+//                $information = "";
+//
+//            }
+//
+//            $thisProspect -> setName($formProspectInfo -> getCompany());
+//            $thisProspect -> setEmail($formProspectInfo -> getEmail());
+//            $thisProspect->setQuoteRequest(1);
+//            $thisProspect->setNewsletterRequest($NL);
+//            $thisProspect->setInformationsRequest(0);
+//            $thisProspect->setArchived(0);
+//            $thisProspect->setLastAction(2);
+//            $thisProspect->setLastActionDate($today);
+//            $thisProspect->setNextAction(2);
+//            $thisProspect->setNextActionDate($today15);
+//            //Demandeur : 1-prospect, 2-commercial, 3-automatique
+//            $thisProspect->setApplicant(1);
+//            $thisProspect->setNextActionDate($today);
+//            $thisProspect->setInformation($information."<p><b>Demande de devis - ".$today2."</b></p>");
+//
+//            $thisProspectInformation -> setCompany($formProspectInfo -> getCompany());
+//            $thisProspectInformation -> setEmail($formProspectInfo -> getEmail());
+//            $thisProspectInformation -> setRespCivility($formProspectInfo -> getRespCivility());
+//            $thisProspectInformation -> setRespName($formProspectInfo -> getRespName());
+//            $thisProspectInformation -> setSiret($formProspectInfo -> getSiret());
+//            $thisProspectInformation -> setActivity($formProspectInfo -> getActivity());
+//            $thisProspectInformation -> setPhone($formProspectInfo -> getPhone());
+//            $thisProspectInformation -> setRoute($formProspectInfo -> getRoute());
+//            $thisProspectInformation -> setPostalCode($formProspectInfo -> getPostalCode());
+//            $thisProspectInformation -> setLocality($formProspectInfo -> getLocality());
+//
+//            $thisProspect -> setProspectInformation($thisProspectInformation);
+//
+//
+//
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($thisProspect);
+//            $em->persist($thisProspectInformation);
+//            $em->flush();
+//
+//
+//            $message = (new \Swift_Message("Demande de devis"))
+//                ->setFrom($formProspectInfo -> getEmail())
+//                ->setTo("lehibouquigeek@gmail.com")
+//                ->setBody(
+//                    $this->renderView(
+//                    // templates/emails/registration.html.twig
+//                        'quoteMailToAdmin.html.twig',
+//                        array(
+//                            'company' => $formProspectInfo -> getCompany(),
+//                            'name' => $formProspectInfo -> getRespCivility()." ".$formProspectInfo -> getRespName(),
+//                            'email' => $formProspectInfo -> getEmail(),
+//                            'phone' => $formProspectInfo -> getPhone(),
+//                            'siret' => $formProspectInfo -> getSiret(),
+//                            'activity' => $formProspectInfo -> getActivity(),
+//                            'address' => $formProspectInfo -> getRoute()." - ".$formProspectInfo -> getPostalCode()."".$formProspectInfo -> getLocality(),
+//                            'message' => $thisProspect -> getProspectInformation(),
+//
+//
+//                            )
+//                    ),
+//                    'text/html'
+//                );
+//
+//            $mailer->send($message);
+//
+//
+//            return $this->render('owlServices.html.twig');
+//
+//        }
+//
+//        // Affichage du formulaire d'activité
+//
+//        return $this->render('owlContact.html.twig', [
+//            'formNL' => $formNL->createView(),
+//            'formQuote' => $formQuote->createView()
+//        ]);
+//
+//    }
 
 
 
@@ -950,6 +1044,89 @@ class DefaultController extends Controller
 //
 //    }
 
+//----------------------------------------------------------------------------------------------------------------------
 
+    public function contactForm(Request $request, \Swift_Mailer $mailer)
+    {
+
+//        $recipient = $request -> query -> get("recMail");
+//
+//        $defaultData = array('recipient' => $recipient);
+
+        $form = $this->createFormBuilder()
+
+//            ->add('recipient', HiddenType::class)
+
+            ->add('subject', TextType::class, array(
+                'constraints' => new Length(
+                    array('min' => 5,
+                        'max' => 30,
+                        'minMessage' => "Vous devez saisir minimum 5 caractères",
+                        'maxMessage' => "Vous devez saisir maximum 30 caractères"
+                    )),
+                    'attr' => array(
+                        'placeholder' => 'Objet',)
+                ))
+
+            ->add('name', TextType::class, array(
+                'constraints' => new Length(
+                    array('min' => 3,
+                        'max' => 20,
+                        'minMessage' => "Vous devez saisir minimum 3 caractères",
+                        'maxMessage' => "Vous devez saisir maximum 20 caractères"
+                    )),
+                'attr' => array(
+                    'placeholder' => 'Votre nom',)
+            ))
+
+            ->add('email', EmailType::class, array(
+
+                    'attr' => array(
+                        'placeholder' => 'Votre email',)
+                ))
+
+
+            ->add('message', TextareaType::class, array(
+                'constraints' => new Length(
+                    array('min' => 10,
+                        'max' => 1000,
+                        'minMessage' => "Vous devez saisir minimum 10 caractères",
+                        'maxMessage' => "Vous devez saisir maximum 1000 caractères"
+                    )),
+                'attr' => array(
+                    'placeholder' => 'Votre message',)
+            ))
+
+            ->add('send', SubmitType::class, array(
+                'label' => 'Envoyer'
+            ))
+
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // data is an array with "name", "email", and "message" keys
+            $data = $form->getData();
+
+            $message = (new \Swift_Message($data["subject"]))
+                ->setFrom($data["email"])
+                ->setTo("lehibouquigeek@gmail.com")
+                ->setBody(
+                    "Message de : ".$data["name"].". ".
+                    $data["message"]
+                );
+
+            $mailer->send($message);
+
+
+        }
+
+        return $this->render("formMail.html.twig", array(
+            'form' => $form->createView(),
+        ));
+
+
+    }
 
 }

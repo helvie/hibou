@@ -1,0 +1,360 @@
+{% extends 'base.html.twig' %}
+
+
+    {% block logo %}
+
+    <div class="headSection homeHead">
+        <div>
+
+            <div class="container">
+
+                <div class="content">
+
+                    <div>
+                        <img alt="..." src="../assets/img/logoHome.png"/>
+                    </div>
+
+                 </div>
+            </div>
+         </div>
+    </div>
+
+    {% endblock %}
+
+    {% block content %}
+        <div class="section section-our-projects yellowBlock">
+
+        <div class="title-area">
+            <h2 style="margin-top:0; padding-top:35px;">L’agence de l’accessibilité web</h2>
+            <div class="separator separator-danger">♦</div>
+            <div class="description divDescription">
+            <p>
+                Experts dans le domaine du digital et passionnés par l’utilisation client, nous considérons le web comme un élément fondamental qui devrait être accessible à tous. Créatifs et dynamiques, nous saurons apporter toutes les solutions à vos besoins. La création ou la refonte de sites vitrines ou e-commerce, la construction de votre stratégie Webmarketing, ou encore, le développement d’une identité visuelle en cohérence avec image de marque, nous vous accompagnons dans tous vos projets.            </p>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a class="btn btn-fill btn-owl" href={{ path('owlContactDisplay')}}#quoteAnchor>
+                Parlez-nous de notre projet
+            </a>
+        </div>
+    </div>
+
+
+
+        <div class="section whiteBlock section-our-team">
+            <div class="container">
+                {#<div class="text-area">#}
+                    <div class="title-area"  style="margin-bottom:50px;">
+                        <h2>Le jeu du hibou</h2>
+                    </div>
+                {#</div>#}
+                <div style="text-align:center">
+
+                    <p id="cardText">
+
+
+                    </p>
+
+                </div>
+
+                <div class="game"  style="text-align:center;">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            {#<div class="row">#}
+
+                                {% for card in cardsArray %}
+
+                                    <div class="col-xs-3 col-6 cardDiv">
+                                        <div class="flip col-center-block" id={{ card }}>
+                                            <div class="gameCard">
+                                                <div class="face front">
+                                                    <img style = "border-radius:15px; " src="../assets/img/backgroundCard.png" class="gameImg img-responsive">
+                                                </div>
+                                                <div class="face back">
+                                                    <img style = "border-radius:15px;"  class="gameImg img-responsive" src={{"../assets/img/"~ card|slice(1) ~".png"}} >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    {#</div>#}
+                </div>
+
+                <div class="team"  style="text-align:center;margin-top:50px;">
+                    <div class="row">
+
+                        <!-- end team -->
+                        <div class="col-md-8 col-md-offset-2 text-center" style="height:60px;">
+                            <div class="col-md-6 text-center">
+                                <a class="btn btn-fill btn-owl"  href={{ path('owlContactDisplay')}}#contactAnchor>
+                                    Je prends rendez-vous
+                                </a>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <a class="btn btn-fill btn-owl" href={{ path('owlContactDisplay')}}#quoteAnchor>
+                                    Nous en dire plus
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+    <div class="beigeBlock section section-card-blog" style="padding-bottom:0;">
+        <div class="container">
+            <div class="title-area">
+                <h2>Nos dernières actualités</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6" style="padding: 0 50px 0 50px;">
+                    <div class="card card-blog">
+                        <a href="blog-posts.html" class="header">
+                            <img src="../assets/img/persons/web4y.jpg" class="image-header">
+
+                        </a>
+                        <div class="content"  style="background-color:#F9E9BE; padding: 25px 25px 0 25px;">
+                            <a href="blog-posts.html" class="card-title"><h2>We Are Here to Make Life Better</h2></a>
+                            <p>Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own The Pablo pop up was almost a pop up of influence.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" style="padding: 0 50px 0 50px;">
+                    <div class="card card-blog">
+                        <a href="blog-posts.html">
+                            <img src="../assets/img/persons/web6y.jpg" href="blog-posts.html" class="image-header">
+                        </a>
+                        <div class="content"  style="background-color:#F9E9BE; padding: 25px 25px 0 25px;"">
+                            <a href="blog-posts.html" class="card-title"><h2>We Are Here to Make Life Better</h2></a>
+                            <p>Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own The Pablo pop up was almost a pop up of influence.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {#<div class="col-md-12 text-center" style="height:50px;">#}
+                {#<button type="button" class="btn btn-fill btn-owl">#}
+                    {#Subscribe#}
+                {#</button>#}
+            {#</div>#}
+
+        </div>
+    {#</div>#}
+
+    <div class="blueBlock section" style="padding-top:50px;">
+        <div class="container">
+            <div class="title-area">
+                <h2>Recevez la newsletter du hibou</h2>
+            </div>
+
+            <div class="container">
+                <div class="formBlock contactForm1">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1">
+                        <div class="card1">
+
+                            <div class="card1-header card1-header-rose card1-header-icon">
+                                <div class="card1-icon">
+                                    <i class="material-icons" style="color:#113441">mail_outline</i>
+                                </div>
+                            </div>
+
+                            <div class="card1-body ">
+
+                                {{ form_start(formNL, {'attr': {'class': 'form-group'}} ) }}
+
+                                <div>
+                                    {{ form_widget(formNL.name, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formNL.name) }}
+                                </div>
+
+                                <div>
+                                    {{ form_widget(formNL.email, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_errors(formNL.email) }}
+                                </div>
+
+
+
+                                <div style="display:none;">
+                                    <div>
+                                        {{ form_widget(formNL.phone, {'attr': {'required': false, 'style':'display:none', 'class' : 'form-control'}}) }}
+                                    </div>
+
+                                    <div>
+                                        {{ form_row(formNL.quoteRequest, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                    </div>
+
+                                    <div>
+                                        {{ form_row(formNL.newsletterRequest, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                    </div>
+
+                                    <div>
+                                        {{ form_row(formNL.informationsRequest, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                    </div>
+
+                                    <div>
+                                        {{ form_row(formNL.archived, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                    </div>
+
+                                    <div>
+                                        {{ form_row(formNL.lastAction, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                    </div>
+
+                                    <div>
+                                        {{ form_row(formNL.lastActionDate, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                    </div>
+
+                                    <div>
+                                        {{ form_row(formNL.nextAction, {'attr': {'required': false, 'class' : 'form-control'}}) }}
+                                    </div>
+
+                                    <div>
+                                        {{ form_row(formNL.nextActionDate, {'attr': {'required': false, 'class' : 'form-control '}}) }}
+                                    </div>
+
+                                    <div>
+                                        {{ form_row(formNL.information, {'attr': {'required': false, 'class' : 'form-control '}}) }}
+                                    </div>
+                                </div>
+                                <div class="card1-footer ">
+                                    {{ form_row(formNL.save, {'attr': {'class' : 'form-control btn btn-fill btn-rose'},'label': "Je m’inscris"}) }}
+                                </div>
+
+                                {{ form_end(formNL) }}
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {#<div class="formBlock">#}
+                {#<div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1">#}
+                    {#<div class="card1 ">#}
+                        {#<div class="card1-header card1-header-rose card1-header-icon">#}
+                            {#<div class="card1-icon">#}
+                                {#<i class="material-icons" style="color:#113441">mail_outline</i>#}
+                            {#</div>#}
+                            {#<!--<h4 class="card1-title">Stacked Form</h4>-->#}
+                        {#</div>#}
+                        {#<div class="card1-body ">#}
+                            {#<form method="#" action="#">#}
+                                {#<div class="form-group">#}
+                                    {#<label for="name" class="bmd-label-floating">Nom et prénom ou société</label>#}
+                                    {#<input type="text" class="form-control" id="exampleEmail">#}
+                                {#</div>#}
+                                {#<div class="form-group">#}
+                                    {#<label for="email" class="bmd-label-floating">Adresse mail</label>#}
+                                    {#<input type="email" class="form-control" id="examplePass">#}
+                                {#</div>#}
+                                {#<div class="form-check">#}
+                                    {#<label class="form-check-label">#}
+                                        {#<input class="form-check-input" type="checkbox" value=""> S'inscrire à la newsletter#}
+                                        {#<span class="form-check-sign">#}
+                                            {#<span class="check">#}
+                                            {#</span>#}
+                                        {#</span>#}
+                                    {#</label>#}
+                                {#</div>#}
+                            {#</form>#}
+                        {#</div>#}
+                        {#<div class="card1-footer ">#}
+                            {#<button type="submit" class="btn btn-fill btn-rose">S'inscrire</button>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+
+        </div>
+    </div>
+
+
+    {% endblock %}
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+
+        var cardId1 = "";
+        var cardId2 = "";
+        var gerard = "";
+        var thisCard = "";
+
+        $(".gameCard").on("click", function(){
+
+            if(gerard == 1){
+                $(".flipped").removeClass("flipped")
+            }
+            gerard = 0;
+            $(this).addClass("flipped");
+
+            if(cardId1==""){
+                cardId1 = $(this).parent().attr("id").substr(1)
+            }
+            else
+            {
+                cardId2 = $(this).parent().attr("id").substr(1)
+            }
+
+            if(cardId1 != "" && cardId2 != ""){
+                console.log("jeu complet");
+
+                if(cardId1 == cardId2){
+                    $(".flipped").removeClass("flipped").addClass("flippedOk");
+
+                    if(cardId1 == "red"){
+                        $("#cardText").text("Quand ça marche pas ce projet... on voit rouge !")
+                    }
+                    if(cardId1 == "blue") {
+                        $("#cardText").text("Ca fait mal, des fois les bleus")
+
+                    }
+                    if(cardId1 == "green") {
+                        $("#cardText").text("Oh oui, se mettre au vert... le rêve !")
+
+                    }
+                    if(cardId1 == "pink") {
+                        $("#cardText").text("Du rose... rien que pour les filles !")
+
+                    }
+                    if(cardId1 == "yellow"){
+                        $("#cardText").text("C'est joli le jaune... c'est la couleur du soleil")
+
+
+                    }
+                    if(cardId1 == "owl") {
+                        $("#cardText").text("Mettez un hibou dans votre site !")
+
+                    }
+
+                }
+                else {
+                    gerard=1;
+                }
+                cardId1="";
+                cardId2="";
+            }
+
+        });
+
+
+    </script>
+
+{% endblock %}

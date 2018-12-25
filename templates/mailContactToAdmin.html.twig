@@ -1,0 +1,44 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Vous avez une nouvelle demande de devis</title>
+
+</head>
+
+<body>
+
+    <h1 style="margin-bottom:50px;">Vous avez une nouvelle demande de devis</h1>
+
+    <h2>La personne suivante souhaite être contactée :</h2>
+
+    <p style="color:#888;font-size:18px;  font-weight:bold">Nom</p>
+    <p style="margin-bottom:50px;font-size:18px; ">{{ name }}</p>
+
+    <p style="color:#888;font-size:18px;  font-weight:bold">Email</p>
+    <p style="margin-bottom:50px;font-size:18px; ">{{ email }}</p>
+
+    <p style="color:#888;font-size:18px;  font-weight:bold">Téléphone</p>
+    <p style="margin-bottom:50px;font-size:18px; ">{{ phone }}</p>
+
+    {% if requestPhone == 1 %}
+    <p style="color:#888;font-size:18px;  font-weight:bold">Elle souhaite êtra rappelée :</p>
+    <p style="margin-bottom:50px;font-size:18px;">Le {{ date }} {{ hour }}</p>
+
+    {% endif %}
+
+    <p style="color:#888; font-weight:bold">Son message :</p>
+    <p style="margin-bottom:50px;font-size:18px;">{{ message }}</p>
+
+
+
+
+</body>
+
+</html>

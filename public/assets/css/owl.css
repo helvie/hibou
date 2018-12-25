@@ -1772,3 +1772,7 @@ fieldset.scheduler-border {
     margin-bottom : 60px;
     margin-right:20px;
 }
+
+textarea#form_message.form-control.textarea {
+    height:200px;
+}

@@ -197,7 +197,7 @@
 
                                 <div style = "background-color : #dddddd; padding: 20px 20px 0 20px;margin-bottom:20px;">
 
-                                <div style="padding-top:15px;">
+                                <div class="contactChoice" style="padding-top:15px;">
 
                                     <input type="radio" id="contactChoiceTel"
                                            name="contact" value="telephone" checked>
@@ -432,19 +432,19 @@
         <div class="blueBlock section section-address" style="padding-top:0; padding-bottom:0;">
                 <div class="row">
 
-                    <div class="col-md-4" style="height:600px;">
+                    <div class="col-md-5" style="height:600px;">
 
-                        <div style="padding: 20%;">
+                        <div style="padding: 20% 10%;">
                         <li style="margin-bottom:0;"><a style="margin-bottom:0;"><span style="margin-bottom:0;" class="glyphicon glyphicon-map-marker"></span>92 avenue des Champs Elysées</a></li>
                         <li><a><span style="color:#113441;" class="glyphicon glyphicon-map-marker"></span>75018 Paris</a></li>
 
                             <li><a><span class=" glyphicon glyphicon-earphone "></span>06.05.87.18.18</a></li>
-                            <li><a><span class="glyphicon glyphicon-send"></span>lehibouquigeek@gmail.com</a></li>
+                            <li><a style="color:#ffffff" href={{ path('contactForm') }}><span style="color:#ffffff" class="glyphicon glyphicon-send"></span>lehibouquigeek@gmail.com</a></li>
                         </div>
 
                     </div>
 
-                    <div class="col-md-8">
+                    <div class="col-md-7">
                         <div  id="my_osm_widget_map">
 
 
@@ -517,30 +517,31 @@
 
         $("#prospect_lastAction").val(12);
 
-        // nextDate = new Date();
-        //
-        // $("#formControlSelect2").change(function(){
-        //     $("#prospect_nextAction").val($("#formControlSelect2").val());
-        // });
-        //
-        // $("#prospect_nextActionDate_month").val(tableMois[nextDate.getMonth()]);
-        // $("#prospect_nextActionDate_year").val(nextDate.getFullYear());
-        // $("#prospect_nextActionDate_day").val(nextDate.getDate());
-        // $("#prospect_nextAction").val(new Date());
-
-
-
-        //----------------------------------------------------------------------------------------------------
-
         $(".hoursMenu").hide();
 
         var nextDate = new Date();
         var day = nextDate.getDay();
         var hour = nextDate.getHours();
 
-        $(".validContactForm").on("click", function(){
+
+        $(".contactChoice").on("click", function(){
 
             if($("#contactChoiceMail").prop('checked')) {
+                $(".daysMenu").hide();
+            }
+            else if($("#contactChoiceTel").prop('checked')) {
+                $(".daysMenu").show();
+            }
+            });
+
+
+
+            $(".validContactForm").on("click", function(){
+
+            if($("#contactChoiceMail").prop('checked')) {
+
+
+
 
                 numLastAction = 11;
                 numNextAction = 6;
@@ -550,6 +551,7 @@
             }
 
             else if($("#contactChoiceTel").prop('checked')){
+
 
                 numLastAction = 12;
                 numNextAction = $("#formControlSelect2").val();
@@ -590,7 +592,6 @@
 
         });
 
-        //--------------------------------------------------------------------------------------------------------
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage de la carte ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -615,29 +616,7 @@
             }).addTo(mymap);
 
             L.marker([48.8713722, 2.301316199999974]).addTo(mymap); /* set your location's GPS Coordinates : [LAT,LON] */
-            // var mymap = L.map('my_osm_widget_map', {
-            //     /* use the same name as your <div id=""> */
-            //     center: [markersArray[0]["lat"], markersArray[0]["lon"]], /* set GPS Coordinates */
-            //     zoom: 20, /* define the zoom level */
-            //     zoomControl: true, /* false = no zoom control buttons displayed */
-            //     scrollWheelZoom: false /* false = scrolling zoom on the map is locked */
-            // });
-            //
-            // L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGVsdmllIiwiYSI6ImNqbHE3dmswNzBpeG4zcHJtcDlsYzlsam0ifQ.ZhDZxIiUHk0Kg61GjvU1Jw', {
-            //     /* set your personal MapBox Access Token */
-            //     maxZoom: 20, /* zoom limit of the map */
-            //     attribution: 'Données &copy; Contributeurs <a href="http://openstreetmap.org">OpenStreetMap</a> + ' +
-            //         '<a href="http://mapbox.com">Mapbox</a> | ' +
-            //         '<a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a> ' +
-            //         'Guillaume Rouan 2016', /* set the map's caption */
-            //     id: 'mapbox.streets' /* mapbox.light / dark / streets / outdoors / satellite */
-            // }).addTo(mymap);
-            //
-            // // L.marker([lat, lon]).addTo(mymap);
-            //
-            // $.each(markersArray, function (index, element) {
-            //     L.marker([element.lat, element.lon]).bindPopup('<b>' + element.text + '</b>').addTo(mymap);
-            // })
+
         }
 
 
