@@ -3,7 +3,10 @@
 {#----------------------------- Page formulaire d'ajout d'un organisme ---------------------------#}
 
 
-{% extends 'base.html.twig' %}
+{% extends 'adminBase.html.twig' %}
+
+
+{% block title %}Création articles{% endblock %}
 
 {% block content %}
 
@@ -12,10 +15,43 @@
         <h1 style="padding-top:20px;margin-top:0;">Gestion des articles</h1>
     </div>
 
-    <div class = "whiteBlock" style="padding-top:70px;">
-    <div class="articleAdmin container col-lg-8 col-lg-offset-2">
+    {{ parent() }}
+
+    {#<div class="team"  style="text-align:center;margin-top:50px;">#}
+        {#<div class="row">#}
+
+            {#<!-- end team -->#}
+            {#<div class="col-md-8 col-md-offset-2 text-center" style="height:60px;">#}
+                {#<div class="col-md-4 text-center">#}
+                    {#<a aria-label="Atteindre la page prospects" class="btn btn-fill btn-owl"  href={{ path('adminProspect')}}>#}
+                        {#Gestion des prospects#}
+                    {#</a>#}
+                {#</div>#}
+                {#<div class="col-md-4 text-center">#}
+                    {#<a aria-label="Atteindre la page gestion articles" class="btn btn-fill btn-owl" href={{ path('adminArticle')}}>#}
+                        {#Gestion des articles#}
+                    {#</a>#}
+                {#</div>#}
+                {#<div class="col-md-4 text-center">#}
+                    {#<a  aria-label="Atteindre la page création utilisateurs" class="btn btn-fill btn-owl" href={{ path('registrationUser')}}>#}
+                        {#Création d'un utilisateur#}
+                    {#</a>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+
+    {#<div class = "whiteBlock" style="padding-top:70px;">#}
+    {#<div>#}
+
+    <div class="articleAdmin container col-lg-8 col-lg-offset-2" style="background-color:white;padding:30px 40px;border-radius:8px;margin-top:10px;margin-bottom:40px;">
 
 
+        <div>
+            <a aria-label="Atteindre le formulaire création article" class="btn btn-fill btn-owl" style="margin-bottom:50px;margin-top:30px;" href={{ path('articleFormDisplay')}}>
+                Ajout article
+            </a>
+        </div>
 
         {% for article in articles %}
 
@@ -23,7 +59,7 @@
                 <div class="articleText">
 
                 <p>
-                    <a href="{{ path('article',{'art':article.id}) }}" class="btn btn-fill btn-owl" style="padding:14px 15px;">Voir l'article</a>
+                    {#<a  href="{{ path('owlBlogDisplay',{'art':article.id}) }}" class="btn btn-fill btn-owl" style="padding:14px 15px;">Voir l'article</a>#}
 
                     <a class="glyphicon glyphicon-pencil link articleUpdate" style="margin-right:10px; margin-left:10px;" id="up{{ article.id }}" href="{{ path('articleFormDisplay',{'art':article.id}) }}"></a>
                     {#<span class="glyphicon glyphicon-pencil link articleUpdate" id="up{{ article.id }}"></span>#}
@@ -45,8 +81,7 @@
         {% endfor %}
 
     </div>
-    </div>
-
+    {#</div>#}
 {% endblock %}
 
 

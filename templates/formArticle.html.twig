@@ -1,9 +1,9 @@
 
 
-{#----------------------------- Page formulaire d'ajout d'un organisme ---------------------------#}
+{% extends 'adminBase.html.twig' %}
 
 
-{% extends 'base2.html.twig' %}
+{% block title %}Création d'articles{% endblock %}
 
 
 
@@ -28,8 +28,12 @@
         <h1 style="padding-top:20px;margin-top:0;">{{ subText }}</h1>
     </div>
 
+    {{ parent() }}
 
-    <div class = "container col-lg-6 col-lg-offset-3 formArticle" style="padding-top:50px;">
+
+    <div class = "container col-lg-6 col-lg-offset-3 formArticle">
+
+        <div style="background-color:#ffffff; padding:30px 30px 0 30px;border-radius:8px;margin-bottom:70px;">
 
         {{ form_start(form, {'attr': {'class': 'form-group'}}) }}
 
@@ -99,12 +103,12 @@
         </div>
 
         <div class = "formSection">
-            {{ form_widget(form.submit, {'attr': {'class' : 'form-control btn btn-fill btn-rose btn-owl'}},{'value': 'Enregistrer'}) }}
+            {{ form_widget(form.submit, {'attr': {'class' : 'form-control btn btn-fill btn-rose btn-owl','aria-label':"Enregistrer l'article" },'label': "Enregistrer"}) }}
         </div>
 
 
         {{ form_end(form) }}
-
+        </div>
     </div>
 
 {% endblock %}

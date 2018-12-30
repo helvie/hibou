@@ -129,7 +129,7 @@ p {
     line-height: 27px;
     font-weight: 300;
     margin: 0 0 .75em;
-    color: #113441;
+    color: #000000;
 }
 
 p,
@@ -925,10 +925,10 @@ a:hover, a:focus {
 }
 
 .accessCarousel .carousel-caption {
-    background: blueviolet;
+    background: #bbbbbb;
     opacity: 0.5;
     color: white;
-    border: blueviolet solid 2px;
+    border: #bbbbbb solid 2px;
 
 }
 
@@ -941,10 +941,10 @@ a:hover, a:focus {
     padding-top: 20px;
     padding-bottom: 20px;
     text-align: center;
-    background: blueviolet;
+    background: #bbbbbb;
     opacity: 0.5;
     color: white;
-    border: blueviolet solid 2px;
+    border: #bbbbbb solid 2px;
 }
 
 .accessCarousel #stars {
@@ -1101,10 +1101,8 @@ input.form-control::placeholder {
 
 
 
-.btn-owl {
-    /*margin-bottom: 5px;*/
-    z-index: 1;
-    /*width: 270px;*/
+.adminSpace .btn-owl{
+    width: 200px;
 }
 
 .speDescriptive {
@@ -1775,4 +1773,20 @@ fieldset.scheduler-border {
 
 textarea#form_message.form-control.textarea {
     height:200px;
+}
+
+a.lastActionBtn:hover {
+    color: #fff;
+
+}
+
+/*.speDescriptive img {*/
+    /*margin-bottom : 40px;*/
+    /*margin-top : 40px;*/
+    /*text-align: center;*/
+
+/*}*/
+
+.adminBtn {
+    padding:30px;
 }

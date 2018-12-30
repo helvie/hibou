@@ -34,6 +34,12 @@ adminArticle:
     path: /adminArticle
     controller: App\Controller\DefaultController::adminArticleDisplay
 
+
+adminSpace:
+    path: /adminSpace
+    controller: App\Controller\DefaultController::adminSpaceDisplay
+
+
 adminProspect:
     path: /adminProspect
     controller: App\Controller\DefaultController::adminProspectDisplay
@@ -46,23 +52,98 @@ lastActionSave:
     path: /lastActionSave
     controller: App\Controller\DefaultController::lastActionSave
 
-article:
-    path: /article
-    controller: App\Controller\DefaultController::articleDisplay
+#article:
+#    path: /article
+#    controller: App\Controller\DefaultController::articleDisplay
 
 
 articleTrash:
-    path: /articleTrash
+    path: /adminArticleTrash
     controller: App\Controller\DefaultController::articleTrash
 
 articleUpdate:
-    path: /articleUpdate
+    path: /adminArticleUpdate
     controller: App\Controller\DefaultController::articleUpdate
 
 articleFormDisplay:
-    path: /articleFormDisplay
+    path: /adminArticleFormDisplay
     controller: App\Controller\DefaultController::articleFormDisplay
+
+owlPropectNLRegistred:
+    path: /owlPropectNLRegistred
+    controller: App\Controller\DefaultController::owlPropectNLRegistred
+
 
 #deleteAuthorImage:
 #    path: /adminDeleteAuthorImage
 #    controller : App\Controller\DefaultController::deleteAuthorImage
+
+# Page de connexion
+#~~~~~~~~~~~~~~~~~~
+login:
+    path: /login
+    controller: App\Controller\SecurityController:loginAction
+
+
+# Déconnexion
+#~~~~~~~~~~~~
+logout:
+    path: /logout
+
+
+# Controller vérification Login
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+loginCheck:
+    path: /loginCheck
+    controller: App\Controller\SecurityController:loginCheckAction
+
+
+
+requestResetPassword:
+    path: /requestResetPassword
+    controller: App\Controller\Security\SecurityController:requestResetPassword
+
+
+
+registrationUser:
+    path: /adminRegistrationUser
+    controller: App\Controller\SecurityController:registrationUser
+
+
+activeUser:
+    path: /activeUser
+    controller: App\Controller\SecurityController:activeUser
+
+repeatActiveUser:
+    path: /repeatActiveUser
+    controller: App\Controller\SecurityController:repeatActiveUser
+
+cgu:
+    path: /cgu
+    controller: App\Controller\DefaultController:cguDisplay
+
+cgv:
+    path: /cgv
+    controller: App\Controller\DefaultController:cgvDisplay
+
+cookies:
+    path: /cookies
+    controller: App\Controller\DefaultController:cookiesDisplay
+
+rgpd:
+    path: /rgpd
+    controller: App\Controller\DefaultController:rgpdDisplay
+
+
+lp1:
+    path: /lp1
+    controller: App\Controller\DefaultController:lp1
+
+
+lp2:
+    path: /lp2
+    controller: App\Controller\DefaultController:lp2
+
+helloAnalytics:
+    path: /helloAnalytics
+    controller: App\Controller\DefaultController:helloAnalytics

@@ -208,7 +208,7 @@ $('.devOpen').click(function(){
 
 });
 
-$('.devClose').click(function(){
+$('.dev').click(function(){
     $('.dev').toggleClass("speDisplay");
     $('.devImg').toggleClass('speImgDisplay');
     $('.generalSpeBlock').toggleClass('hide');

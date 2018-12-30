@@ -1,0 +1,50 @@
+
+
+{#------------------------------ Page de gestion par l'organisme -----------------------------------#}
+
+{% extends 'base.html.twig' %}
+
+
+    {% block content %}
+
+
+        <div class="col-12 pageTitle">
+
+            <div class="classes container col-lg-10 col-lg-offset-1">
+
+                <h2>
+
+                    Formulaire de contact <span class="subtitle">#organisme</span>
+
+                </h2>
+
+            </div>
+
+            <div class="container col-lg-10 col-lg-offset-1 management" style="padding-top:50px;">
+
+                <h4>Afin de créer votre organisme, il est nécessaire d'être connecté</h4>
+
+                <a href = "{{ path('login') }}" class="btn btn-primary buttonValid buttonLogout">Se connecter</a>
+                <a href = "{{ path('registrationUser') }}" class="btn btn-primary buttonLogout buttonSearch">Créer un espace de connexion</a>
+                <a href = "{{ path('index') }}" class="btn btn-warning buttonReturn buttonAdmOrg">Revenir à la page d'accueil</a>
+
+            </div>
+
+        </div>
+
+
+    {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

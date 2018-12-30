@@ -14,9 +14,7 @@
 
 <body>
 
-    <h1 style="margin-bottom:50px;">Vous avez une nouvelle demande de devis</h1>
-
-    <h2>La personne suivante souhaite être contactée :</h2>
+    <h1 style="margin-bottom:50px;">Vous avez une nouvelle demande</h1>
 
     <p style="color:#888;font-size:18px;  font-weight:bold">Nom</p>
     <p style="margin-bottom:50px;font-size:18px; ">{{ name }}</p>
@@ -29,7 +27,7 @@
 
     {% if requestPhone == 1 %}
     <p style="color:#888;font-size:18px;  font-weight:bold">Elle souhaite êtra rappelée :</p>
-    <p style="margin-bottom:50px;font-size:18px;">Le {{ date }} {{ hour }}</p>
+    <p style="margin-bottom:50px;font-size:18px;">{{ phoneHour }}, le {{ phoneDate }}</p>
 
     {% endif %}
 

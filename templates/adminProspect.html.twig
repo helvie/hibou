@@ -3,33 +3,57 @@
 {#----------------------------- Page formulaire d'ajout d'un organisme ---------------------------#}
 
 
-{% extends 'base2.html.twig' %}
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Gestion prospects{% endblock %}
+
 
 {% block content %}
 
 
-    <div class = "whiteBlock" style="padding-top:70px;background-color:#ffbb00;">
-        <div class="container">
-    <div class = "col-lg-10 col-lg-offset-1">
+    <div class="section yellowBlock section-our-team">
+        <!--<div class="text-area">-->
+        <h1>Suivi Prospects</h1>
+    </div>
 
-        <div class="prospectTitle">
+    {{ parent() }}
+        {#<div class="team"  style="text-align:center;margin-top:50px;">#}
+            {#<div class="row">#}
 
-            <h1>Suivi des prospects</h1>
+                {#<!-- end team -->#}
+                {#<div class="col-md-8 col-md-offset-2 text-center" style="height:60px;">#}
+                    {#<div class="col-md-4 text-center">#}
+                        {#<a aria-label="Atteindre la page prospects" class="btn btn-fill btn-owl"  href={{ path('adminProspect')}}>#}
+                            {#Gestion des prospects#}
+                        {#</a>#}
+                    {#</div>#}
+                    {#<div class="col-md-4 text-center">#}
+                        {#<a aria-label="Atteindre la page gestion articles" class="btn btn-fill btn-owl" href={{ path('adminArticle')}}>#}
+                            {#Gestion des articles#}
+                        {#</a>#}
+                    {#</div>#}
+                    {#<div class="col-md-4 text-center">#}
+                        {#<a  aria-label="Atteindre la page création utilisateurs" class="btn btn-fill btn-owl" href={{ path('registrationUser')}}>#}
+                            {#Création d'un utilisateur#}
+                        {#</a>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
 
-        </div>
-
-
+        <div class="team"  style="text-align:center;margin-top:20px;">
 
 
         {#{{ dump(data) }}#}
-
+        <div class="row">
+        <div class="col-md-6 col-md-offset-3">
 
         {% for prospect in prospects %}
 
             {% set prospectId = "id" ~ prospect.id %}
 
             {#{{ dump(prospect.prospectInformation) }}#}
-                <div class="prospectText" id={{ prospectId }}>
+                <div style="text-align:left;" class="prospectText" id={{ prospectId }} >
 
                     <div class="divProspect1 {{ prospectId }}">
 
@@ -149,7 +173,7 @@
                                 {#<label for="non">Non intéressé</label>#}
                                 <textarea class="form-control lastActionArea {{ prospectId }}"  style="margin:20px 0; height:70px;" placeholder="Observations"></textarea>
                                 {#<button class="btn btn-primary lastActionBtn">Mettre à jour</button>#}
-                                <a class="btn btn-primary lastActionBtn">Mettre à jour</a>
+                                <a class="btn btn-fill btn-rose lastActionBtn">Mettre à jour</a>
 
                             </form>
                             </fieldset>
@@ -184,7 +208,7 @@
                                 {#<input type= "radio" name="nextActionOption" class="nextActionOption" value="9"> <span>Autre</span>#}
 
                             <textarea class="form-control nextActionArea  {{ prospectId }}" style="margin:20px 0; height:70px;" placeholder="Observations"></textarea>
-                                <button class="btn btn-primary nextActionBtn">Mettre à jour</button>
+                                <button class="btn btn-fill btn-rose nextActionBtn">Mettre à jour</button>
                             </select>
 
                         </fieldset>
@@ -205,177 +229,184 @@
 {% endblock %}
 
 
-    {% block javascripts %}
+    {#{% block javascripts %}#}
 
-        {{ parent() }}
+        {#{{ parent() }}#}
 
-        <script src="{{ asset('assets/js/articleAdmin.js') }}"></script>
+        {#<script src="{{ asset('assets/js/articleAdmin.js') }}"></script>#}
 
-        <script>
-            var thisId ="";
-            var nextActionInfo="";
-            var nextActionDate="";
-            var nextActionId="";
-            var lastActionInfo="";
-            // var nextActionDate="";
-            var lastActionId="";
+        {#<script>#}
+            {#var thisId ="";#}
+            {#var nextActionInfo="";#}
+            {#var nextActionDate="";#}
+            {#var nextActionId="";#}
+            {#var lastActionInfo="";#}
+            {#// var nextActionDate="";#}
+            {#var lastActionId="";#}
 
-            function dateFormat(dateObject) {
-                var d = new Date(dateObject);
-                var day = d.getDate();
-                var month = d.getMonth() + 1;
-                var year = d.getFullYear();
-                if (day < 10) {
-                    day = "0" + day;
-                }
-                if (month < 10) {
-                    month = "0" + month;
-                }
-                var date = day + "/" + month + "/" + year;
+            {#function dateFormat(dateObject) {#}
+                {#var d = new Date(dateObject);#}
+                {#var day = d.getDate();#}
+                {#var month = d.getMonth() + 1;#}
+                {#var year = d.getFullYear();#}
+                {#if (day < 10) {#}
+                    {#day = "0" + day;#}
+                {#}#}
+                {#if (month < 10) {#}
+                    {#month = "0" + month;#}
+                {#}#}
+                {#var date = day + "/" + month + "/" + year;#}
 
-                return date;
-            };
+                {#return date;#}
+            {#};#}
 
-            date = new Date();
-            date = dateFormat(date);
+            {#date = new Date();#}
+            {#date = dateFormat(date);#}
 
-            $(".showProspect2").on("click", function(){
-                var thisId = $(this).parent().parent().attr("id");
-                $(".divProspect2."+thisId).toggleClass("hidden");
-
-            });
-
-            $(".lastActionBtn").on("click", function(){
-                var thisId = $(this).parent().parent().parent().parent().parent().attr("id");
-                console.log(thisId);
-                lastActionText = $(".lastActionSelect."+thisId).find('option:selected').text();
-                lastActionVal = $(".lastActionSelect."+thisId).val();
+            {#$(".showProspect2").on("click", function(){#}
+                {#var thisId = $(this).parent().parent().attr("id");#}
+                {#$(".divProspect2."+thisId).toggleClass("hidden");#}
+                {#if( $(this).text()=="Afficher détail"){#}
+                    {#$(this).text("Cacher détail")#}
+                {#}else if( $(this).text()=="Cacher détail"){#}
+                    {#$(this).text("Afficher détail")#}
+                {#};#}
+                {#$(".showProspect2").replace#}
 
 
+            {#});#}
 
-                lastActionInfo = $(".lastActionArea."+thisId).val();
-                prospectInfo = $(this).parent().parent().parent().parent().find(".prospectInfo");
-
-                newP = document.createElement("p");
-                newText = document.createTextNode(date+" - "+lastActionText+" - Note : "+lastActionInfo);
-                newP.appendChild(newText);
-                prospectInfo.prepend(newP);
-
-                lastActionId = $(".lastActionSelect").val();
-                console.log("essai : "+lastActionId);
-                lastActionSave(thisId, lastActionId, lastActionInfo);
-
-            });
-
-            $(".nextActionBtn").on("click", function(){
-                thisId = $(this).parent().parent().parent().parent().attr("id");
-                console.log(thisId);
-                prospectInfo = $(this).parent().parent().parent().parent().find(".prospectInfo");
-                nextActionText = $(".nextActionSelect."+thisId).find('option:selected').text();
-                nextActionInfo = $(".nextActionArea."+thisId).val();
-                nextActionDate = dateFormat($(".nextActionDate."+thisId).val());
-                nextFullActionDate = $(".nextActionDate."+thisId).val();
-                nextActionP = $(".nextActionP."+thisId);
-                nextActionP.empty();
-                newText = document.createTextNode("Prochaine action : "+nextActionText+", le "+nextActionDate+" (demandeur : commercial)");
-                nextActionP.prepend(newText);
-
-                nextActionId = $(".nextActionSelect").val();
-                console.log("ceci est le nextactionId "+nextActionId);
-
-                newP2 = document.createElement("p");
-                newText2 = document.createTextNode(date+" - "+nextActionText+", le "+nextActionDate+" - Note : "+nextActionInfo);
-                newP2.appendChild(newText2);
-                prospectInfo.prepend(newP2);
-
-                nextActionSave(thisId, nextActionId, nextActionDate, nextActionInfo);
-
-
-            });
-
-
-            function nextActionSave(prospectId, nextActionId, nextFullActionDate, nextActionArea) {
-
-                console.log("essai sauve");
-
-                // Déclenchement du controleur de validation/invalidation de l'organisme
-
-                $.ajax({
-                    url: "nextActionSave",
-                    type: "POST",
-                    data:
-                        {
-                            prospectId: prospectId,
-                            nextActionId: nextActionId,
-                            nextFullActionDate: nextFullActionDate,
-                            nextActionArea: nextActionArea
-
-
-                        },
-                    dataType: 'json',
-
-                    success: function (data) {
-                        console.log("prospectId : "+prospectId);
-                            console.log("nextActionId : "+nextActionId);
-                            console.log ("nextFullActionDate : "+nextFullActionDate);
-                            console.log ("nextActionArea : "+nextActionArea);
-
-                            console.log(data);
-
-                    },
-
-                    error: function () {
-                        console.log("prospectId : "+prospectId);
-                        console.log("nextActionId : "+nextActionId);
-                        console.log ("nextFullActionDate : "+nextFullActionDate);
-                        console.log ("nextActionArea : "+nextActionArea);
-                        console.log("retour :"+data);
-
-                    }
-
-                })
-            }
-
-            function lastActionSave(prospectId, lastActionId, lastActionArea) {
-
-                // console.log("essai sauve");
-
-
-                // Déclenchement du controleur de validation/invalidation de l'organisme
-
-                $.ajax({
-                    url: "lastActionSave",
-                    type: "POST",
-                    data:
-                        {
-                            prospectId: prospectId,
-                            lastActionId: lastActionId,
-                            lastActionArea: lastActionArea
-                        },
-                    dataType: 'json',
-
-                    success: function (data) {
-                        console.log("retour :"+data);
-
-                            console.log("prospectId: "+prospectId);
-                        console.log("lastActionId: "+lastActionId);
-                        console.log("lastActionArea: "+lastActionArea);
-
-                    },
-
-                    error: function () {
-                        console.log("prospectId: "+prospectId);
-                        console.log("lastActionId: "+lastActionId);
-                        console.log("lastActionArea: "+lastActionArea);
-                        console.log("C'est raté !");
-
-                    }
-
-                })
-            }
+            {#$(".lastActionBtn").on("click", function(){#}
+                {#var thisId = $(this).parent().parent().parent().parent().parent().attr("id");#}
+                {#console.log(thisId);#}
+                {#lastActionText = $(".lastActionSelect."+thisId).find('option:selected').text();#}
+                {#lastActionVal = $(".lastActionSelect."+thisId).val();#}
 
 
 
-        </script>
+                {#lastActionInfo = $(".lastActionArea."+thisId).val();#}
+                {#prospectInfo = $(this).parent().parent().parent().parent().find(".prospectInfo");#}
 
-    {% endblock %}
+                {#newP = document.createElement("p");#}
+                {#newText = document.createTextNode(date+" - "+lastActionText+" - Note : "+lastActionInfo);#}
+                {#newP.appendChild(newText);#}
+                {#prospectInfo.prepend(newP);#}
+
+                {#lastActionId = $(".lastActionSelect").val();#}
+                {#console.log("essai : "+lastActionId);#}
+                {#lastActionSave(thisId, lastActionId, lastActionInfo);#}
+
+            {#});#}
+
+            {#$(".nextActionBtn").on("click", function(){#}
+                {#thisId = $(this).parent().parent().parent().parent().attr("id");#}
+                {#console.log(thisId);#}
+                {#prospectInfo = $(this).parent().parent().parent().parent().find(".prospectInfo");#}
+                {#nextActionText = $(".nextActionSelect."+thisId).find('option:selected').text();#}
+                {#nextActionInfo = $(".nextActionArea."+thisId).val();#}
+                {#nextActionDate = dateFormat($(".nextActionDate."+thisId).val());#}
+                {#nextFullActionDate = $(".nextActionDate."+thisId).val();#}
+                {#nextActionP = $(".nextActionP."+thisId);#}
+                {#nextActionP.empty();#}
+                {#newText = document.createTextNode("Prochaine action : "+nextActionText+", le "+nextActionDate+" (demandeur : commercial)");#}
+                {#nextActionP.prepend(newText);#}
+
+                {#nextActionId = $(".nextActionSelect").val();#}
+                {#console.log("ceci est le nextactionId "+nextActionId);#}
+
+                {#newP2 = document.createElement("p");#}
+                {#newText2 = document.createTextNode(date+" - "+nextActionText+", le "+nextActionDate+" - Note : "+nextActionInfo);#}
+                {#newP2.appendChild(newText2);#}
+                {#prospectInfo.prepend(newP2);#}
+
+                {#nextActionSave(thisId, nextActionId, nextActionDate, nextActionInfo);#}
+
+
+            {#});#}
+
+
+            {#function nextActionSave(prospectId, nextActionId, nextFullActionDate, nextActionArea) {#}
+
+                {#console.log("essai sauve");#}
+
+                {#// Déclenchement du controleur de validation/invalidation de l'organisme#}
+
+                {#$.ajax({#}
+                    {#url: "nextActionSave",#}
+                    {#type: "POST",#}
+                    {#data:#}
+                        {#{#}
+                            {#prospectId: prospectId,#}
+                            {#nextActionId: nextActionId,#}
+                            {#nextFullActionDate: nextFullActionDate,#}
+                            {#nextActionArea: nextActionArea#}
+
+
+                        {#},#}
+                    {#dataType: 'json',#}
+
+                    {#success: function (data) {#}
+                        {#console.log("prospectId : "+prospectId);#}
+                            {#console.log("nextActionId : "+nextActionId);#}
+                            {#console.log ("nextFullActionDate : "+nextFullActionDate);#}
+                            {#console.log ("nextActionArea : "+nextActionArea);#}
+
+                            {#console.log(data);#}
+
+                    {#},#}
+
+                    {#error: function () {#}
+                        {#console.log("prospectId : "+prospectId);#}
+                        {#console.log("nextActionId : "+nextActionId);#}
+                        {#console.log ("nextFullActionDate : "+nextFullActionDate);#}
+                        {#console.log ("nextActionArea : "+nextActionArea);#}
+                        {#console.log("retour :"+data);#}
+
+                    {#}#}
+
+                {#})#}
+            {#}#}
+
+            {#function lastActionSave(prospectId, lastActionId, lastActionArea) {#}
+
+                {#// console.log("essai sauve");#}
+
+
+                {#// Déclenchement du controleur de validation/invalidation de l'organisme#}
+
+                {#$.ajax({#}
+                    {#url: "lastActionSave",#}
+                    {#type: "POST",#}
+                    {#data:#}
+                        {#{#}
+                            {#prospectId: prospectId,#}
+                            {#lastActionId: lastActionId,#}
+                            {#lastActionArea: lastActionArea#}
+                        {#},#}
+                    {#dataType: 'json',#}
+
+                    {#success: function (data) {#}
+                        {#console.log("retour :"+data);#}
+
+                            {#console.log("prospectId: "+prospectId);#}
+                        {#console.log("lastActionId: "+lastActionId);#}
+                        {#console.log("lastActionArea: "+lastActionArea);#}
+
+                    {#},#}
+
+                    {#error: function () {#}
+                        {#console.log("prospectId: "+prospectId);#}
+                        {#console.log("lastActionId: "+lastActionId);#}
+                        {#console.log("lastActionArea: "+lastActionArea);#}
+                        {#console.log("C'est raté !");#}
+
+                    {#}#}
+
+                {#})#}
+            {#}#}
+
+
+
+        {#</script>#}
+
+    {#{% endblock %}#}

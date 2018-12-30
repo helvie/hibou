@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "le-hibou-227111",
+  "private_key_id": "0519993f7fd13bc34c77b037ef7b577e00cafcd9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDGavExej72p59B\n+CfaegEwvGjrBGRgRTKRAj4Oj4bTL5wn9yHNit+Qy+Y/ayJJKKRtpr4ntiFmLf7n\nL3WgVUlpbJGNYYhZab36FjeeZQV0yDKE95aqzkq7y6WjA5ZxJ3wnGH4a29woKxDQ\nA4Fz/Tw5IZgDx9SJfgbTyaNSHXiKq55frCLbkvViI8P9QT/TfZZXEMCZcn0NI6yg\nRU+/aUFONtH2y8ZY4JMHbOW2z0HJzuajDN6HgoUt9jmjuggnd1mE2FgWNjpaJebM\nH2Cp7Kj0lTDbuMlaR5bDWLb/R/pbq6cRKRpUV0vlbkiVGNVlPAJOUng0GoSR7iEz\nHJl4QEIDAgMBAAECggEAObbrt3+ehvKVAYRkW0l3xSxYvFvHsrUOE136nROknRNR\nMdLR007c3upga/wGug8HXRnOYBC7QFSKu8ZzSZLlSrQY1m4TUibO6srBnOI3pxOA\nlmrKOZ7N4DhJUtR9UyawF1MpgziGnmyAdHFAm3OCq/+Yjyj2KpQs+jfBuOX3pSXp\nOg4hy06JjdPpgOPDNGcollW+cPYSEkHzBeRJrQmcdnfpQMjswEx45npVUTsDcC2F\nkACl93Yf5J2JcUBtOc/DSsoN6b/U2kojdSiuDCwC3IbO/WPDKmwTl9S4LG/lOU/K\nO5tT+56AwQN1EZ78bQDytK4+Qa9bN2+4cRDcy2EN4QKBgQDoppPJ+DLUzJ1/qHGF\n7manIq7ZrOqGETLsUlk15MiZ4PUJL1KCPz6n44r4eYhNwv7gXv3fAfxYRttMSR7q\nwU2otVc4SztknckFZSdV15bL7x/P/bkDC5cA7lTXJqIX2kc9OeNcUrSxUSnUikZG\nBgtSjSeCyllDdOewoZO5fsJ2EQKBgQDaVNQFjevcCWluGT/inB/FWk1Kkn7D733H\nyVvgroW4yiQ0H115UR5ndFw+AhcmXrT7TPWTwEn0TWcYuDIJ6QDWeNCFd7j08Yra\nFE+EW4NxBE7bTFKtxRP1+QBGe7Qw/v61BoI4HlA2AFQ3z7vFJ97W+QHFs0VzyMxf\nqf+eDC/S0wKBgFR90qSCACvqV7S5/uiOCTffz7J8KvwfmOfcjEuXWAcSfMsmJYfp\n4h5k896DfK4JCDmCJh7sgLGqohAVaiYFp+eCXDe0ktBawVu1PdDeKATORjZqRdvG\nRMPwyl0Mycdx3Xdt45Vu7/KJsHBg+16I6WnEm7nTNRHbjh1GwPiYAZWRAoGAQOqD\n9/rQrCXoQSIkyp4dHDLTVF7mbh+hSGvoc4+wltcTmKPSySWDYsNIQe+hLnluWmHx\nirLbylXRV5o81pF+/EYDygtk5P+Eh38OfY4wMMRVJgM1ehFk8/fLSymw0/idhvme\nck0hEE1cvRN5Aw/txAFZs4ywE9MaYT9Mj5OUDJ0CgYEApKylrk+SCv2IglZVJJr4\nYjyU+C6VrGOjBGClxUH18+CSjvbrK+rxFghcpZM7yc7rU+obKXLhvJLk3yVRkV/l\n07/+HHnwgLXfssrcxZ+niHwJSCCDoAg5bQEwgIfVW9P5xLoECRblcAHWXIB8yNjA\nMrOOmqZSU0sYu2P9HAHfON8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "hibou-sce@le-hibou-227111.iam.gserviceaccount.com",
+  "client_id": "114941894577909764674",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/hibou-sce%40le-hibou-227111.iam.gserviceaccount.com"
+}

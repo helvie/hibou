@@ -1,9 +1,9 @@
 
 
-{#----------------------------- Page formulaire d'ajout d'un organisme ---------------------------#}
-
-
 {% extends 'base.html.twig' %}
+
+
+{% block title %}Envoi mail{% endblock %}
 
 
     {% block stylesheets %}
@@ -91,7 +91,7 @@
 
                             </div>
                             <div class="card1-footer" style="margin-left:20px">
-                                {{ form_row(form.send, {'attr': {'class' : 'form-control btn btn-fill btn-rose'},'label': "Envoyer"}) }}
+                                {{ form_row(form.send, {'attr': {'class' : 'form-control btn btn-fill btn-rose','aria-label':"Envoyer le mail" },'label': "Envoyer"}) }}
                             </div>
 
                             {{ form_end(form) }}

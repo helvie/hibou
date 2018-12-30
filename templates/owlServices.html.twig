@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 
+{% block title %}Nos services{% endblock %}
+
+
     {% block content %}
 
 
@@ -107,15 +110,15 @@
 
                             <div class="row">
                             <div class="col-md-4 speDescriptive">
-                                <img  src="../assets/img/fullImg1.png" class="markImg markImg2 image-header">
+                                <img src="../assets/img/speMark1.png" class="markImg markImg2 image-header">
                             </div>
 
                             <div class="col-md-4 speDescriptive">
-                                <img src="../assets/img/fullImg2.png" class="markImg markImg2 image-header">
+                                <img src="../assets/img/speMark2.png" class="markImg markImg2 image-header">
                             </div>
 
                             <div class="col-md-4 speDescriptive">
-                                <img src="../assets/img/fullImg3.png" class="markImg image-header">
+                                <img src="../assets/img/speMark3.png" class="markImg image-header">
                             </div>
 
                         </div>
@@ -135,15 +138,15 @@
                         <div class="row">
 
                             <div class="col-md-4 speDescriptive">
-                                <img  src="../assets/img/fullImg4.png" class="devImg image-header">
+                                <img  src="../assets/img/speDev1.jpg" class="devImg image-header">
                             </div>
 
                             <div class="col-md-4 speDescriptive">
-                                <img src="../assets/img/fullImg5.png" class="devImg image-header">
+                                <img src="../assets/img/speDev2.jpg" class="devImg image-header">
                             </div>
 
                             <div class="col-md-4 speDescriptive">
-                                <img src="../assets/img/fullImg6.png" class="devImg image-header">
+                                <img src="../assets/img/speDev3.jpg" class="devImg image-header">
                             </div>
 
                         </div>
@@ -191,11 +194,11 @@
                         <div class="row">
 
                             <div class="col-md-6 speDescriptive" style="text-align:center;">
-                                <img  src="../assets/img/fullImg10.png" class="auditImg image-header">
+                                <img  src="../assets/img/speAudit1.png" class="auditImg image-header">
                             </div>
 
                             <div class="col-md-6 speDescriptive" style="text-align:center;">
-                                <img src="../assets/img/fullImg11.png" class="auditImg image-header">
+                                <img src="../assets/img/speAudit2.png" class="auditImg image-header">
                             </div>
 
                         </div>
@@ -204,7 +207,7 @@
 
                 {#</div>#}
                 <div class="col-md-12 text-center" style="height:50px;">
-                        <a class="btn btn-fill btn-owl"  href={{ path('owlContactDisplay')}}#contactAnchor>
+                        <a  aria-label="Lien vers la page de contact" class="btn btn-fill btn-owl"  href={{ path('owlContactDisplay')}}#contactAnchor>
                             Je prends rendez-vous
                         </a>
                 </div>

@@ -1,0 +1,32 @@
+
+
+{% extends '//base.html.twig' %}
+
+{% block content %}
+
+
+    <div class="section yellowBlock section-our-team">
+        <!--<div class="text-area">-->
+        <h1>Création utilisateur</h1>
+    </div>
+    <div class="team"  style="text-align:center;margin-top:50px;">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3" style="text-align:left;background-color:white;border-radius:8px;padding:40px;margin-bottom:70px;">
+
+                <p style="color:#000000;margin:20px 0">Vous pouvez finaliser l'enregistrement de votre organisme, en cliquant sur le lien contenu dans le mail
+                    qui vous a été envoyé</p>
+
+                <a href = "{{ path('login') }}" class="form-control btn btn-fill btn-rose" style= "background-color:#ffbb00;margin-bottom:0;margin-top:35px;">Se connecter</a>
+                {#<a href = "{{ path('index') }}" class="form-control btn btn-fill btn-rose" style= "background-color:#ffbb00;">Recevoir à nouveau le mail</a>#}
+
+            </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+

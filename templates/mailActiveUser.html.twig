@@ -1,0 +1,29 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Confirmation d'enregistrement</title>
+
+</head>
+
+<body>
+
+    <h2>Validation de votre user sur Le Hibou Qui Geek</h2>
+
+
+        <h4>
+
+            Afin de finaliser votre inscription, nous devez cliquer sur le lien suivant et suivre les instructions :
+            <a href="{{ absolute_url('http://localhost:8000/activeUser?key='~key) }}">Valider l'inscription</a>
+
+        </h4>
+
+</body>
+
+</html>

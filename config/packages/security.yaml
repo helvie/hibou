@@ -1,24 +1,86 @@
+#security:
+#    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+#    providers:
+#        in_memory: { memory: ~ }
+#    firewalls:
+#        dev:
+#            pattern: ^/(_(profiler|wdt)|css|images|js)/
+#            security: false
+#        main:
+#            anonymous: true
+#
+#            # activate different ways to authenticate
+#
+#            # http_basic: true
+#            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+#
+#            # form_login: true
+#            # https://symfony.com/doc/current/security/form_login_setup.html
+#
+#    # Easy way to control access for large sections of your site
+#    # Note: Only the *first* access control that matches will be used
+#    access_control:
+#         - { path: ^/admin, roles: ROLE_ADMIN }
+#        # - { path: ^/profile, roles: ROLE_USER }
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+
     providers:
-        in_memory: { memory: ~ }
+        our_db_provider:
+            entity:
+                class: App\Entity\User
+    #                property: username
+    #        api_key_user_provider:
+    #            id: App\Controller\Security\ApiKeyUserProvider
+
+
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_MANAG]
+
+
     firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+
+        #        dev:
+        #            pattern: ^/(_(profiler|wdt)|css|images|js)/
+        #            security: false
+
         main:
-            anonymous: true
+            # les urls auxquels s'appliquent ce firewall, dans ce cas, ce sont toutes les urls
+            #            pattern: ^/
+            http_basic: ~
+            # La connexion n'est pas requise sur toutes les pages
+            # par exemple la page d'accueil
+            provider: our_db_provider
+            anonymous: ~
 
-            # activate different ways to authenticate
+            #            pattern: ^/api
+            #            stateless: true
+            #            simple_preauth:
+            #                authenticator: App\Controller\Security\ApiKeyAuthenticator
+            #            provider: api_key_user_provider
 
-            # http_basic: true
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
 
-            # form_login: true
-            # https://symfony.com/doc/current/security/form_login_setup.html
 
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
+            form_login:
+                login_path: login
+                check_path: loginCheck
+                default_target_path: index
+
+            logout:
+                path:       logout
+                target:     login
+
+
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+    # Les regles de securité
+    # Là dans ce cas seul les utilisateurs ayant le rôle ROLE_ADMIN
+    # peuvent acceder à toutes les pages commençant par /admin
+#    - { path: ^/manag, roles: ROLE_MANAG }
+    - { path: ^/admin, roles: [ROLE_ADMIN] }
+#    - { path: ^/webAdmin, roles: ROLE_SUPER_ADMIN }
+
+

@@ -1,0 +1,63 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Création utilisateur{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="section yellowBlock section-our-team">
+        <!--<div class="text-area">-->
+        <h1>Création utilisateur</h1>
+    </div>
+
+    {{ parent() }}
+
+    <div class="team"  style="text-align:center;margin-top:80px;">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3" style="text-align:left;background-color:white;border-radius:8px;padding:40px;margin-bottom:70px;">
+
+
+
+                {{ form_start(form, {'attr': {'class': 'form-group'}} ) }}
+
+                {{ form_label(form.username, 'User * :') }}
+                {{ form_widget(form.username, {'attr': {'required': true, 'class': 'form-control'}}) }}
+                {{ form_errors(form.username) }}
+
+                {{ form_label(form.email, 'Email de l\'user * :') }}
+                {{ form_widget(form.email, {'attr': {'required': true, 'class': 'form-control'}}) }}
+                {{ form_errors(form.email) }}
+
+                {{ form_label(form.plainPassword.first, 'Mot de passe * :') }}
+                {{ form_widget(form.plainPassword.first, {'attr': {'required': true, 'class': 'form-control'}}) }}
+                {{ form_errors(form.plainPassword.first) }}
+
+                {{ form_label(form.plainPassword.second, 'Répétition mot de passe * :') }}
+                {{ form_widget(form.plainPassword.second, {'attr': {'required': true, 'class': 'form-control'}}) }}
+                {{ form_errors(form.plainPassword.second) }}
+
+                {{ form_widget(form.isActive, {'attr' : { 'style':'display:none'}}) }}
+
+
+                {{ form_widget(form.save,{ 'label': 'Valider', 'attr': {'class': "form-control btn btn-fill btn-rose",'aria-label':"Enregistrer le nouvel utilisateur" , 'style': "background-color:#ffbb00;margin-bottom:0;"} }) }}
+
+
+                {{ form_end(form) }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script src="{{ asset('assets/js/generalFunctions.js') }}"></script>
+    <script src="{{ asset('assets/js/admOrganismUserForm.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+
+{% extends 'base.html.twig' %}
+
+
+	{% block content %}
+
+	<div class="container col-lg-10 col-lg-offset-1 activityForm management" style="padding-top:50px;">
+
+		<div class="col-12 pageTitle">
+
+			<h2>
+
+				Activation du compte <span class="managSubtitle"> #organisme</span>
+
+			</h2>
+
+			<p style="font-size:16px; padding-top:50px; padding-bottom : 30px;">
+
+				Vous ne pouvez pas accéder à votre espace de gestion, votre compte n'ayant pas été validé.
+
+			</p>
+
+			<p>
+
+				Veuillez suivre les instructions contenues dans le mail qui vous a été envoyé ou demander l'envoi
+				d'un nouveau mail en cliquant sur le bouton
+				ci-dessous :
+
+			</p>
+
+			<a class="btn btn-primary buttonReturn" href="{{ path('newMailActiveUser') }}">Recevoir à nouveau le mail</a>
+			<a class="btn btn-primary buttonValid" href="{{ path('index')}}">Retour vers la page d'accueil</a>
+
+
+		</div>
+
+	</div>
+
+	{% endblock %}

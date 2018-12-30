@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="fr">
+{#<html xmlns:og="http://ogp.me/ns#">#}
+
 
 <head>
-
     <meta charset="UTF-8">
+
 
     <title>{% block title %}Le hibou qui geek{% endblock %}</title>
 
-    {% block stylesheets %}
+    {#<meta property="og:url"           content="http://www.hibou.helvie.fr/owlBlogDisplay?art=14" />#}
+    {#<meta property="og:type"          content="website" />#}
+    {#<meta property="og:title"         content="Your Website Title" />#}
+    {#<meta property="og:description"   content="Your description" />#}
+    {#<meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />#}
 
+    {% block stylesheets2 %}
+        <meta name="description" content ="L’Agence Le Hibou qui Geek est une agence digitale spécialisée dans l’accessibilité. Elle propose la création et l’optimisation de sites vitrine ou e-commerce, la construction de votre stratégie Webmarketing, ou encore, le développement d’une identité visuelle. ">
+    {% endblock %}
+    {% block stylesheets %}
         <meta charset="utf-8" />
         <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
         <link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon.png">
-
+        <link rel="canonical"href="http://www.hibou.helvie.fr">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        {#<title>About Us | Gaia - Bootstrap Template</title>#}
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-        {#<link href="../assets/css/bootstrap.css" rel="stylesheet" />#}
-        {#<link href="../assets/css/owl.css" rel="stylesheet"/>#}
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
-
-        {#<!--     Fonts and icons     -->#}
-        {#<link href='https://fonts.googleapis.com/css?family=Cambo|Lato:400,700' rel='stylesheet' type='text/css'>#}
-        {#<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">#}
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <link rel="icon" href="assets/img/logo.ico" />
         <link href="../assets/css/fonts/pe-icon-7-stroke.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
         <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-        {#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">#}
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bmatznerfontawesome/css/font-awesome.min.css') }}" />
         <link href="{{ asset('assets/pe-icon-7-stroke.css') }}" rel="stylesheet" />
         <link href="{{ asset('assets/css/gaia.css') }}" rel="stylesheet" />
@@ -38,9 +42,9 @@
         <link href="{{ asset('assets/css/owl.css') }}" rel="stylesheet" />
 
         <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
-        {#<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">#}
 
     {% endblock %}
+
 
 </head>
 
@@ -55,7 +59,7 @@
 
             <div class="owlMenu">
                 <ul>
-                    <li><a href={{ path('index') }}>Accueil</a></li>
+                    <li><a aria-label="Lien vers page d'accueil" href={{ path('index') }}>Accueil</a></li>
                     <li><a href={{ path('owlAgencyDisplay') }}>Notre agence</a></li>
                     <li><a href={{ path('owlServicesDisplay') }}>Nos services</a></li>
                     <li><a href={{ path('owlReferencesDisplay') }}>Nos références</a></li>
@@ -80,16 +84,14 @@
     <div class="headSection">
 
         <div>
-            {#<div class="container">#}
                 <div class="content" style="text-align:left; margin-left:50px;">
 
                     <div class="logoOwl">
-                        <a  href={{ path('index') }}><img alt="..." src="../assets/img/logoBlack.png" style="z-index:1;position:absolute;"/></a>
+                        <a  href={{ path('index') }}><img alt="Logo hibou lien retour accueil" src="../assets/img/logoBlack.png" style="z-index:1;position:absolute;"/></a>
                     </div>
 
                 </div>
             </div>
-        {#</div>#}
     </div>
     {% endblock %}
 
@@ -111,24 +113,17 @@
             {#<div class="container">#}
                 {#<div class="row">#}
                     <div class="col-md-9 col-sm-9 col-xs-12" style="text-align:left;">
-                        <li><a href={{ path('adminArticle') }}>CGV</a></li>
-                        <li><a style="color:#bbb;" href={{ path('adminProspect') }}>CGU</a></li>
-                        <li><a style="color:#bbb;" href={{ path('adminProspect') }}>Cookie</a></li>
-                        <li><a style="color:#bbb;" href={{ path('adminProspect') }}>RGPD</a></li>
-                        <li><a style="color:#bbb;" href={{ path('adminProspect') }}>Administration</a></li>
+                        <li><a href={{ path('cgv') }}>CGV</a></li>
+                        <li><a style="color:#bbb;" href={{ path('cgu') }}>CGU</a></li>
+                        <li><a style="color:#bbb;" href={{ path('cookies') }}>Cookie</a></li>
+                        <li><a style="color:#bbb;" href={{ path('rgpd') }}>RGPD</a></li>
+                        <li><a class="glyphicon glyphicon-cog" style="color:#bbb;" href={{ path('adminSpace') }}></a></li>
                     </div>
 
                     <div class="col-md-3 col-sm-3" style="text-align:right;">
                         <li><a style="color:#ffffff;">Le hibou qui geek 2018</a></li>
                     </div>
-                {#</div>#}
-                {#<div class="copyright">#}
-                    {#©#}
-                    {#<script>#}
-                        {#document.write(new Date().getFullYear())#}
-                    {#</script> Creative Tim, made with love#}
-                {#</div>#}
-            {#</div>#}
+
         </footer>
 
     {% endblock %}
@@ -159,6 +154,26 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="{{ asset('assets/js/anim.js') }}"></script>
+    <link href="https://fr.snatchbot.me/sdk/webchat.css" rel="stylesheet" type="text/css">
+        <script src="https://fr.snatchbot.me/sdk/webchat.min.js">
+
+        </script><script> Init('?botID=40156&appID=webchat', 400, 500, 'https://dvgpba5hywmpo.cloudfront.net/media/image/aLeBphVKQdnpUFR6aR5Mv9MRn', 'bubble', '#113441', 90, 90, 62.99999999999999, '', '1', '#FFFFFF', '#FFFFFF', 0); /* for authentication of its users, you can define your userID (add &userID={login}) */ </script>
+
+    <!-- Google Analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-XXXXX-Y', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics -->
+
+    <!-- Load the JavaScript API client and Sign-in library. -->
+    <script src="https://apis.google.com/js/client:platform.js"></script>
+    <script src="https://www.google-analytics.com/analytics.js"></script>
 
 
 

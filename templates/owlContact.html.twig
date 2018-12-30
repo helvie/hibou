@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Nous contacter{% endblock %}
+
+
 
     {% block stylesheets %}
         {{ parent() }}
@@ -39,7 +42,7 @@
 
                     <div class="blueHeadImg logoOwl">
                         <a href={{ path('index') }}>
-                            <img href={{ path('index') }} alt="..." src="../assets/img/logoWhite.png" style="z-index:1;position:absolute;"/>
+                            <img alt="Logo hibou retour accueil" src="../assets/img/logoWhite.png" style="z-index:1;position:absolute;" href={{ path('index') }}/>
                         </a>
                     </div>
 
@@ -49,6 +52,8 @@
     {% endblock %}
 
     {% block content %}
+
+
 
         <div class="section blueBlock section-our-team">
             {#<div class="container">#}
@@ -82,24 +87,24 @@
 
                         <div class="row">
                             <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center">
-                                <a href="https://www.facebook.com/lehibou.quigeek">
-                                <img alt="..." src="../assets/img/logoFacebookB.png"/>
+                                <a aria-label="Lien vers le facebook de l'agence" href="https://www.facebook.com/lehibou.quigeek">
+                                <img alt="Logo Facebook" src="../assets/img/logoFacebookB.png"/>
                                 </a>
                             </div>
                             <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center">
-                                <a href="https://www.instagram.com/hibouquigeek">
-                                <img alt="..." src="../assets/img/logoInstagramB.png"/>
+                                <a  aria-label="Lien vers l'instagram de l'agence" href="https://www.instagram.com/hibouquigeek">
+                                <img alt="Logo Instagram" src="../assets/img/logoInstagramB.png"/>
                                 </a>
                             </div>
 
                             <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center">
-                                <a href="https://twitter.com/HibouQui">
-                                <img alt="..." src="../assets/img/logoTwitterB.png"/>
+                                <a  aria-label="Lien vers le twitter de l'agence" href="https://twitter.com/HibouQui">
+                                <img alt="Logo Twitter" src="../assets/img/logoTwitterB.png"/>
                                 </a>
                             </div>
                             <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center">
-                                <a href="https://www.linkedin.com/in/lehibou-quigeek-3a7402177/">
-                                <img alt="..." src="../assets/img/logoLinkedinB.png"/>
+                                <a  aria-label="Lien vers le linkedin de l'agence" href="https://www.linkedin.com/in/lehibou-quigeek-3a7402177/">
+                                <img alt="Logi Linkedin" src="../assets/img/logoLinkedinB.png"/>
                                 </a>
                             </div>
                         </div>
@@ -108,7 +113,7 @@
                     <div class="col-md-4 col-xs-12 text-center">
                         <div class="col-md-12 text-center" style="height:60px; margin-top:80px;">
                             <div>
-                                <a class="btn btn-fill btn-owl"  href={{ path('owlContactDisplay')}}#quoteAnchor>
+                                <a  aria-label="Lien vers la demande de devis" class="btn btn-fill btn-owl"  href={{ path('owlContactDisplay')}}#quoteAnchor>
                                     Défiez-nous !
                                 </a>
 
@@ -296,7 +301,7 @@
                                 </div>
 
                                 {{ form_end(formContactDisplay) }}
-                                <button class="form-control btn btn-fill btn-rose validContactForm" style="width:125px;">Envoyer</button>
+                                <button class="form-control btn btn-fill btn-rose validContactForm"  aria-label="Validation demande de renseignements"  style="width:125px;">Envoyer</button>
 
 
                             </div>
@@ -332,68 +337,68 @@
 
                                 {{ form_start(formQuote, {'attr': {'class': 'form-group'}} ) }}
 
-                                <div class="form-group">
+                                <fielset class="form-group">
                                     {{ form_widget(formQuote.company, {'attr': {'required': true, 'class' : 'form-control'}}) }}
                                     {{ form_errors(formQuote.company) }}
-                                </div>
+                                </fielset>
 
-                                <div class="form-group respCivility" style="padding-bottom: 0;">
+                                <fieldset class="form-group respCivility" style="padding-bottom: 0;">
                                     {{ form_widget(formQuote.respCivility, {'attr': {'required': true, 'style':'display:inlineBlock','class' : 'form-control'}}) }}
                                     {{ form_errors(formQuote.respCivility) }}
-                                </div>
+                                </fieldset>
 
 
-                                <div class="form-group">
+                                <fieldset class="form-group">
                                     {{ form_widget(formQuote.respName, {'attr': {'required': true, 'class' : 'form-control'}}) }}
                                     {{ form_errors(formQuote.respName) }}
-                                </div>
+                                </fieldset>
 
-                                <div>
+                                <fieldset class="form-group">
                                     {{ form_widget(formQuote.prospect.email, {'attr': {'required': true, 'class' : 'form-control'}}) }}
                                     {{ form_errors(formQuote.prospect.email) }}
-                                </div>
+                                </fieldset>
 
 
-                                <div>
+                                <fieldset class="form-group">
                                     {{ form_widget(formQuote.prospect.phone, {'attr': {'required': true, 'class' : 'form-control'}}) }}
                                     {{ form_errors(formQuote.prospect.phone) }}
-                                </div>
+                                </fieldset>
 
-                                <div>
+                                <fieldset class="form-group">
                                     {{ form_widget(formQuote.siret, {'attr': {'required': true, 'class' : 'form-control'}}) }}
                                     {{ form_errors(formQuote.siret) }}
-                                </div>
+                                </fieldset>
 
 
-                                <div>
+                                <fieldset class="form-group">
                                     {{ form_widget(formQuote.activity, {'attr': {'required': true, 'class' : 'form-control'}}) }}
                                     {{ form_errors(formQuote.activity) }}
-                                </div>
+                                </fieldset>
 
-                                <div>
+                                <fieldset class="form-group">
                                     {{ form_widget(formQuote.route, {'attr': {'required': true, 'class' : 'form-control'}}) }}
                                     {{ form_errors(formQuote.route) }}
-                                </div>
+                                </fieldset>
 
-                                <div>
+                                <fieldset class="form-group">
                                     {{ form_widget(formQuote.postalCode, {'attr': {'required': true, 'class' : 'form-control'}}) }}
                                     {{ form_errors(formQuote.postalCode) }}
-                                </div>
+                                </fieldset>
 
 
-                                <div>
+                                <fieldset class="form-group">
                                     {{ form_widget(formQuote.locality, {'attr': {'required': true, 'class' : 'form-control'}}) }}
                                     {{ form_errors(formQuote.locality) }}
-                                </div>
+                                </fieldset>
 
-                                <div>
+                                <fieldset class="form-group">
 
                                 {{ form_row(formQuote.prospect.information, {'attr': {'required': false, 'class' :
                                     'form-control textarea',rows : "4", cols :"50", "placehoder" : "Votre message"}}) }}
-                                </div>
+                                </fieldset>
 
 
-                                <div style="display:none;">
+                                <fieldset style="display:none;">
                                     {{ form_widget(formQuote.prospect, {'attr': {'required': true, 'class' : 'form-control', 'label':false  }}) }}
 
                                     {{ form_widget(formQuote.prospect.name, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
@@ -402,18 +407,15 @@
                                 {{ form_widget(formQuote.prospect.nextAction, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
                                 {{ form_widget(formQuote.prospect.nextActionDate, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
 
-                                </div>
+                                </fieldset>
 
 
                             </div>
 
-
-
-
                             <div>
 
                                 <div class="card1-footer " style="padding:0.9375rem 20px;">
-                                    {{ form_row(formQuote.save2, {'attr': {'class' : 'form-control btn btn-fill btn-rose'},'label': 'Envoyer'}) }}
+                                    {{ form_row(formQuote.save2, {'attr': {'class' : 'form-control btn btn-fill btn-rose','aria-label':"Valider la demande de devis" },'label': 'Envoyer'}) }}
                                 </div>
 
                                 {{ form_end(formQuote) }}
@@ -439,13 +441,13 @@
                         <li><a><span style="color:#113441;" class="glyphicon glyphicon-map-marker"></span>75018 Paris</a></li>
 
                             <li><a><span class=" glyphicon glyphicon-earphone "></span>06.05.87.18.18</a></li>
-                            <li><a style="color:#ffffff" href={{ path('contactForm') }}><span style="color:#ffffff" class="glyphicon glyphicon-send"></span>lehibouquigeek@gmail.com</a></li>
+                            <li><a aria-label="Lien vers le formulaire d'envoi de mail" style="color:#ffffff" href={{ path('contactForm') }}><span style="color:#ffffff" class="glyphicon glyphicon-send"></span>lehibouquigeek@gmail.com</a></li>
                         </div>
 
                     </div>
 
                     <div class="col-md-7">
-                        <div  id="my_osm_widget_map">
+                        <div  id="my_osm_widget_map" style="z-index:1">
 
 
                         </div>
@@ -470,6 +472,7 @@
 {% block javascripts %}
 
     {{ parent() }}
+
 
     <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
 

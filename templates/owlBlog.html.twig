@@ -1,33 +1,6 @@
 {% extends 'base.html.twig' %}
 
-    {% block stylesheets %}
-        {{ parent() }}
-        <style>
-            body
-            {background-color:#113441;}
-            .headSection
-            {background-color:#113441;}
-        </style>
-    {% endblock %}
-
-    {% block logo %}
-
-        <div class="headSection">
-
-                <div class="content blueBlock">
-
-                    <div class="blueHeadImg logoOwl">
-                        <a  href={{ path('index') }}>
-                            <img href={{ path('index') }} alt="..." src="../assets/img/logoWhite.png" style="z-index:1;position:absolute;"/>
-                        </a>
-                    </div>
-
-                </div>
-
-        </div>
-    {% endblock %}
-
-    {% block content %}
+{% block title %}Le blog{% endblock %}
 
         {% if app.request.query.get("art") %}
             {% set art = app.request.query.get("art") %}
@@ -46,6 +19,57 @@
             {% endif %}
         {% endfor %}
 
+        {#{% set url = app.request.uri %}#}
+
+        {#{% set descript = thisArt.text|striptags %}#}
+
+
+
+    {#{% block stylesheets2 %}#}
+        {#<meta name="description" content = {{ descript }}>#}
+    {#{% endblock %}#}
+
+
+
+    {% block stylesheets %}
+        {{ parent() }}
+        <style>
+            body
+            {background-color:#113441;}
+            .headSection
+            {background-color:#113441;}
+        </style>
+
+        {#<meta property="og:url"           content={{ url }} />#}
+        {#<meta property="og:type"          content="website" />#}
+        {#<meta property="og:title"         content="géraldin deux" />#}
+        {#<meta property="og:description"   content={{ descript }} />#}
+        {#<meta property="og:image"         content="http://www.hibou.helvie.fr/assets/img/persons/530753870c57093287299396c3b0393b.jpeg" />#}
+    {% endblock %}
+
+    {% block logo %}
+
+        <div class="headSection">
+
+                <div class="content blueBlock">
+
+                    <div class="blueHeadImg logoOwl">
+                        <a  href={{ path('index') }}>
+                            <img  alt="Logo hibou retour vers accueil" src="../assets/img/logoWhite.png" style="z-index:1;position:absolute;" href={{ path('index') }} />
+                        </a>
+                    </div>
+
+                </div>
+
+        </div>
+    {% endblock %}
+
+    {% block content %}
+
+
+
+
+
         <div class="section blueBlock section-our-team">
 
             <div class="container">
@@ -57,9 +81,40 @@
         </div>
 
         <div class="section blueBlock section-our-team oneArticle" style="padding-bottom:0;">
+            {#{{ app.request.uri }}#}
+
+            {#<div class="fb-share-button" data-href={{ app.request.uri }}#}
+                 {#data-layout="button" data-size="small" data-mobile-iframe="true"><a target="_blank"#}
+                 {#href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8000%2FowlBlogDisplay&amp;src=sdkpreparse"#}
+                {#class="fb-xfbml-parse-ignore">Partager</a></div>#}
+
+
             <div class="row">
                 <div class="col-md-12">
-                    <div class="col-md-9 whiteBlock blogResume" style="text-align:justify">
+
+                    {#<!-- Load Facebook SDK for JavaScript -->#}
+                    {#<div id="fb-root"></div>#}
+
+                    {#<!-- Your share button code -->#}
+                    {#<div class="fb-share-button"#}
+                         {#data-href={{ url }}#}
+                         {#data-layout="button_count">#}
+                    {#</div>#}
+
+                    {#<div>#}
+                        {#<!-- Facebook -->#}
+                        {#<a target="_blank" title="Facebook" href="https://www.facebook.com/sharer.php?u="{{ url }} rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"><img src="assets/img/logo33.png" alt="Facebook" /></a>#}
+                        {#<!-- //Facebook -->#}
+
+                        {#<!-- Twitter -->#}
+                        {#<a target="_blank" title="Twitter" href="https://twitter.com/share?url=https://bit.ly/2sI7H3v" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;"><img src="assets/img/logo33.png" alt="Twitter" /></a>#}
+                        {#<!-- //Twitter -->#}
+
+                        {#<!-- Linkedin -->#}
+                        {#<a target="_blank" title="Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url="{{ url }} rel="nofollow" onclick="javascript:window.open(this.href, '','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=650');return false;"><img src="assets/img/logo33.png" alt="Linkedin" /></a>#}
+                        {#<!-- //Linkedin -->#}
+
+                        <div class="col-md-9 whiteBlock blogResume" style="text-align:justify">
                         {{ thisArt.text|raw }}
                     </div>
 
@@ -69,7 +124,7 @@
                             <div class="content">
 
                                 <div class="avatar avatar-danger">
-                                    <img alt="..." class="img-circle" src="{{ asset('assets/img/persons/'~thisArt.authorImage|e) }}" />
+                                    <img alt="Photo de l'auteur" class="img-circle" src="{{ asset('assets/img/persons/'~thisArt.authorImage|e) }}" />
                                 </div>
 
                                 <div class="description">
@@ -92,55 +147,64 @@
         {#</div>#}
 </div>
         <div class="whiteBlock networksIconBlock">
+
             <div class="row">
-            <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1 text-center networksIconDiv">
+                <div class="networksIconDiv" style="text-align:center;">
+                <h2 style="padding-bottom:30px;">Retrouvez tous nos articles</h2>
 
-            <h2 style="padding-bottom:30px;">Partager cet article</h2>
+                <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1 text-center">
+
 
                 <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center">
-                    <a href="https://www.facebook.com/lehibou.quigeek">
-                    <img alt="..." src="../assets/img/logoFacebook.png"/>
+                    <a aria-label="Lien vers le facebook de l'agence" href="https://www.facebook.com/lehibou.quigeek">
+                    <img alt="Logo Facebook" src="../assets/img/logoFacebook.png"/>
                     </a>
                 </div>
 
 
                 <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center">
-                    <a href="https://www.instagram.com/hibouquigeek">
-                    <img alt="..." src="../assets/img/logoInstagram.png"/>
+                    <a aria-label="Lien vers l'instagram de l'agence" href="https://www.instagram.com/hibouquigeek">
+                    <img alt="Logo Instagram" src="../assets/img/logoInstagram.png"/>
                     </a>
                 </div>
 
                 <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center">
-                    <a href="https://twitter.com/HibouQui">
-                    <img alt="..." src="../assets/img/logoTwitter.png"/>
+                    <a aria-label="Lien vers le twitter de l'agence" href="https://twitter.com/HibouQui">
+                    <img alt="Logo Twitter" src="../assets/img/logoTwitter.png"/>
                     </a>
                 </div>
 
                 <div class="col-md-3 col-sm-3 col-xs-3 col-3 socialImg" style="text-align:center">
-                    <a href="https://www.linkedin.com/in/lehibou-quigeek-3a7402177/">
+                    <a  aria-label="Lien vers le linkedin de l'agence" href="https://www.linkedin.com/in/lehibou-quigeek-3a7402177/">
                     <img alt="..." src="../assets/img/logoLinkedin.png"/>
                     </a>
                 </div>
+                    {#<div class="fb-share-button" data-href="http://www.hibou.helvie.fr/owlBlogDisplay" data-layout="button" data-size="small" data-mobile-iframe="true">#}
+                        {#<a target="_blank"#}
+                           {#href="https://www.facebook.com/sharer/sharer.php"#}
+                           {#class="fab fb-xfbml-parse-ignore">#}
+                            {#<img alt="partage article sur facebook" src="../assets/img/logoFacebook.png"/></a></div>#}
+                    {#<div id="fb-root"></div>#}
 
-                {#</div>#}
 
 
 
-                {#</div>#}
+                    {#</div>#}
 
             </div>
+                </div>
         </div>
 
             <div class="row">
 
             <div class="col-md-8 col-md-offset-2 text-center" style="min-height:60px;padding-top:50px;">
                 <div class="col-md-6 text-center">
-                    <a class="btn btn-fill btn-owl"  href={{ path('owlReferencesDisplay')}}>
+                    <a  aria-label="Lien vers la page références de l'agence" class="btn btn-fill btn-owl"  href={{ path('owlReferencesDisplay')}}>
                         Découvrez nos références
                     </a>
                 </div>
                 <div class="col-md-6 text-center">
-                    <a class="btn btn-fill btn-owl" href={{ path('owlContactDisplay')}}>
+                    <a  aria-label="Lien vers la page contact de l'agence" class="btn btn-fill btn-owl" href={{ path('owlContactDisplay')}}>
                         Contactez-nous
                     </a>
                 </div>
@@ -175,15 +239,15 @@
                 {% for article in articles[0] %}
                     <div class="card card-blog card-plain">
 
-                        <a class="header" href={{ path('owlBlogDisplay',{'art': article.id})}}>
-                        <img src="{{ asset('assets/img/persons/'~article.articleImage|e) }}" class="image-header">
+                        <a  aria-label="Lien vers la page de l'article" class="header" href={{ path('owlBlogDisplay',{'art': article.id})}}>
+                        <img alt="" src="{{ asset('assets/img/persons/'~article.articleImage|e) }}" class="image-header">
                         </a>
 
                         <div class="blogTitleText">
 
                             <p>{{ article.date|date("m/d/Y") }}</p>
 
-                            <a class="card-title" href={{ path('owlBlogDisplay',{'art': article.id})}}>
+                            <a aria-label="Lien vers la page de l'article"  class="card-title" href={{ path('owlBlogDisplay',{'art': article.id})}}>
 
                                 <h2>{{ article.title }}</h2>
 
@@ -202,15 +266,15 @@
             <div class="col-md-4">
                 {% for article in articles[1] %}
                     <div class="card card-blog card-plain">
-                        <a class="header" href={{ path('owlBlogDisplay',{'art': article.id})}}>
-                            <img src="{{ asset('assets/img/persons/'~article.articleImage|e) }}" class="image-header">
+                        <a  aria-label="Lien vers la page de l'article" class="header" href={{ path('owlBlogDisplay',{'art': article.id})}}>
+                            <img alt=""  src="{{ asset('assets/img/persons/'~article.articleImage|e) }}" class="image-header">
                         </a>
 
                         <div class="blogTitleText">
 
                             <p>{{ article.date|date("m/d/Y") }}</p>
 
-                            <a class="card-title" href={{ path('owlBlogDisplay',{'art': article.id})}}>
+                            <a  aria-label="Lien vers la page de l'article" class="card-title" href={{ path('owlBlogDisplay',{'art': article.id})}}>
 
                                 <h2>{{ article.title }}</h2>
 
@@ -229,15 +293,15 @@
             <div class="col-md-4">
                 {% for article in articles[2] %}
                     <div class="card card-blog card-plain">
-                        <a class="header" href={{ path('owlBlogDisplay',{'art': article.id})}}>
-                            <img src="{{ asset('assets/img/persons/'~article.articleImage|e) }}" class="image-header">
+                        <a aria-label="Lien vers la page de l'article" class="header" href={{ path('owlBlogDisplay',{'art': article.id})}}>
+                            <img alt=""  src="{{ asset('assets/img/persons/'~article.articleImage|e) }}" class="image-header">
                         </a>
 
                         <div class="blogTitleText">
 
                             <p>{{ article.date|date("m/d/Y") }}</p>
 
-                            <a class="card-title" href={{ path('owlBlogDisplay',{'art': article.id})}}>
+                            <a  aria-label="Lien vers la page de l'article" class="card-title" href={{ path('owlBlogDisplay',{'art': article.id})}}>
 
                                 <h2>{{ article.title }}</h2>
 
@@ -255,6 +319,10 @@
             </div>
         </div>
     </div>
+
+    <div id="fb-root"></div>
+
+
 </div>
 
 
@@ -266,5 +334,16 @@
 
     {{ parent() }}
     <script src="assets/js/plugins/bootstrap-selectpicker.js" ></script>
+
+    {#<script>(function(d, s, id) {#}
+            {#var js, fjs = d.getElementsByTagName(s)[0];#}
+            {#if (d.getElementById(id)) return;#}
+            {#js = d.createElement(s); js.id = id;#}
+            {#js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";#}
+            {#fjs.parentNode.insertBefore(js, fjs);#}
+        {#}(document, 'script', 'facebook-jssdk'));</script>#}
+    {#<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>#}
+
+
 
 {% endblock %}

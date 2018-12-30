@@ -1,0 +1,40 @@
+
+
+{% extends '//base.html.twig' %}
+
+{% block content %}
+
+
+	<div class="section yellowBlock section-our-team">
+		<!--<div class="text-area">-->
+		<h1>Activation compte</h1>
+	</div>
+	<div class="team"  style="text-align:center;margin-top:50px;">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3" style="text-align:left;background-color:white;border-radius:8px;padding:40px;margin-bottom:70px;">
+
+				<p style="color:#000000;margin:20px 0">Afin de finaliser votre inscription, veuillez indiquer votre mail</p>
+
+
+                {{form_start(form)}}
+
+                {{ form_label(form.email, 'Votre email :') }}
+                {{ form_widget(form.email, {'attr': {'required': true, 'class' : ' form-control'}})}}
+                {{ form_errors(form.email) }}
+
+				<button class="form-control btn btn-fill btn-rose" style= "background-color:#ffbb00;margin-bottom:0;margin-top:35px;"
+						type="submit">Envoyer</button>
+
+                {{form_end(form)}}
+
+
+			</div>
+
+		</div>
+
+	</div>
+
+	</div>
+
+{% endblock %}
+

@@ -70,7 +70,214 @@ class DefaultController extends Controller
         return md5(uniqid());
     }
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
+
+
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+    public function helloAnalytics(Request $request)
+    {
+
+        return $this->render('HelloAnalytics.html');
+
+    }
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+    public function lp2(Request $request, ProspectRepository $prospectRepository, LastActionRepository
+    $lastActionRepository, NextActionRepository $nextActionRepository, \Swift_Mailer $mailer)
+    {
+
+        return $this->render('lp2.html.twig');
+
+    }
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+    public function lp1(Request $request, ProspectRepository $prospectRepository, LastActionRepository
+    $lastActionRepository, NextActionRepository $nextActionRepository, \Swift_Mailer $mailer)
+    {
+
+        $formProspectInfo = new ProspectInformation();
+        $formQuote = $this->createForm(ProspectInformationType::class, $formProspectInfo);
+        $formQuote->handleRequest($request);
+
+        $today = new dateTime();
+        $today2 = $today -> format('d/m/Y');
+
+
+        if ($formQuote->isSubmitted() && $formQuote->isValid()) {
+
+            $existingProspect = $prospectRepository->findOneByEmail($formProspectInfo -> getProspect() -> getEmail());
+
+            if($existingProspect != null){
+
+                $thisProspect = $existingProspect;
+                $NL = $thisProspect -> getNewsletterRequest();
+                $information = $thisProspect -> getInformation();
+                $infos = $thisProspect -> getInformationsRequest();
+
+
+                if($thisProspect -> getProspectInformation() !=null){
+                    $thisProspectInformation = $thisProspect -> getProspectInformation();
+                }
+
+                else {
+                    $thisProspectInformation = new ProspectInformation();
+                }
+            }
+            else
+            {
+                $thisProspect = new Prospect();
+                $thisProspectInformation = new ProspectInformation();
+                $NL = 0;
+                $infos = 0;
+                $information = "";
+
+            }
+
+            $newMessage = $formProspectInfo -> getProspect() -> getInformation();
+
+            $thisProspect -> setName($formProspectInfo -> getCompany());
+            $thisProspect -> setEmail($formProspectInfo -> getProspect() -> getEmail());
+            $thisProspect -> setPhone($formProspectInfo -> getProspect()  -> getPhone());
+            $thisProspect->setQuoteRequest(1);
+            $thisProspect->setNewsletterRequest($NL);
+            $thisProspect->setInformationsRequest($infos);
+            $thisProspect->setArchived(0);
+            $thisProspect->setLastAction($lastActionRepository -> find(2));
+            $thisProspect->setLastActionDate($today);
+            $thisProspect->setNextAction($nextActionRepository -> find(5));
+            //Demandeur : 1-prospect, 2-commercial, 3-automatique
+            $thisProspect->setApplicant(1);
+            $thisProspect->setNextActionDate($today);
+            $thisProspect->setInformation("<p>".$today2." - Demande de devis - Message : ".$newMessage."</p><p></p>".$information);
+
+            $thisProspectInformation -> setCompany($formProspectInfo -> getCompany());
+            $thisProspectInformation -> setRespCivility($formProspectInfo -> getRespCivility());
+            $thisProspectInformation -> setRespName($formProspectInfo -> getRespName());
+            $thisProspectInformation -> setSiret($formProspectInfo -> getSiret());
+            $thisProspectInformation -> setActivity($formProspectInfo -> getActivity());
+            $thisProspectInformation -> setRoute($formProspectInfo -> getRoute());
+            $thisProspectInformation -> setPostalCode($formProspectInfo -> getPostalCode());
+            $thisProspectInformation -> setLocality($formProspectInfo -> getLocality());
+
+            $thisProspect -> setProspectInformation($thisProspectInformation);
+            $thisProspectInformation -> setProspect($thisProspect);
+
+            if($formProspectInfo -> getRespCivility()==0){
+                $civ = "M.";
+            }
+            else{
+                $civ = "Mme";
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($thisProspect);
+            $em->persist($thisProspectInformation);
+            $em->flush();
+
+
+            $message = (new \Swift_Message("Demande de devis"))
+                ->setFrom($formProspectInfo -> getProspect() -> getEmail())
+                ->setTo("lehibouquigeek@gmail.com")
+                ->setBody(
+                    $this->renderView(
+                    // templates/emails/registration.html.twig
+                        'mailQuoteToAdmin.html.twig',
+                        array(
+                            'company' => $formProspectInfo -> getCompany(),
+                            'name' => $civ." ".$formProspectInfo -> getRespName(),
+                            'email' => $formProspectInfo -> getProspect() -> getEmail(),
+                            'phone' => $formProspectInfo -> getProspect() -> getPhone(),
+                            'siret' => $formProspectInfo -> getSiret(),
+                            'activity' => $formProspectInfo -> getActivity(),
+                            'address' => $formProspectInfo -> getRoute()." - ".$formProspectInfo -> getPostalCode()."".$formProspectInfo -> getLocality(),
+                            'message' => $formProspectInfo -> getProspect() -> getInformation(),
+                        )
+                    ),
+                    'text/html'
+                );
+
+            $mailer->send($message);
+
+
+
+            return $this->redirectToRoute('index');
+
+        }
+
+
+
+
+
+
+        return $this->render('lp1.html.twig',
+            array(
+                'formQuote' => $formQuote->createView()
+
+            )
+        );
+    }
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+    public function cguDisplay(Request $request)
+    {
+
+        return $this-> render("cgu.html.twig");
+
+    }
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+    public function cgvDisplay(Request $request)
+    {
+
+        return $this-> render("cgv.html.twig");
+
+    }
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+    public function cookiesDisplay(Request $request)
+    {
+
+        return $this-> render("cookies.html.twig");
+
+    }
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+    public function rgpdDisplay(Request $request)
+    {
+
+        return $this-> render("rgpd.html.twig");
+
+    }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -189,9 +396,9 @@ class DefaultController extends Controller
 
     }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
     public function owlHomeDisplay(Request $request, ProspectRepository $prospectRepository, LastActionRepository $lastActionRepository, NextActionRepository $nextActionRepository)
@@ -201,20 +408,37 @@ class DefaultController extends Controller
 
         shuffle($cardsArray);
 
+
+        // Affichage du formulaire d'activité
+
+        return $this->render('owlHome.html.twig', [
+            "cardsArray" => $cardsArray,
+
+        ]);
+
+    }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+    public function owlPropectNLRegistred(Request $request, ProspectRepository $prospectRepository, LastActionRepository $lastActionRepository, NextActionRepository $nextActionRepository)
+    {
+
+
+        $name = $request -> request -> get("nameNL");
+        $email = $request -> request -> get("mailNL");
+
+
         $formProspect = new Prospect();
-
-        $formNL = $this->createForm(ProspectType::class, $formProspect);
-
-        $formNL->handleRequest($request);
 
         $today = new dateTime();
         $today2 = $today -> format('d/m/Y');
         $today15 = new dateTime();
         $today15 -> add(new DateInterval('P15D'));
 
-        if ($formNL->isSubmitted() && $formNL->isValid()) {
 
-            $existingProspect = $prospectRepository->findOneByEmail($formProspect -> getEmail());
+            $existingProspect = $prospectRepository->findOneByEmail($email);
 
             $lastAction = $lastActionRepository -> find(1);
             $nextAction = $nextActionRepository -> find(4);
@@ -232,8 +456,8 @@ class DefaultController extends Controller
                 $infos = "0";
                 $information = "";
             }
-            $thisProspect->setName($formProspect -> getName());
-            $thisProspect->setEmail($formProspect -> getEmail());
+            $thisProspect->setName($name);
+            $thisProspect->setEmail($email);
             $thisProspect->setQuoteRequest($quote);
             $thisProspect->setNewsletterRequest(1);
             $thisProspect->setInformationsRequest($infos);
@@ -251,18 +475,7 @@ class DefaultController extends Controller
 
             // Redirection vers le formulaire d'activité
 
-            return $this->redirectToRoute('index');
-
-        }
-
-        // Affichage du formulaire d'activité
-
-        return $this->render('owlHome.html.twig', [
-            'formNL' => $formNL->createView(),
-            "cardsArray" => $cardsArray,
-
-        ]);
-
+            return new JsonResponse("ok");
     }
 
 
@@ -337,14 +550,15 @@ class DefaultController extends Controller
 
             if($lastAction == $lastActionRepository -> find(12)){
                 $requestPhone = 1;
-                $date = $formContactRequest -> getNextActionDate();
-                $hour = $formContactRequest -> getNextActionDate();
+                $phoneDate = $formContactRequest -> getNextActionDate();
+                $phoneDate=date_format($phoneDate, 'd/m/Y');
+                $phoneHour = $nextAction->getAction();
 
                             }
             else {
                 $requestPhone = 0;
-                $date = "";
-                $hour = "";
+                $phoneDate = "";
+                $phoneHour = "";
                             }
 
             $message = (new \Swift_Message("Demande de contact"))
@@ -359,8 +573,8 @@ class DefaultController extends Controller
                             'email' => $formContactRequest -> getEmail(),
                             'phone' => $formContactRequest -> getPhone(),
                             'requestPhone' => $requestPhone,
-                            'date' => $date,
-                            'hour' => $hour,
+                            'phoneDate' => $phoneDate,
+                            'phoneHour' => $phoneHour,
                             'message' => $formContactRequest -> getInformation(),
                         )
                     ),
@@ -369,7 +583,7 @@ class DefaultController extends Controller
 
             $mailer->send($message);
 
-            return $this->render('owlReferences.html.twig', array('essai' => $formContactRequest));
+            return $this->redirectToRoute('owlContactDisplay');
 
     }
 
@@ -471,7 +685,7 @@ class DefaultController extends Controller
 
 
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('owlContactDisplay');
 
         }
 
@@ -754,6 +968,15 @@ class DefaultController extends Controller
 
     }
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public function adminSpaceDisplay(Request $request, ArticleRepository $articleRepository){
+
+        return $this-> render("adminSpace.html.twig");
+
+    }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

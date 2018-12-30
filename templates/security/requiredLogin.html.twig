@@ -1,0 +1,18 @@
+
+{#---------------------------------------- PAGE D'ACCUEIL ----------------------------------------------#}
+
+{% extends 'base.html.twig' %}
+{% block content %}
+
+
+    <div class="container col-lg-2 pageText" id="lateralSearchMenu" style="padding-left : 50px;">
+
+
+        <h3>La page demandée n'est pas accessible hors connexion</h3>
+
+        <a href="{{ path('login') }}">Se connecter</a>
+
+    </div>
+
+
+    {% endblock %}

@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 
+{% block title %}Nos références{% endblock %}
+
+
     {% block content %}
 
 
@@ -18,7 +21,7 @@
 
 
     <div class="col-md-12 text-center" style="height:50px;padding-bottom:70px;">
-        <a class="btn btn-fill btn-owl"  href={{ path('owlBlogDisplay')}}>
+        <a  aria-label="Lien vers la page des articles" class="btn btn-fill btn-owl"  href={{ path('owlBlogDisplay')}}>
             Visitez notre blog
         </a>
     </div>
@@ -40,19 +43,19 @@
                         <div>
 
                             <div class="col-md-3 col-sm-4">
-                                    <img src="../assets/img/imageSite.jpg" class="imgService  image-header">
+                                <a aria-label="Lien extérieur vers le site internet" href="http://bienvenueachampssurmarne.com"><img src="../assets/img/liensiteJoal1.png" class="imgService  image-header"></a>
                             </div>
 
                             <div class="col-md-3 col-sm-4">
-                                <a href="http://www.asso.helvie.fr"><img src="../assets/img/liensite1.png" class="imgService  image-header"></a>
+                                <a aria-label="Lien extérieur vers le site internet"  href="http://www.asso.helvie.fr"><img src="../assets/img/liensite1.png" class="imgService  image-header"></a>
                             </div>
 
                             <div class="col-md-3 col-sm-4">
-                                <a href="http://www.projet4.helvie.fr"><img src="../assets/img/liensite2.png" class="imgService  image-header"></a>
+                                <a aria-label="Lien extérieur vers le site internet" href="http://www.projet4.helvie.fr"><img src="../assets/img/liensite2.png" class="imgService  image-header"></a>
                             </div>
 
                             <div class="col-md-3 col-sm-4">
-                                <img src="../assets/img/liensite3.jpg" class="imgService  image-header">
+                                <a aria-label="Lien extérieur vers le site internet" href="http://jduverly.com/"><img src="../assets/img/liensiteJoal2.png" class="imgService  image-header"></a>
                             </div>
 
                             <div class="col-md-3 col-sm-4">
@@ -67,12 +70,12 @@
 
                 <div class="col-md-8 col-md-offset-2 text-center" style="height:50px;margin-top:50px;">
                     <div class="col-md-6 text-center">
-                        <a class="btn btn-fill btn-owl"  href={{ path('owlServicesDisplay')}}>
+                        <a aria-label="Lien vers la page services de l'agence"  class="btn btn-fill btn-owl"  href={{ path('owlServicesDisplay')}}>
                             En savoir plus
                         </a>
                     </div>
                     <div class="col-md-6 text-center">
-                        <a class="btn btn-fill btn-owl" href={{ path('owlContactDisplay')}}#contactAnchor>
+                        <a aria-label="Lien vers la demande de contact"  class="btn btn-fill btn-owl" href={{ path('owlContactDisplay')}}#contactAnchor>
                             Contactez-nous
                         </a>
                     </div>
@@ -190,19 +193,19 @@
             <div class="col-md-10 col-md-offset-1 accessButton">
 
 
-                    <button style="float:left;margin-right:20px;" type="button" id="sightProblemButton" class="btn btn-fill btn-owl accessBtn">
+                    <button aria-label="Afficher l'image exemple pour atteints de parkinson"   style="float:left;margin-right:20px;" type="button" id="sightProblemButton" class="btn btn-fill btn-owl accessBtn">
                         Parkinson
                     </button>
-                    <button style="float:left;margin-right:20px;" type="button" id="colorblindButton" class="btn btn-fill btn-owl accessBtn">
+                    <button aria-label="Afficher l'image exemple pour atteints de daltonisme"  style="float:left;margin-right:20px;" type="button" id="colorblindButton" class="btn btn-fill btn-owl accessBtn">
                         Daltoniens
                     </button>
 
 
-                    <button style="float:left" type="button" id="dyslexicButton" class="btn btn-fill btn-owl accessBtn">
+                    <button aria-label="Afficher l'image exemple pour atteints de dyslexie"  style="float:left" type="button" id="dyslexicButton" class="btn btn-fill btn-owl accessBtn">
                         Dyslexie
                     </button>
 
-                    <button style="float:right; margin-left:20px;" type="button" id="normalButton" class="btn btn-fill btn-owl accessBtn">
+                    <button aria-label="Afficher l'image de base"  style="float:right; margin-left:20px;" type="button" id="normalButton" class="btn btn-fill btn-owl accessBtn">
                         Retour
                     </button>
 
