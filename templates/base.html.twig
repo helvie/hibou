@@ -23,13 +23,14 @@
         <meta charset="utf-8" />
         <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
         <link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon.png">
-        <link rel="canonical"href="http://www.hibou.helvie.fr">
+        <link rel="canonical" href="http://www.hibou.helvie.fr">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
         <link rel="icon" href="assets/img/logo.ico" />
         <link href="../assets/css/fonts/pe-icon-7-stroke.css" rel="stylesheet">
+        <link href="https://fr.snatchbot.me/sdk/webchat.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
         <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bmatznerfontawesome/css/font-awesome.min.css') }}" />
@@ -49,6 +50,11 @@
 </head>
 
 <body>
+
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N9224JP"
+                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
 
     {% block sidebar %}
 
@@ -113,10 +119,10 @@
             {#<div class="container">#}
                 {#<div class="row">#}
                     <div class="col-md-9 col-sm-9 col-xs-12" style="text-align:left;">
-                        <li><a href={{ path('cgv') }}>CGV</a></li>
-                        <li><a style="color:#bbb;" href={{ path('cgu') }}>CGU</a></li>
-                        <li><a style="color:#bbb;" href={{ path('cookies') }}>Cookie</a></li>
-                        <li><a style="color:#bbb;" href={{ path('rgpd') }}>RGPD</a></li>
+                        <li><a style=margin-right:10px;" href={{ path('cgv') }}>CGV</a></li>
+                        {#<li><a style="color:#bbb;" href={{ path('cgu') }}>CGU</a></li>#}
+                        {#<li><a style="color:#bbb;" href={{ path('cookies') }}>Cookie</a></li>#}
+                        <li><a style=margin-right:10px;" href={{ path('legalNotice') }}>Mentions légales et données personnelles</a></li>
                         <li><a class="glyphicon glyphicon-cog" style="color:#bbb;" href={{ path('adminSpace') }}></a></li>
                     </div>
 
@@ -135,29 +141,37 @@
 
 {% block javascripts %}
 
-    {#<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>#}
+    <script>
+
+    $( ".link" ).on( "mouseover", function(){
+    $(this).css('cursor','pointer')});
+
+    $( ".content" ).on( "mouseover", ".link", function(){
+    $(this).css('cursor','pointer')});
+
+    </script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-
-
-
-    {#<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>#}
-    {#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>#}
-    {#<script src="https://cdn.ckeditor.com/ckeditor5/1...nt/ckeditor.js"></script>#}
-    {#<script src="[ckeditor-build-path]/ckeditor.js"></script>#}
-    {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>#}
-    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-    {#<script src="../../assets/js/plugins/bootstrap-selectpicker.js"></script>#}
-    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-    {#<script src="../../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>#}
-    {#<script src="../../assets/js/plugins/moment.min.js"></script>#}
-
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="{{ asset('assets/js/anim.js') }}"></script>
-    <link href="https://fr.snatchbot.me/sdk/webchat.css" rel="stylesheet" type="text/css">
-        <script src="https://fr.snatchbot.me/sdk/webchat.min.js">
+    <script src="https://fr.snatchbot.me/sdk/webchat.min.js"></script>
+    <script> Init('?botID=40156&appID=webchat', 400, 500, 'https://dvgpba5hywmpo.cloudfront.net/media/image/aLeBphVKQdnpUFR6aR5Mv9MRn', 'bubble', '#113441', 90, 90, 62.99999999999999, '', '1', '#FFFFFF', '#FFFFFF', 0); /* for authentication of its users, you can define your userID (add &userID={login}) */ </script>
 
-        </script><script> Init('?botID=40156&appID=webchat', 400, 500, 'https://dvgpba5hywmpo.cloudfront.net/media/image/aLeBphVKQdnpUFR6aR5Mv9MRn', 'bubble', '#113441', 90, 90, 62.99999999999999, '', '1', '#FFFFFF', '#FFFFFF', 0); /* for authentication of its users, you can define your userID (add &userID={login}) */ </script>
+    <!-- Load the JavaScript API client and Sign-in library. -->
+    <script src="https://apis.google.com/js/client:platform.js"></script>
+    <script src="https://www.google-analytics.com/analytics.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131485415-2"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-131485415-2');
+    </script>
 
     <!-- Google Analytics -->
     <script>
@@ -171,10 +185,29 @@
     </script>
     <!-- End Google Analytics -->
 
-    <!-- Load the JavaScript API client and Sign-in library. -->
-    <script src="https://apis.google.com/js/client:platform.js"></script>
-    <script src="https://www.google-analytics.com/analytics.js"></script>
+    <!-- Google Tag Manager -->
+    <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-N9224JP');</script>
+    <!-- End Google Tag Manager -->
 
+
+
+
+    {#<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>#}
+    {#<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>#}
+    {#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>#}
+    {#<script src="https://cdn.ckeditor.com/ckeditor5/1...nt/ckeditor.js"></script>#}
+    {#<script src="[ckeditor-build-path]/ckeditor.js"></script>#}
+    {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>#}
+    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    {#<script src="../../assets/js/plugins/bootstrap-selectpicker.js"></script>#}
+    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+    {#<script src="../../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>#}
+    {#<script src="../../assets/js/plugins/moment.min.js"></script>#}
 
 
 {% endblock %}

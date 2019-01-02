@@ -117,22 +117,22 @@ activeUser:
 repeatActiveUser:
     path: /repeatActiveUser
     controller: App\Controller\SecurityController:repeatActiveUser
+#
+#cgu:
+#    path: /cgu
+#    controller: App\Controller\DefaultController:cguDisplay
 
-cgu:
-    path: /cgu
-    controller: App\Controller\DefaultController:cguDisplay
+legalNotice:
+    path: /legalNotice
+    controller: App\Controller\DefaultController:legalNoticeDisplay
 
 cgv:
     path: /cgv
     controller: App\Controller\DefaultController:cgvDisplay
 
-cookies:
-    path: /cookies
-    controller: App\Controller\DefaultController:cookiesDisplay
-
-rgpd:
-    path: /rgpd
-    controller: App\Controller\DefaultController:rgpdDisplay
+#rgpd:
+#    path: /rgpd
+#    controller: App\Controller\DefaultController:rgpdDisplay
 
 
 lp1:

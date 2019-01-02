@@ -8,6 +8,9 @@
 
 {% endblock %}
 
+
+
+
 {% block logo %}
 
     <div class="headSection">
@@ -17,144 +20,142 @@
             <div class="content" style="text-align:left; margin-left:50px;">
 
                 <div class="col-md-3">
-                    <a  href={{ path('index') }}><img alt="" src="../assets/img/logoBlack.png"></a>
-                </div>
-                <div class="col-md-6" style="padding-top:120px;">
-                        <div class="contactForm2" id="quoteAnchor" style="position:absolute; text-align:center; width:100%;padding-bottom:100px;" >
-                            {#<div class="container">#}
-                                <div class="formBlock contactForm2">
-                                    {#<div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1">#}
-
-                                        <div class="card1 card2 ">
-
-                                            <h2>Demande de devis</h2>
-
-                                            <p style="margin-right:10px;margin-left:10px;color:#000000;">Nous vous recontacterons dans les meilleurs délais pour vous donner la meilleure expertise </p>
-
-                                            <div class="card1-header card1-header-rose card1-header-icon devisFormCont ">
-                                                <div class="card1-icon devisForm" style="background: linear-gradient(60deg, #113441, #113441); ">
-                                                    <p style="color:white;">Vos informations</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="card1-body ">
-
-                                                {{ form_start(formQuote, {'attr': {'class': 'form-group'}} ) }}
-
-                                                <div class="form-group">
-                                                    {{ form_widget(formQuote.company, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                                    {{ form_errors(formQuote.company) }}
-                                                </div>
-
-                                                <div class="form-group respCivility" style="padding-bottom: 0;">
-                                                    {{ form_widget(formQuote.respCivility, {'attr': {'required': true, 'style':'display:inlineBlock','class' : 'form-control'}}) }}
-                                                    {{ form_errors(formQuote.respCivility) }}
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    {{ form_widget(formQuote.respName, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                                    {{ form_errors(formQuote.respName) }}
-                                                </div>
-
-                                                <div>
-                                                    {{ form_widget(formQuote.prospect.email, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                                    {{ form_errors(formQuote.prospect.email) }}
-                                                </div>
-
-
-                                                <div>
-                                                    {{ form_widget(formQuote.prospect.phone, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                                    {{ form_errors(formQuote.prospect.phone) }}
-                                                </div>
-
-                                                <div>
-                                                    {{ form_widget(formQuote.siret, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                                    {{ form_errors(formQuote.siret) }}
-                                                </div>
-
-
-                                                <div>
-                                                    {{ form_widget(formQuote.activity, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                                    {{ form_errors(formQuote.activity) }}
-                                                </div>
-
-                                                <div>
-                                                    {{ form_widget(formQuote.route, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                                    {{ form_errors(formQuote.route) }}
-                                                </div>
-
-                                                <div>
-                                                    {{ form_widget(formQuote.postalCode, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                                    {{ form_errors(formQuote.postalCode) }}
-                                                </div>
-
-
-                                                <div>
-                                                    {{ form_widget(formQuote.locality, {'attr': {'required': true, 'class' : 'form-control'}}) }}
-                                                    {{ form_errors(formQuote.locality) }}
-                                                </div>
-
-                                                <div>
-
-                                                    {{ form_row(formQuote.prospect.information, {'attr': {'required': false, 'class' :
-                                                        'form-control textarea',rows : "4", cols :"50", "placehoder" : "Votre message"}}) }}
-                                                </div>
-
-
-                                                <div style="display:none;">
-                                                    {{ form_widget(formQuote.prospect, {'attr': {'required': true, 'class' : 'form-control', 'label':false  }}) }}
-
-                                                    {{ form_widget(formQuote.prospect.name, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
-                                                    {{ form_widget(formQuote.prospect.lastAction, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
-                                                    {{ form_widget(formQuote.prospect.lastActionDate, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
-                                                    {{ form_widget(formQuote.prospect.nextAction, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
-                                                    {{ form_widget(formQuote.prospect.nextActionDate, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
-
-                                                </div>
-
-
-                                            </div>
-
-
-
-
-                                            <div>
-
-                                                <div class="card1-footer " style="padding:0.9375rem 20px;">
-                                                    {{ form_row(formQuote.save2, {'attr': {'class' : 'form-control btn btn-fill btn-rose', 'style' : "background-color:#113441; color: white;"}, 'aria-label':"Envoyer la demande de devis", 'label': 'Envoyer'}) }}
-                                                </div>
-
-                                                {{ form_end(formQuote) }}
-
-                                            </div>
-                                        </div>
-                                    {#</div>#}
-                                {#</div>#}
-                            </div>
-                        {#</div>#}
-
-
-
-                    </div>
-                </div>
-                <div class="col-md-3" style="text-align:center;">
-                    <a  href={{ path('index') }}><img alt="" src="../assets/img/lp.png" style="width:200px;"/></a>
+                    <a  style="z-index:60;position:absolute;"  href={{ path('index') }}><img alt="" src="../assets/img/logoBlack.png"></a>
                 </div>
             </div>
+            {#</div>#}
         </div>
-        {#</div>#}
+
     </div>
-
-
-
 
 {% endblock %}
 
-
-
 {% block content %}
 
+    <div class="section yellowBlock section-our-team">
+        {#<div class="col-md-6" style="padding-top:120px;">#}
+        <div class="contactForm2" id="quoteAnchor" style="position:absolute; text-align:center; width:100%;" >
+            {#<div class="container">#}
+            {#<div class="formBlock contactForm2">#}
+            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1">
+
+                <div class="card1 card2 ">
+
+                    <h2>Demande de devis</h2>
+
+                    <p style="margin-right:10px;margin-left:10px;color:#000000;">Nous vous recontacterons dans les meilleurs délais pour vous donner la meilleure expertise </p>
+
+                    <div class="card1-header card1-header-rose card1-header-icon devisFormCont ">
+                        <div class="card1-icon devisForm" style="background: linear-gradient(60deg, #113441, #113441); ">
+                            <p style="color:white;">Vos informations</p>
+                        </div>
+                    </div>
+
+                    <div class="card1-body ">
+
+                        {{ form_start(formQuote, {'attr': {'class': 'form-group'}} ) }}
+
+                        <div class="form-group">
+                            {{ form_widget(formQuote.company, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                            {{ form_errors(formQuote.company) }}
+                        </div>
+
+                        <div class="form-group respCivility" style="padding-bottom: 0;">
+                            {{ form_widget(formQuote.respCivility, {'attr': {'required': true, 'style':'display:inlineBlock','class' : 'form-control'}}) }}
+                            {{ form_errors(formQuote.respCivility) }}
+                        </div>
+
+
+                        <div class="form-group">
+                            {{ form_widget(formQuote.respName, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                            {{ form_errors(formQuote.respName) }}
+                        </div>
+
+                        <div>
+                            {{ form_widget(formQuote.prospect.email, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                            {{ form_errors(formQuote.prospect.email) }}
+                        </div>
+
+
+                        <div>
+                            {{ form_widget(formQuote.prospect.phone, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                            {{ form_errors(formQuote.prospect.phone) }}
+                        </div>
+
+                        <div>
+                            {{ form_widget(formQuote.siret, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                            {{ form_errors(formQuote.siret) }}
+                        </div>
+
+
+                        <div>
+                            {{ form_widget(formQuote.activity, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                            {{ form_errors(formQuote.activity) }}
+                        </div>
+
+                        <div>
+                            {{ form_widget(formQuote.route, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                            {{ form_errors(formQuote.route) }}
+                        </div>
+
+                        <div>
+                            {{ form_widget(formQuote.postalCode, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                            {{ form_errors(formQuote.postalCode) }}
+                        </div>
+
+
+                        <div>
+                            {{ form_widget(formQuote.locality, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                            {{ form_errors(formQuote.locality) }}
+                        </div>
+
+                        <div>
+
+                            {{ form_row(formQuote.prospect.information, {'attr': {'required': false, 'class' :
+                                'form-control textarea',rows : "4", cols :"50", "placehoder" : "Votre message"}}) }}
+                        </div>
+
+
+                        <div style="display:none;">
+                            {{ form_widget(formQuote.prospect, {'attr': {'required': true, 'class' : 'form-control', 'label':false  }}) }}
+
+                            {{ form_widget(formQuote.prospect.name, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
+                            {{ form_widget(formQuote.prospect.lastAction, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
+                            {{ form_widget(formQuote.prospect.lastActionDate, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
+                            {{ form_widget(formQuote.prospect.nextAction, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
+                            {{ form_widget(formQuote.prospect.nextActionDate, {'attr': {'required': true, 'class' : 'form-control'  }}) }}
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <div>
+
+                        <div class="card1-footer " style="padding:0.9375rem 20px;">
+                            {{ form_row(formQuote.save2, {'attr': {'class' : 'form-control btn btn-fill btn-rose', 'style' : "background-color:#113441; color: white;"}, 'aria-label':"Envoyer la demande de devis", 'label': 'Envoyer'}) }}
+                        </div>
+
+                        {{ form_end(formQuote) }}
+
+                    </div>
+                </div>
+                {#</div>#}
+            </div>
+            {#</div>#}
+            {#</div>#}
+
+
+
+        </div>
+        {#</div>#}
+        {#<div class="col-md-3" style="text-align:center;">#}
+        {#<a  href={{ path('index') }}><img alt="" src="../assets/img/lp.png" style="width:200px;"/></a>#}
+        {#</div>#}
+    </div>
 
 
     <!--<div class="text-area">-->
@@ -169,6 +170,64 @@
         </div>
 
     </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+    <script>
+
+        $( ".link" ).on( "mouseover", function(){
+            $(this).css('cursor','pointer')});
+
+        $( ".content" ).on( "mouseover", ".link", function(){
+            $(this).css('cursor','pointer')});
+
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="{{ asset('assets/js/anim.js') }}"></script>
+
+    <!-- Load the JavaScript API client and Sign-in library. -->
+    <script src="https://apis.google.com/js/client:platform.js"></script>
+    <script src="https://www.google-analytics.com/analytics.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131485415-2"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-131485415-2');
+    </script>
+
+    <!-- Google Analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-XXXXX-Y', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics -->
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-N9224JP');</script>
+    <!-- End Google Tag Manager -->
+
+
 
 {% endblock %}
 
