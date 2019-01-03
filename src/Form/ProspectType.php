@@ -80,9 +80,6 @@ class ProspectType extends AbstractType
                 'required' => false,
             ))
 
-//            ->add('lastActionDate', DateType::class, array(
-//                'required' => false,
-//            ))
 
             ->add('lastAction', EntityType::class,
                 array(

@@ -7,39 +7,40 @@
 <div class="section section-our-projects yellowBlock">
     <h1>Connexion</h1>
 
+    <div class="row">
 
+        <div class="col-md-6 col-md-offset-3" style="background-color:white;border-radius:8px;padding:40px 40px 0 40px;text-align:left;">
 
-<div class="row">
-    <div class="col-md-6 col-md-offset-3" style="background-color:white;border-radius:8px;padding:40px 40px 0 40px;text-align:left;">
-    {# S'il y a une erreur, on l'affiche #}
+            {# S'il y a une erreur, on l'affiche #}
 
-    {% if error %}
+            {% if error %}
 
-        <div class="alert alert-danger">{{ error.message }}</div>
+                <div class="alert alert-danger">{{ error.message }}</div>
 
-    {% endif %}
+            {% endif %}
 
-    {# Le formulaire, avec URL de soumission vers la route « login_check » #}
-    <form action="{{ path('loginCheck') }}" method="post">
+            {# Le formulaire, avec URL de soumission vers la route « login_check » #}
 
-        <label for="username">Login :</label>
+            <form action="{{ path('loginCheck') }}" method="post">
 
-        <input type="text" id="username" name="_username"  class="form-control"/>
+                <label for="username">Login :</label>
 
-        <label for="password">Mot de passe :</label>
+                <input type="text" id="username" name="_username"  class="form-control"/>
 
-        <input type="password" id="password" name="_password"  class="form-control"/>
+                <label for="password">Mot de passe :</label>
 
-        <a style="color:#1d5487;font-style:italic;" href = "{{ path('requestResetPassword') }}">Mot de passe oublié</a>
-        <br />
-        <br />
-        <br />
+                <input type="password" id="password" name="_password"  class="form-control"/>
 
-        <input type="submit" value="Connexion" class="form-control btn btn-fill btn-rose" style="background-color:#ffbb00;" />
+                <a style="color:#1d5487;font-style:italic;" href = "{{ path('requestResetPassword') }}">Mot de passe oublié</a>
+                <br />
+                <br />
+                <br />
 
-    </form>
+                <input type="submit" value="Connexion" class="form-control btn btn-fill btn-rose" style="background-color:#ffbb00;" />
+
+            </form>
+        </div>
     </div>
-    </div>
-    </div>
+</div>
 {% endblock %}
 

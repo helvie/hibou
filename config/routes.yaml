@@ -1,85 +1,107 @@
-essai:
-    path: /essai
-    controller: App\Controller\DefaultController::essai
+#essai:
+#    path: /essai
+#
+#    controller: App\Controller\DefaultController::essai
 
+# Page d'accueil
+#~~~~~~~~~~~~
 index:
     path: /
     controller: App\Controller\DefaultController::owlHomeDisplay
 
+
+# Formulaire de contact
+#~~~~~~~~~~~~~~~~~~~~~~
 contactForm:
     path: /contactForm
     controller: App\Controller\DefaultController::contactForm
 
+# Affichage page de l'agence
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
 owlAgencyDisplay:
     path: /owlAgencyDisplay
     controller: App\Controller\DefaultController::owlAgencyDisplay
 
+# Affichage page des services
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 owlServicesDisplay:
     path: /owlServicesDisplay
     controller: App\Controller\DefaultController::owlServicesDisplay
 
+# Affichage page des références
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 owlReferencesDisplay:
     path: /owlReferencesDisplay
     controller: App\Controller\DefaultController::owlReferencesDisplay
 
+# Affichage page de contact
+#~~~~~~~~~~~~~~~~~~~~~~~~~~
 owlContactDisplay:
     path: /owlContactDisplay
     controller: App\Controller\DefaultController::formContactDisplay
 
+# Affichage page blog
+#~~~~~~~~~~~~~~~~~~~~
 owlBlogDisplay:
     path: /owlBlogDisplay
     controller: App\Controller\DefaultController::owlBlogDisplay
 
+# Affichage page administration des articles
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 adminArticle:
     path: /adminArticle
     controller: App\Controller\DefaultController::adminArticleDisplay
 
-
+# Affichage page administration
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 adminSpace:
     path: /adminSpace
     controller: App\Controller\DefaultController::adminSpaceDisplay
 
-
+# Affichage page administration des prospects
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 adminProspect:
     path: /adminProspect
     controller: App\Controller\DefaultController::adminProspectDisplay
 
+# Enregistrement prochaine action table prospect
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 nextActionSave:
     path: /nextActionSave
     controller: App\Controller\DefaultController::nextActionSave
 
+# Enregistrement dernière action table prospect
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 lastActionSave:
     path: /lastActionSave
     controller: App\Controller\DefaultController::lastActionSave
 
-#article:
-#    path: /article
-#    controller: App\Controller\DefaultController::articleDisplay
-
-
+# Suppression d'un article en bdd
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 articleTrash:
     path: /adminArticleTrash
     controller: App\Controller\DefaultController::articleTrash
 
+# Modification d'un article en bdd
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 articleUpdate:
     path: /adminArticleUpdate
     controller: App\Controller\DefaultController::articleUpdate
 
+# Affichage du formulaire article
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 articleFormDisplay:
     path: /adminArticleFormDisplay
     controller: App\Controller\DefaultController::articleFormDisplay
 
+# Enregistrement d'un prospect inscrit à la NL
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 owlPropectNLRegistred:
     path: /owlPropectNLRegistred
     controller: App\Controller\DefaultController::owlPropectNLRegistred
 
-
-#deleteAuthorImage:
-#    path: /adminDeleteAuthorImage
-#    controller : App\Controller\DefaultController::deleteAuthorImage
-
-# Page de connexion
-#~~~~~~~~~~~~~~~~~~
+# Connexion
+#~~~~~~~~~~
 login:
     path: /login
     controller: App\Controller\SecurityController:loginAction
@@ -90,60 +112,64 @@ login:
 logout:
     path: /logout
 
-
-# Controller vérification Login
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Vérification des données de connexion
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 loginCheck:
     path: /loginCheck
     controller: App\Controller\SecurityController:loginCheckAction
 
 
-
+# Demande nouveau password
+#~~~~~~~~~~~~~~~~~~~~~~~~~
 requestResetPassword:
     path: /requestResetPassword
     controller: App\Controller\Security\SecurityController:requestResetPassword
 
 
-
+# Enregistrement d'un utilisateur
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 registrationUser:
     path: /adminRegistrationUser
     controller: App\Controller\SecurityController:registrationUser
 
-
+# Activation d'un utilisateur
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 activeUser:
     path: /activeUser
     controller: App\Controller\SecurityController:activeUser
 
+# Activation d'un utilisateur
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 repeatActiveUser:
     path: /repeatActiveUser
     controller: App\Controller\SecurityController:repeatActiveUser
-#
-#cgu:
-#    path: /cgu
-#    controller: App\Controller\DefaultController:cguDisplay
 
+# Affichage page des mentions légales
+#~~~~~~~~~~~~
 legalNotice:
     path: /legalNotice
     controller: App\Controller\DefaultController:legalNoticeDisplay
 
+# Affichage de la page des conditions générales de vente
+#~~~~~~~~~~~~
 cgv:
     path: /cgv
     controller: App\Controller\DefaultController:cgvDisplay
 
-#rgpd:
-#    path: /rgpd
-#    controller: App\Controller\DefaultController:rgpdDisplay
-
-
+# Affichage landing page
+#~~~~~~~~~~~~
 lp1:
     path: /lp1
     controller: App\Controller\DefaultController:lp1
 
-
+# Affichage landing page 2
+#~~~~~~~~~~~~
 lp2:
     path: /lp2
     controller: App\Controller\DefaultController:lp2
 
-helloAnalytics:
-    path: /helloAnalytics
-    controller: App\Controller\DefaultController:helloAnalytics
+# Affichage page google analytic
+#~~~~~~~~~~~~
+#helloAnalytics:
+#    path: /helloAnalytics
+#    controller: App\Controller\DefaultController:helloAnalytics

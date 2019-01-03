@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <html lang="fr">
-{#<html xmlns:og="http://ogp.me/ns#">#}
 
 
 <head>
@@ -9,12 +8,6 @@
 
 
     <title>{% block title %}Le hibou qui geek{% endblock %}</title>
-
-    {#<meta property="og:url"           content="http://www.hibou.helvie.fr/owlBlogDisplay?art=14" />#}
-    {#<meta property="og:type"          content="website" />#}
-    {#<meta property="og:title"         content="Your Website Title" />#}
-    {#<meta property="og:description"   content="Your description" />#}
-    {#<meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />#}
 
     {% block stylesheets2 %}
         <meta name="description" content ="L’Agence Le Hibou qui Geek est une agence digitale spécialisée dans l’accessibilité. Elle propose la création et l’optimisation de sites vitrine ou e-commerce, la construction de votre stratégie Webmarketing, ou encore, le développement d’une identité visuelle. ">
@@ -116,12 +109,8 @@
     {% block footer %}
 
         <footer class="footer greyBlock">
-            {#<div class="container">#}
-                {#<div class="row">#}
                     <div class="col-md-9 col-sm-9 col-xs-12" style="text-align:left;">
                         <li><a style=margin-right:10px;" href={{ path('cgv') }}>CGV</a></li>
-                        {#<li><a style="color:#bbb;" href={{ path('cgu') }}>CGU</a></li>#}
-                        {#<li><a style="color:#bbb;" href={{ path('cookies') }}>Cookie</a></li>#}
                         <li><a style=margin-right:10px;" href={{ path('legalNotice') }}>Mentions légales et données personnelles</a></li>
                         <li><a class="glyphicon glyphicon-cog" style="color:#bbb;" href={{ path('adminSpace') }}></a></li>
                     </div>
@@ -140,16 +129,6 @@
 
 
 {% block javascripts %}
-
-    <script>
-
-    $( ".link" ).on( "mouseover", function(){
-    $(this).css('cursor','pointer')});
-
-    $( ".content" ).on( "mouseover", ".link", function(){
-    $(this).css('cursor','pointer')});
-
-    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -193,9 +172,6 @@
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-N9224JP');</script>
     <!-- End Google Tag Manager -->
-
-
-
 
     {#<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>#}
     {#<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>#}

@@ -44,7 +44,7 @@
         </div>
     </div>
 
-
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ BLOC JEU ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 
         <div class="section whiteBlock section-our-team">
             <div class="container">
@@ -111,6 +111,8 @@
             </div>
         </div>
 
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ BLOC DERNIERES ACTUALITES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+
 
     <div class="beigeBlock section section-card-blog" style="padding-bottom:70px;">
         <div class="container">
@@ -121,40 +123,36 @@
             <div class="row">
                 <div class="col-md-6" style="padding: 0 50px 0 50px;">
                     <div class="card card-blog">
-                        <a aria-label="Lien vers la page de l'article" href="blog-posts.html" class="header">
+                        <a aria-label="Lien vers la page de l'article" href={{ path('owlBlogDisplay',{'art': 11})}}  class="header">
                             <img alt="" src="../assets/img/persons/web4y.jpg" class="image-header">
 
                         </a>
-                        <div class="content"  style="background-color:#F9E9BE; padding: 25px 25px 0 25px;">
-                            <a aria-label="Lien vers la page de l'article"  href="blog-posts.html" class="card-title"><h2>We Are Here to Make Life Better</h2></a>
-                            <p>Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own The Pablo pop up was almost a pop up of influence.</p>
+                        <div class="content"  style="background-color:#F9E9BE; padding: 25px 0 0 0;">
+                            <a aria-label="Lien vers la page de l'article"  href={{ path('owlBlogDisplay',{'art': 11})}}  class="card-title"><h2>Le projet web en 11&#8239;étapes</h2></a>
+                            <p class="artHomeText" style="text-align:justify;"><a href={{ path('owlBlogDisplay',{'art': 11})}}>Avant de se lancer dans l’aventure de la création d’un site internet, il est essentiel de bien définir vos besoins. Nous devons étudier ensemble tous les aspects votre projet : vos outils déjà existants, votre budget, l’objectif de votre site internet, les personnes ciblées, la concurrence, les fonctionnalités souhaitées, les besoins en termes de communication...</a></p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-6" style="padding: 0 50px 0 50px;">
                     <div class="card card-blog">
-                        <a aria-label="Lien vers la page de l'article"  href="blog-posts.html">
-                            <img alt="" src="../assets/img/persons/web6y.jpg" href="blog-posts.html" class="image-header">
+                        <a aria-label="Lien vers la page de l'article" href={{ path('owlBlogDisplay',{'art': 1})}} >
+                            <img alt="" src="../assets/img/persons/web6y.jpg"class="image-header">
                         </a>
-                        <div class="content"  style="background-color:#F9E9BE; padding: 25px 25px 0 25px;">
-                            <a aria-label="Lien vers la page de l'article"  href="blog-posts.html" class="card-title"><h2>We Are Here to Make Life Better</h2></a>
-                            <p>Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own The Pablo pop up was almost a pop up of influence.</p>
+                        <div class="content"  style="background-color:#F9E9BE; padding: 25px 0 0 0;">
+                            <a aria-label="Lien vers la page de l'article" href={{ path('owlBlogDisplay',{'art': 1})}}  class="card-title"><h2>L'accessibilité</h2></a>
+                            <p class="artHomeText" style="text-align:justify;"><a href={{ path('owlBlogDisplay',{'art': 1})}}>Le web est devenu un média incontournable dans le secteur de l’information. Il est à présent essentiel à chacun, tant dans la vie professionnelle que dans la vie privée. L’accessibilité est une notion indispensable dans ce domaine. C’est devenu une obligation légale dans la majorité des sites publics dans le monde. L’accessibilité du Web c’est permettre toute personne, quelle qu’elle soit, d’accéder à la toile, en toute circonstance...</a></p>
                         </div>
                     </div>
                 </div>
 
             </div>
 
-            {#<div class="col-md-12 text-center" style="height:50px;">#}
-                {#<button type="button" class="btn btn-fill btn-owl">#}
-                    {#Subscribe#}
-                {#</button>#}
-            {#</div>#}
 
         </div>
     </div>
-    {#</div>#}
+
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ BLOC NEWSLETTER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 
     <div class="blueBlock section" style="padding-top:50px;">
         <div class="container">
@@ -221,6 +219,7 @@
         </div>
     </div>
 
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 
     {% endblock %}
 {% block javascripts %}

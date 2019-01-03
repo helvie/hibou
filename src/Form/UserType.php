@@ -33,17 +33,7 @@ class UserType extends AbstractType
 
         ->add('email', EmailType::class)
 
-
-
-//        ->add('password', RepeatedType::class, array(
-//            'type' => PasswordType::class,
-//            'first_options' => array('label' => 'Password'),
-//            'second_options' => array('label' => 'Repeat Password')))
-
         ->add('isActive', HiddenType::class)
-
-//        ->add('userKey', HiddenType::class)
-
 
         ->add('save', SubmitType::class, ['attr' => ['class' => 'btn btn btn-info btnSave']])
 
@@ -53,11 +43,7 @@ class UserType extends AbstractType
             'type' => PasswordType::class,
             'first_options'  => array('label' => 'Mot de passe'),
             'second_options' => array('label' => 'Confirmer le mot de passe')));
-
-
-
         }
-
 
 
     public function configureOptions(OptionsResolver $resolver)

@@ -17,34 +17,10 @@
     </div>
 
     {{ parent() }}
-        {#<div class="team"  style="text-align:center;margin-top:50px;">#}
-            {#<div class="row">#}
-
-                {#<!-- end team -->#}
-                {#<div class="col-md-8 col-md-offset-2 text-center" style="height:60px;">#}
-                    {#<div class="col-md-4 text-center">#}
-                        {#<a aria-label="Atteindre la page prospects" class="btn btn-fill btn-owl"  href={{ path('adminProspect')}}>#}
-                            {#Gestion des prospects#}
-                        {#</a>#}
-                    {#</div>#}
-                    {#<div class="col-md-4 text-center">#}
-                        {#<a aria-label="Atteindre la page gestion articles" class="btn btn-fill btn-owl" href={{ path('adminArticle')}}>#}
-                            {#Gestion des articles#}
-                        {#</a>#}
-                    {#</div>#}
-                    {#<div class="col-md-4 text-center">#}
-                        {#<a  aria-label="Atteindre la page création utilisateurs" class="btn btn-fill btn-owl" href={{ path('registrationUser')}}>#}
-                            {#Création d'un utilisateur#}
-                        {#</a>#}
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
 
         <div class="team"  style="text-align:center;margin-top:20px;">
 
 
-        {#{{ dump(data) }}#}
         <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
@@ -142,16 +118,14 @@
                             <p>Informations du client :</p><div class="cieText prospectInfo">{{ prospect.information|raw }}</div>
                         {% endif %}
 
-                    {#{% if prospect.lastAction %}#}
-                    {#<p>Dernière action : <span class="cieText">{{ prospect.lastAction.action }} - le {{ prospect.lastActionDate|date('d/m/Y') }}</p>#}
-                    {#{% endif %}#}
+
 
                         <div class = "prospectFollowUp">
                             <fieldset class="inline-form scheduler-border">
                                 <legend class="scheduler-border">Actions effectuées ce jour</legend>
-                            {#<select id="lastActionSelect">#}
+
                             <form>
-                                {#<p>Actions effectuées ce jour :</p>#}
+
                                 <select class = "lastActionSelect form-control {{ prospectId }}">
                                     <option value=""></option>
                                     <option value="7">Message laissé</option>
@@ -162,28 +136,15 @@
                                     <option value="30">Autre</option>
 
                                 </select>
-                                {#<input type= "radio" name="lastActionOption" id="message"  value="7">#}
-                                {#<label for="message">Message Laissé</label>#}
-                                {#<input type= "radio" name="lastActionOption" id="mail"   value=8>#}
-                                {#<label for="mail">Mail envoyé</label>#}
 
-                                {#<input type= "radio" name="lastActionOption" id="devis"    value=9>#}
-                                {#<label for="devis">Devis envoyé</label>#}
-                                {#<input type= "radio" name="lastActionOption" id="non"    value=10>#}
-                                {#<label for="non">Non intéressé</label>#}
+
                                 <textarea class="form-control lastActionArea {{ prospectId }}"  style="margin:20px 0; height:70px;" placeholder="Observations"></textarea>
-                                {#<button class="btn btn-primary lastActionBtn">Mettre à jour</button>#}
+
                                 <a class="btn btn-fill btn-rose lastActionBtn">Mettre à jour</a>
 
                             </form>
                             </fieldset>
-                            {#<option value="">Dernière action</option>#}
-                                {#<option value="6">Eu au téléphone</option>#}
-                                {#<option value="7">Message laissé</option>#}
-                                {#<option value="8">Mail envoyé</option>#}
-                                {#<option value="9">Devis envoyé</option>#}
-                                {#<option value="10">Non intéressé</option>#}
-                            {#</select>#}
+
                         </div>
                         <div class = "prospectFollowUp">
 
@@ -201,11 +162,6 @@
                                 <option value="6">Envoyer un mail</option>
                                 <option value="9">Autre</option>
                             </select>
-
-                                {#<input type= "radio" name="nextActionOption" class="nextActionOption" value="4"> <span>Rappeler</span>#}
-                                {#<input type= "radio" name="nextActionOption" class="nextActionOption" value="5"> <span>Envoyer un devis</span>#}
-                                {#<input type= "radio" name="nextActionOption" class="nextActionOption" value="6"> <span>Envoyer un mail</span>#}
-                                {#<input type= "radio" name="nextActionOption" class="nextActionOption" value="9"> <span>Autre</span>#}
 
                             <textarea class="form-control nextActionArea  {{ prospectId }}" style="margin:20px 0; height:70px;" placeholder="Observations"></textarea>
                                 <button class="btn btn-fill btn-rose nextActionBtn">Mettre à jour</button>

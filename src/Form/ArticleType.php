@@ -52,12 +52,14 @@ class ArticleType extends AbstractType
 
             ->add('authorImage', FileType::class, array(
                 'label' => 'Photo de l\auteur',
-                'required' => false
+                'required' => false,
+                'data_class' => null,
             ))
 
             ->add('articleImage', FileType::class, array(
                 'label' => 'Image de l\article',
-                'required' => false
+                'required' => false,
+                'data_class' => null
             ))
 
             ->add('date', HiddenType::class, array(

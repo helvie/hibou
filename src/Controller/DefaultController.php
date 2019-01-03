@@ -38,26 +38,6 @@ class DefaultController extends Controller
 {
 
 
-//    public function owlHomeDisplay(Request $request, ArticleRepository $articleRepository)
-//    {
-//
-//        return $this-> render("owlHome.html.twig");
-//
-////    }
-//    public function nextActionSave(Request $request, ProspectRepository $prospectRepository, NextActionRepository
-//    $nextActionRepository){
-//
-//
-//        $prospect=$prospectRepository->findById(11);
-//
-//        return $this-> render("essai.html.twig", array
-//        (
-//            'data' => $prospect
-//        ));
-//
-//
-//    }
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Création d'un nom unique de fichier~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,12 +51,7 @@ class DefaultController extends Controller
     }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -87,12 +62,12 @@ class DefaultController extends Controller
 
     }
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage de la 2ème landing page ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-    public function lp2(Request $request, ProspectRepository $prospectRepository, LastActionRepository
-    $lastActionRepository, NextActionRepository $nextActionRepository, \Swift_Mailer $mailer)
+    public function lp2(Request $request)
     {
 
         return $this->render('lp2.html.twig');
@@ -101,26 +76,40 @@ class DefaultController extends Controller
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage de la 2ème landing page ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
     public function lp1(Request $request, ProspectRepository $prospectRepository, LastActionRepository
     $lastActionRepository, NextActionRepository $nextActionRepository, \Swift_Mailer $mailer)
     {
+        // Initialisation de l'entité prospect information
 
         $formProspectInfo = new ProspectInformation();
+
+        // Création du formulaire devis basé sur l'entité propsect information
+
         $formQuote = $this->createForm(ProspectInformationType::class, $formProspectInfo);
         $formQuote->handleRequest($request);
+
+        // Initialisation date du jour
 
         $today = new dateTime();
         $today2 = $today -> format('d/m/Y');
 
+        // Si le formulaire est validée
 
         if ($formQuote->isSubmitted() && $formQuote->isValid()) {
 
+            // Vérification si un prospect existe avec le même mail
+
             $existingProspect = $prospectRepository->findOneByEmail($formProspectInfo -> getProspect() -> getEmail());
 
+            // S'il existe, récupération de l'entité et de ses informations
+
             if($existingProspect != null){
+
+                // Récupération booléan, s'il a précédemment demandé des infos ou une NL
 
                 $thisProspect = $existingProspect;
                 $NL = $thisProspect -> getNewsletterRequest();
@@ -138,6 +127,8 @@ class DefaultController extends Controller
             }
             else
             {
+                // S'il n'existe pas, création d'une nouvelle entité
+
                 $thisProspect = new Prospect();
                 $thisProspectInformation = new ProspectInformation();
                 $NL = 0;
@@ -187,6 +178,7 @@ class DefaultController extends Controller
             $em->persist($thisProspectInformation);
             $em->flush();
 
+            // Envoi du mail d'info de demande de devis à l'agence
 
             $message = (new \Swift_Message("Demande de devis"))
                 ->setFrom($formProspectInfo -> getProspect() -> getEmail())
@@ -218,10 +210,6 @@ class DefaultController extends Controller
         }
 
 
-
-
-
-
         return $this->render('lp1.html.twig',
             array(
                 'formQuote' => $formQuote->createView()
@@ -232,19 +220,7 @@ class DefaultController extends Controller
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-//
-//    public function cguDisplay(Request $request)
-//    {
-//
-//        return $this-> render("cgu.html.twig");
-//
-//    }
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage de la page de conditions générales de vente ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -255,8 +231,9 @@ class DefaultController extends Controller
 
     }
 
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage de la page des mentions légales ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -268,18 +245,7 @@ class DefaultController extends Controller
     }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-//    public function rgpdDisplay(Request $request)
-//    {
-//
-//        return $this-> render("rgpd.html.twig");
-//
-//    }
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage de la page des références ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -292,7 +258,7 @@ class DefaultController extends Controller
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage de la page présentation de l'agence ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -304,7 +270,7 @@ class DefaultController extends Controller
     }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage de la page des services de l'agence ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -316,14 +282,17 @@ class DefaultController extends Controller
     }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage de la page blog ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
     public function owlBlogDisplay(Request $request, ArticleRepository $articleRepository)
     {
+        // Récupération de tous les articles
 
         $articles = $articleRepository -> findAllArticles()->getArrayResult();
+
+        // Récupération de l'Id du dernier article
 
         $latestArticle = end($articles);
         $latestArticleId = $latestArticle["id"];
@@ -333,6 +302,8 @@ class DefaultController extends Controller
         $array2 = [];
         $array3 = [];
         $articleArray=[];
+
+        // Distribution des articles sur trois tableaux
 
         foreach ($articles as &$value) {
             if ($var == 1) {
@@ -349,19 +320,18 @@ class DefaultController extends Controller
             }
         }
 
+        // Rassemblement des 4 tableaux dans un unique tableau
+
         array_push($articleArray, $array1);
         array_push($articleArray, $array2);
         array_push($articleArray, $array3);
         array_push($articleArray, $articles);
 
 
-
-
-
+        // Affichage de la page blog en y injectant les tableaux
 
         return $this-> render("owlBlog.html.twig", array
         (
-
             'articles' => $articleArray,
             'latestArticleId' => $latestArticleId
         ));
@@ -369,23 +339,9 @@ class DefaultController extends Controller
     }
 
 
-//    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//
-//    public function adminArticleDisplay(Request $request, ArticleRepository $articleRepository){
-//
-//        $articles = $articleRepository -> findAll();
-//
-//        return $this-> render("adminArticle.html.twig", array
-//        (
-//            'articles' => $articles
-//        ));
-//
-//    }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage de la page contact ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -396,15 +352,19 @@ class DefaultController extends Controller
 
     }
 
-////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage de la page d'accueil ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
     public function owlHomeDisplay(Request $request, ProspectRepository $prospectRepository, LastActionRepository $lastActionRepository, NextActionRepository $nextActionRepository)
     {
 
+        // Initialisation d'un tableau de noms de carte à jouer
+
         $cardsArray = array("1blue", "2blue", "1green", "2green", "1pink", "2pink", "1red", "2red", "1yellow", "2yellow", "1owl", "2owl");
+
+        // Mélange du tableau
 
         shuffle($cardsArray);
 
@@ -418,30 +378,39 @@ class DefaultController extends Controller
 
     }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Enregistrement de la demande de NL en BDD ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
     public function owlPropectNLRegistred(Request $request, ProspectRepository $prospectRepository, LastActionRepository $lastActionRepository, NextActionRepository $nextActionRepository)
     {
 
+        // Récupération du nom et du mail renseignés dans les champs de formulaire
 
         $name = $request -> request -> get("nameNL");
         $email = $request -> request -> get("mailNL");
 
 
+        // Création d'une nouvelle entité prospect
+
         $formProspect = new Prospect();
 
+        // Initialisation de la date du jour, auquel sont ajoutés 15 jours (pour pub éventuelle par la suite - pas mis
+        // en place)
         $today = new dateTime();
         $today2 = $today -> format('d/m/Y');
         $today15 = new dateTime();
         $today15 -> add(new DateInterval('P15D'));
 
 
+            // Vérification de l'existence du mail du prospect en bdd
+
             $existingProspect = $prospectRepository->findOneByEmail($email);
 
             $lastAction = $lastActionRepository -> find(1);
             $nextAction = $nextActionRepository -> find(4);
+
+            // S'il existe récupération booléan de demande précédente éventuelle d'infos ou de devis
 
             if($existingProspect != null){
                 $thisProspect = $existingProspect;
@@ -449,6 +418,8 @@ class DefaultController extends Controller
                 $infos = $thisProspect -> getInformationsRequest();
                 $information = $thisProspect -> getInformation();
             }
+
+            // Sinon, création nouvelle entité
 
             else{
                 $thisProspect = new Prospect();
@@ -473,8 +444,6 @@ class DefaultController extends Controller
             $em->persist($thisProspect);
             $em->flush();
 
-            // Redirection vers le formulaire d'activité
-
             return new JsonResponse("ok");
     }
 
@@ -483,6 +452,7 @@ class DefaultController extends Controller
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage du formulaire de demande de contact ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -490,20 +460,38 @@ class DefaultController extends Controller
                                         $lastActionRepository, NextActionRepository $nextActionRepository, \Swift_Mailer $mailer)
     {
 
+        // Création d'un nouveau prospect (pour formulaire contact)
+
         $formContactRequest = new Prospect();
+
+        // Création du formulaire basé sur le nouveau prospect
+
         $formRequest = $this->createForm(ProspectType::class, $formContactRequest);
         $formRequest->handleRequest($request);
 
+        // Création nouvelle entité prospect information (pour formulaire devis)
+
         $formProspectInfo = new ProspectInformation();
+
+        // création du formulaire devis basé sur l'entité
+
         $formQuote = $this->createForm(ProspectInformationType::class, $formProspectInfo);
         $formQuote->handleRequest($request);
+
+        // Initialisation de la date du jour
 
         $today = new dateTime();
         $today2 = $today -> format('d/m/Y');
 
+        // Si le formulaire de contact est validé
+
         if ($formRequest->isSubmitted() && $formRequest->isValid()) {
 
+            // Vérification de l'existence d'un prospect avec la même adresse mail en bdd
+
             $existingProspect = $prospectRepository->findOneByEmail($formContactRequest -> getEmail());
+
+            // S'il existe récupération booléan de demande précédente éventuelle de NL ou de devis
 
             if($existingProspect != null){
                 $thisProspect = $existingProspect;
@@ -512,12 +500,16 @@ class DefaultController extends Controller
                 $information = $thisProspect -> getInformation();
             }
 
+            // Sinon, création d'une nouvelle entité
+
             else{
                 $thisProspect = new Prospect();
                 $quote = "0";
                 $NL = "0";
                 $information = "";
             }
+
+            // Récupération des actions
 
             $lastAction = $formContactRequest -> getLastAction();
             $nextAction = $formContactRequest -> getNextAction();
@@ -536,6 +528,8 @@ class DefaultController extends Controller
             $thisProspect->setNextActionDate($formContactRequest -> getNextActionDate());
             $thisProspect->setPhone($formContactRequest -> getPhone());
 
+            // Ajout du texte de l'action au texte dans le champ "information", soit demande d'info, soit demande de rdv téléphonique
+
             if ($lastAction == $lastActionRepository -> find(12)) {$message = $today2." - Rendez-vous téléphonique demandé le ".
                 $formContactRequest -> getNextActionDate()-> format('d/m/Y')." (".$nextAction->getAction()."). Message laissé : '".$newMessage."'";}
 
@@ -547,6 +541,8 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($thisProspect);
             $em->flush();
+
+            // Selon action demandée, récupération du texte de l'action pour l'injecter dans le mail
 
             if($lastAction == $lastActionRepository -> find(12)){
                 $requestPhone = 1;
@@ -560,6 +556,8 @@ class DefaultController extends Controller
                 $phoneDate = "";
                 $phoneHour = "";
                             }
+
+        // Envoi du mail à l'agence, regroupant toutes les données
 
             $message = (new \Swift_Message("Demande de contact"))
                 ->setFrom($formContactRequest -> getEmail())
@@ -587,12 +585,17 @@ class DefaultController extends Controller
 
     }
 
+        // Si la demande de devis est validée
 
         if ($formQuote->isSubmitted() && $formQuote->isValid()) {
+
+            // Vérification de l'existence d'un prospect avec la même adresse en BDD
 
             $existingProspect = $prospectRepository->findOneByEmail($formProspectInfo -> getProspect() -> getEmail());
 
             if($existingProspect != null){
+
+                // S'il existe, récupération du booléean de demande précédente de NL ou info
 
                 $thisProspect = $existingProspect;
                 $NL = $thisProspect -> getNewsletterRequest();
@@ -610,6 +613,9 @@ class DefaultController extends Controller
             }
             else
             {
+
+                // Sinon, création d'une nouvelle entité
+
                 $thisProspect = new Prospect();
                 $thisProspectInformation = new ProspectInformation();
                 $NL = 0;
@@ -617,6 +623,8 @@ class DefaultController extends Controller
                 $information = "";
 
             }
+
+            // Récupération du champ info
 
             $newMessage = $formProspectInfo -> getProspect() -> getInformation();
 
@@ -633,6 +641,9 @@ class DefaultController extends Controller
             //Demandeur : 1-prospect, 2-commercial, 3-automatique
             $thisProspect->setApplicant(1);
             $thisProspect->setNextActionDate($today);
+
+            // Ajout de la nouvelle action aux précédentes actions du champ "information"
+
             $thisProspect->setInformation("<p>".$today2." - Demande de devis - Message : ".$newMessage."</p><p></p>".$information);
 
             $thisProspectInformation -> setCompany($formProspectInfo -> getCompany());
@@ -659,6 +670,7 @@ class DefaultController extends Controller
             $em->persist($thisProspectInformation);
             $em->flush();
 
+                // Envoi du mail avec les infos de la demande du prospect à l'agence
 
                 $message = (new \Swift_Message("Demande de devis"))
                 ->setFrom($formProspectInfo -> getProspect() -> getEmail())
@@ -690,10 +702,6 @@ class DefaultController extends Controller
         }
 
 
-
-
-
-
         return $this->render('owlContact.html.twig',
             array(
                 'formContactDisplay' => $formRequest->createView(),
@@ -703,223 +711,16 @@ class DefaultController extends Controller
         );
 }
 
-
-
-//    public function formContactDisplay2(Request $request, ProspectRepository $prospectRepository, \Swift_Mailer $mailer)
-//    {
-//
-//        // Création du formulaire avec une nouvelle entité
-//
-//        $formProspect = new Prospect();
-//        $formProspectInfo = new ProspectInformation();
-//        $formContactRequest = new Prospect();
-//
-//        $formNL = $this->createForm(ProspectType::class, $formProspect);
-//
-//        $formQuote = $this->createForm(ProspectInformationType::class, $formProspectInfo);
-//
-//        $formRequest = $this->createForm(ProspectType::class, $formContactRequest);
-//
-//
-//        $formNL->handleRequest($request);
-//        $formQuote->handleRequest($request);
-//        $formRequest->handleRequest($request);
-//
-//        $today = new dateTime();
-//        $today2 = $today -> format('d/m/Y');
-//        $today15 = new dateTime();
-//        $today15 -> add(new DateInterval('P15D'));
-//
-//        if ($formRequest->isSubmitted() && $formNL->isValid()) {
-//            $existingProspect = $prospectRepository->findOneByEmail($formProspect -> getEmail());
-//
-//            if($existingProspect != null){
-//                $thisProspect = $existingProspect;
-//                $quote = $thisProspect -> getQuoteRequest();
-//                $NL = $thisProspect -> getNewsletterRequest();
-//                $information = $thisProspect -> getInformation();
-//            }
-//            else{
-//                $thisProspect = new Prospect();
-//            }
-//
-//            $thisProspect->setQuoteRequest($quote);
-//            $thisProspect->setNewsletterRequest($NL);
-//            $thisProspect->setArchived(0);
-//            $thisProspect->setLastAction($formContactRequest->getLastAction());
-//            $thisProspect->setLastActionDate($today);
-//            if($formContactRequest->getLastAction()==12)
-//                {
-//                    $thisProspect->setNextAction(6);
-//                }
-//            elseif($formContactRequest->getLastAction()==13)
-//                {
-//                    $thisProspect->setNextAction(1);
-//
-//                }
-//            //Demandeur : 1-prospect, 2-commercial, 3-automatique
-//            $thisProspect->setApplicant(1);
-//            $thisProspect->setNextActionDate($today15);
-//            $thisProspect -> setInformation($information."<p><b>Inscription à la newsletter - ".$today2."</b></p>");
-//
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($thisProspect);
-//            $em->flush();
-//
-//            // Redirection vers le formulaire d'activité
-//
-//            return $this->redirectToRoute('index');
-//
-//        }
-//
-//
-//
-//
-//        if ($formNL->isSubmitted() && $formNL->isValid()) {
-//
-//            $existingProspect = $prospectRepository->findOneByEmail($formProspect -> getEmail());
-//
-//            if($existingProspect != null){
-//                $thisProspect = $existingProspect;
-//                $quote = $thisProspect -> getQuoteRequest();
-//                $NL = $thisProspect -> getNewsletterRequest();
-//                $information = $thisProspect -> getInformation();
-//            }
-//
-//            else{
-//                $thisProspect = new Prospect();
-//            }
-//
-//            $thisProspect->setQuoteRequest($quote);
-//            $thisProspect->setNewsletterRequest(1);
-//            $thisProspect->setArchived(0);
-//            $thisProspect->setLastAction(1);
-//            $thisProspect->setLastActionDate($today);
-//            $thisProspect->setNextAction(4);
-//            //Demandeur : 1-prospect, 2-commercial, 3-automatique
-//            $thisProspect->setApplicant(1);
-//            $thisProspect->setNextActionDate($today15);
-//            $thisProspect -> setInformation($information."<p><b>Inscription à la newsletter - ".$today2."</b></p>");
-//
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($thisProspect);
-//            $em->flush();
-//
-//            // Redirection vers le formulaire d'activité
-//
-//            return $this->redirectToRoute('owlServicesDisplay');
-//
-//        }
-//
-//        if ($formQuote->isSubmitted() && $formQuote->isValid()) {
-//
-//            $existingProspect = $prospectRepository->findOneByEmail($formProspectInfo -> getEmail());
-//
-//            if($existingProspect != null){
-//
-//                $thisProspect = $existingProspect;
-//                $NL = $thisProspect -> getNewsletterRequest();
-//                $information = $thisProspect -> getInformation();
-//
-//
-//                if($thisProspect -> getProspectInformation() !=null){
-//                    $thisProspectInformation = $thisProspect -> getProspectInformation();
-//                }
-//
-//                else {
-//                    $thisProspectInformation = new ProspectInformation();
-//                }
-//            }
-//            else
-//            {
-//                $thisProspect = new Prospect();
-//                $thisProspectInformation = new ProspectInformation();
-//                $NL = 0;
-//                $information = "";
-//
-//            }
-//
-//            $thisProspect -> setName($formProspectInfo -> getCompany());
-//            $thisProspect -> setEmail($formProspectInfo -> getEmail());
-//            $thisProspect->setQuoteRequest(1);
-//            $thisProspect->setNewsletterRequest($NL);
-//            $thisProspect->setInformationsRequest(0);
-//            $thisProspect->setArchived(0);
-//            $thisProspect->setLastAction(2);
-//            $thisProspect->setLastActionDate($today);
-//            $thisProspect->setNextAction(2);
-//            $thisProspect->setNextActionDate($today15);
-//            //Demandeur : 1-prospect, 2-commercial, 3-automatique
-//            $thisProspect->setApplicant(1);
-//            $thisProspect->setNextActionDate($today);
-//            $thisProspect->setInformation($information."<p><b>Demande de devis - ".$today2."</b></p>");
-//
-//            $thisProspectInformation -> setCompany($formProspectInfo -> getCompany());
-//            $thisProspectInformation -> setEmail($formProspectInfo -> getEmail());
-//            $thisProspectInformation -> setRespCivility($formProspectInfo -> getRespCivility());
-//            $thisProspectInformation -> setRespName($formProspectInfo -> getRespName());
-//            $thisProspectInformation -> setSiret($formProspectInfo -> getSiret());
-//            $thisProspectInformation -> setActivity($formProspectInfo -> getActivity());
-//            $thisProspectInformation -> setPhone($formProspectInfo -> getPhone());
-//            $thisProspectInformation -> setRoute($formProspectInfo -> getRoute());
-//            $thisProspectInformation -> setPostalCode($formProspectInfo -> getPostalCode());
-//            $thisProspectInformation -> setLocality($formProspectInfo -> getLocality());
-//
-//            $thisProspect -> setProspectInformation($thisProspectInformation);
-//
-//
-//
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($thisProspect);
-//            $em->persist($thisProspectInformation);
-//            $em->flush();
-//
-//
-//            $message = (new \Swift_Message("Demande de devis"))
-//                ->setFrom($formProspectInfo -> getEmail())
-//                ->setTo("lehibouquigeek@gmail.com")
-//                ->setBody(
-//                    $this->renderView(
-//                    // templates/emails/registration.html.twig
-//                        'quoteMailToAdmin.html.twig',
-//                        array(
-//                            'company' => $formProspectInfo -> getCompany(),
-//                            'name' => $formProspectInfo -> getRespCivility()." ".$formProspectInfo -> getRespName(),
-//                            'email' => $formProspectInfo -> getEmail(),
-//                            'phone' => $formProspectInfo -> getPhone(),
-//                            'siret' => $formProspectInfo -> getSiret(),
-//                            'activity' => $formProspectInfo -> getActivity(),
-//                            'address' => $formProspectInfo -> getRoute()." - ".$formProspectInfo -> getPostalCode()."".$formProspectInfo -> getLocality(),
-//                            'message' => $thisProspect -> getProspectInformation(),
-//
-//
-//                            )
-//                    ),
-//                    'text/html'
-//                );
-//
-//            $mailer->send($message);
-//
-//
-//            return $this->render('owlServices.html.twig');
-//
-//        }
-//
-//        // Affichage du formulaire d'activité
-//
-//        return $this->render('owlContact.html.twig', [
-//            'formNL' => $formNL->createView(),
-//            'formQuote' => $formQuote->createView()
-//        ]);
-//
-//    }
-
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
     public function essai(Request $request, ArticleRepository $articleRepository)
     {
 
-        $cardsArray = array("1blue", "2blue", "1green", "2green", "1pink", "2pink", "1red", "2red", "1yellow", "2yellow", "1owl", "2owl");
+        $cardsArray = array("1blue", "2blue", "1green", "2green", "1pink", "2pink", "1red", "2red", "1yellow", "2yellow",
+            "1owl", "2owl");
 
 
 
@@ -934,15 +735,21 @@ class DefaultController extends Controller
     }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Suppression d'un article ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
     public function articleTrash(Request $request, ArticleRepository $articleRepository)
     {
+        // Récupération de l'id de l'article envoyé en JS
+
         $articleId = $request->request->get('articleId');
 
+        // Récupération de l'article
+
         $article = $articleRepository -> find($articleId);
+
+        // Suppression de l'article
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($article);
@@ -954,7 +761,7 @@ class DefaultController extends Controller
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage de l'espace d'administration des articles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public function adminArticleDisplay(Request $request, ArticleRepository $articleRepository){
@@ -969,7 +776,7 @@ class DefaultController extends Controller
     }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage de l'espace d'administration ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public function adminSpaceDisplay(Request $request, ArticleRepository $articleRepository){
@@ -979,35 +786,55 @@ class DefaultController extends Controller
     }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Enregistrement de l'action suivante ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public function nextActionSave(Request $request, ProspectRepository $prospectRepository, NextActionRepository
     $nextActionRepository){
 
+
+        // Initialisation de la date du jour
+
         $today = new dateTime();
         $today2 = $today -> format('d/m/Y');
-//
+
+        // Récupération de l'id du prospect, de l'id de l'action et du texte de l'action envoyés par js
+
         $prospectId = $request->request->get("prospectId");
         $prospectId = substr($prospectId,2);
 
         $nextActionId = $request->request->get("nextActionId");
         $nextActionArea = $request->request->get("nextActionArea");
 
+        // Récupération de la date complete envoyée par js
 
         $nextFullActionDate = $request->request->get("nextFullActionDate");
+
+        // Initialisation des variables jour, mois et année
+
         $day=substr($nextFullActionDate, 0,2);
         $month=substr($nextFullActionDate, 3,2);
         $year=substr($nextFullActionDate, 6);
         $date=new DateTime($month."/".$day."/".$year);
 
+        // Récupération du prospect
+
         $prospect=$prospectRepository->find($prospectId);
+
+        // Récupération de l'action suivante
 
         $nextAction = $nextActionRepository->find($nextActionId);
         $nextActionText = $nextAction->getAction();
 
+        // Récupération du champ information du prospect
+
         $prospectInfo = $prospect->getInformation();
+
+        // Ajout de la nouvelle action aux anciennes actions déjà présentes dans le champ information
+
         $message = "<p>".$today2." - ".$nextActionText.", le ".$nextFullActionDate." - Note : ".$nextActionArea."</p><p></p>".$prospectInfo;
+
+        // Injection dans l'entité
 
         $prospect->setNextActionDate($date);
         $prospect->setNextAction($nextAction);
@@ -1023,47 +850,63 @@ class DefaultController extends Controller
 
     }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Enregistrement de l'action précédente ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
     public function lastActionSave(Request $request, ProspectRepository $prospectRepository, LastActionRepository
     $lastActionRepository){
 
+        // Initialisation de la date du jour
+
         $today = new dateTime();
         $today2 = $today -> format('d/m/Y');
 
+        // Récupération de l'id du prospect, de l'id de l'action et du texte de l'action envoyés par js
+
         $prospectId = $request->request->get("prospectId");
         $prospectId = substr($prospectId,2);
-////
+
         $lastActionId = $request->request->get("lastActionId");
         $lastActionArea = $request->request->get("lastActionArea");
-//////
+
+        // Récupération du prospect en bdd
+
         $prospect=$prospectRepository->find($prospectId);
-////
+
+        // Récupération de l'action précédente
+
         $lastAction = $lastActionRepository->find($lastActionId);
         $lastActionText = $lastAction->getAction();
-//
+
+        // Récupération du champ information du prospect
+
         $prospectInfo = $prospect->getInformation();
+
+        // Ajout de la nouvelle action aux anciennes actions déjà présentes dans le champ information
+
         $message = "<p>".$today2." - ".$lastActionText." - Note : ".$lastActionArea."</p><p></p>".$prospectInfo;
-//
+
         $prospect->setLastActionDate($today);
         $prospect->setLastAction($lastAction);
         $prospect->setInformation($message);
-//
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($prospect);
         $em->flush();
-//
+
         return new JsonResponse($prospect->getId());
 
 
     }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage de la page d'administration du prospect ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public function adminProspectDisplay(Request $request, ProspectRepository $prospectRepository){
+
+        // Récupération de tous les prospects en bdd
 
         $prospects = $prospectRepository -> findAllProspects();
 
@@ -1074,81 +917,84 @@ class DefaultController extends Controller
 
     }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage des articles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+//
+//
+//    public function articleDisplay(Request $request, ArticleRepository $articleRepository)
+//    {
+//        $articleId = $request->query->get('art');
+//
+//        $article = $articleRepository -> find($articleId);
+//
+//        return $this->render("article.html.twig", array
+//            (
+//                'article' => $article
+//            )
+//        );
+//    }
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-    public function articleDisplay(Request $request, ArticleRepository $articleRepository)
-    {
-        $articleId = $request->query->get('art');
-
-        $article = $articleRepository -> find($articleId);
-
-        return $this->render("article.html.twig", array
-            (
-                'article' => $article
-            )
-        );
-    }
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~ Affichage du formulaire de création ou modification d'un article ~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
     public function articleFormDisplay(Request $request, ArticleRepository $articleRepository, CategoryRepository $categoryRepository)
     {
 
-        // Création du formulaire, basé sur une nouvelle entité atelier ponctuel
+        // Récupération de l'id de l'article dans l'url
 
         if ($request->query->get("art")) {
             $articleId = $request->query->get("art");
+
+            // Récupération de l'article
+
             $article = $articleRepository->findArticleById($articleId);
             $date = $article -> getDate();
-        }
 
+            // Récupération de la photo de l'auteur et l'image de l'article
+
+            $saveArticleImage = $article -> getArticleImage();
+            $saveAuthorImage = $article -> getArticleImage();
+
+        }
 
         else
 
         {
+            // Sinon, création d'une nouvelle entité article
+
             $article = new Article();
             $date = new DateTime;
-
+            $saveArticleImage = "";
+            $saveAuthorImage = "";
         }
+
+        // Initialisation des dates de l'article à ""
 
         $article -> setDate("");
         $article -> setUpdateDate("");
-        $article -> setAuthorImage("");
-        $article -> setArticleImage("");
 
+        // Création du formulaire basé sur l'entité article
 
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
 
+        // A la validation du formulaire
+
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Récupération des données du formulaire
+
             $articleData = $form->getData();
-
-//            $category = $categoryRepository -> find($articleData->getCategories()[0]);
-
 
             $article -> setDate($date);
             $article -> setUpdateDate($date);
             $article -> setValid(0);
 
             $entityManager = $this->getDoctrine()->getManager();
-
-//            $existingCat = $article -> getCategories();
-
-//            foreach($existingCat->toArray() as $exCat) {
-//                $article -> removeCategory($exCat);
-//                $exCat -> removeArticle($article);
-//                $entityManager->persist($exCat);
-//                $entityManager->persist($article);
-//
-//            }
 
             if ($articleData -> getAuthorImage()) {
 
@@ -1165,6 +1011,12 @@ class DefaultController extends Controller
                 );
 
                 $article->setAuthorImage($imageName);
+
+            }
+
+            else {
+
+                $article->setAuthorImage($saveAuthorImage);
 
             }
 
@@ -1186,24 +1038,24 @@ class DefaultController extends Controller
                 $article->setArticleImage($imageName);
 
             }
+            else {
+                $article->setArticleImage($saveArticleImage);
+
+            }
 
             $categories = $articleData -> getCategories();
 
+            // Envoi de chaque catégorie dans l'array collection categories
+
             foreach($categories as $cat) {
                 $article -> addCategory($cat);
-//                $cat -> getArticles() -> add($article);
                 $entityManager->persist($cat);
                 $entityManager->persist($article);
             }
 
-//            $article->getCategories()->add($category);
-
-//            $entityManager->persist($category);
-//            $entityManager->persist($article);
             $entityManager->flush();
+
             return $this->redirectToRoute("adminArticle");
-//            return $this->render("essai.html.twig", array(
-//                'data' => array($categories[0])));
         }
 
 
@@ -1217,7 +1069,90 @@ class DefaultController extends Controller
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Suppression de l'image dans l'organisme public ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Formulaire de contact ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+    public function contactForm(Request $request, \Swift_Mailer $mailer)
+    {
+
+        // Création du formulaire
+
+        $form = $this->createFormBuilder()
+
+
+            ->add('subject', TextType::class, array(
+                'constraints' => new Length(
+                    array('min' => 5,
+                        'max' => 30,
+                        'minMessage' => "Vous devez saisir minimum 5 caractères",
+                        'maxMessage' => "Vous devez saisir maximum 30 caractères"
+                    )),
+                'attr' => array(
+                    'placeholder' => 'Objet',)
+            ))
+
+            ->add('name', TextType::class, array(
+                'constraints' => new Length(
+                    array('min' => 3,
+                        'max' => 20,
+                        'minMessage' => "Vous devez saisir minimum 3 caractères",
+                        'maxMessage' => "Vous devez saisir maximum 20 caractères"
+                    )),
+                'attr' => array(
+                    'placeholder' => 'Votre nom',)
+            ))
+
+            ->add('email', EmailType::class, array(
+
+                'attr' => array(
+                    'placeholder' => 'Votre email',)
+            ))
+
+
+            ->add('message', TextareaType::class, array(
+                'constraints' => new Length(
+                    array('min' => 10,
+                        'max' => 1000,
+                        'minMessage' => "Vous devez saisir minimum 10 caractères",
+                        'maxMessage' => "Vous devez saisir maximum 1000 caractères"
+                    )),
+                'attr' => array(
+                    'placeholder' => 'Votre message',)
+            ))
+
+            ->add('send', SubmitType::class, array(
+                'label' => 'Envoyer'
+            ))
+
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $message = (new \Swift_Message($data["subject"]))
+                ->setFrom($data["email"])
+                ->setTo("lehibouquigeek@gmail.com")
+                ->setBody(
+                    "Message de : ".$data["name"].". ".
+                    $data["message"]
+                );
+
+            $mailer->send($message);
+
+
+        }
+
+        return $this->render("formMail.html.twig", array(
+            'form' => $form->createView(),
+        ));
+
+
+    }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Suppression de l'image ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -1267,89 +1202,5 @@ class DefaultController extends Controller
 //
 //    }
 
-//----------------------------------------------------------------------------------------------------------------------
-
-    public function contactForm(Request $request, \Swift_Mailer $mailer)
-    {
-
-//        $recipient = $request -> query -> get("recMail");
-//
-//        $defaultData = array('recipient' => $recipient);
-
-        $form = $this->createFormBuilder()
-
-//            ->add('recipient', HiddenType::class)
-
-            ->add('subject', TextType::class, array(
-                'constraints' => new Length(
-                    array('min' => 5,
-                        'max' => 30,
-                        'minMessage' => "Vous devez saisir minimum 5 caractères",
-                        'maxMessage' => "Vous devez saisir maximum 30 caractères"
-                    )),
-                    'attr' => array(
-                        'placeholder' => 'Objet',)
-                ))
-
-            ->add('name', TextType::class, array(
-                'constraints' => new Length(
-                    array('min' => 3,
-                        'max' => 20,
-                        'minMessage' => "Vous devez saisir minimum 3 caractères",
-                        'maxMessage' => "Vous devez saisir maximum 20 caractères"
-                    )),
-                'attr' => array(
-                    'placeholder' => 'Votre nom',)
-            ))
-
-            ->add('email', EmailType::class, array(
-
-                    'attr' => array(
-                        'placeholder' => 'Votre email',)
-                ))
-
-
-            ->add('message', TextareaType::class, array(
-                'constraints' => new Length(
-                    array('min' => 10,
-                        'max' => 1000,
-                        'minMessage' => "Vous devez saisir minimum 10 caractères",
-                        'maxMessage' => "Vous devez saisir maximum 1000 caractères"
-                    )),
-                'attr' => array(
-                    'placeholder' => 'Votre message',)
-            ))
-
-            ->add('send', SubmitType::class, array(
-                'label' => 'Envoyer'
-            ))
-
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // data is an array with "name", "email", and "message" keys
-            $data = $form->getData();
-
-            $message = (new \Swift_Message($data["subject"]))
-                ->setFrom($data["email"])
-                ->setTo("lehibouquigeek@gmail.com")
-                ->setBody(
-                    "Message de : ".$data["name"].". ".
-                    $data["message"]
-                );
-
-            $mailer->send($message);
-
-
-        }
-
-        return $this->render("formMail.html.twig", array(
-            'form' => $form->createView(),
-        ));
-
-
-    }
 
 }

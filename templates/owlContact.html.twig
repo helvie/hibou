@@ -9,9 +9,6 @@
 
         <style>
 
-            /*.hamburger {*/
-                /*z-index:81;*/
-            /*}*/
             .contactForm1 {
                 z-index:80;
             }
@@ -47,7 +44,6 @@
                     </div>
 
                 </div>
-            {#</div>#}
         </div>
     {% endblock %}
 
@@ -56,18 +52,6 @@
 
 
         <div class="section blueBlock section-our-team">
-            {#<div class="container">#}
-                {#<!--<div class="text-area">-->#}
-                {#<h1>Contact et devis</h1>#}
-
-                {#<div class="title-area">#}
-                    {#<h2>Un projet ? Une question ?</h2>#}
-                    {#<div class="separator separator-danger">♦</div>#}
-
-                {#</div>#}
-                {#<p class="description">#}
-                    {#Si comme Mamie Jeannine, vos clients rêvent d’un web plus accessible. Si comme nous, vous souhaitez les 10% de personnes touchées par le handicap rejoignent la communauté des geekers. Si souhaitez augmenter votre référencement naturel, baisser votre taux de rebond et augmenter votre chiffre d’affaires, contactez-nous ! Une équipe d’expert vous attend. Ensemble, rendons possible votre projet.                </p>#}
-            {#</div>#}
             <h1>Contact et devis</h1>
             <div class="title-area">
                 <h2 style="margin-top:0; padding-top:35px;">Un projet ? Une question ?</h2>
@@ -131,6 +115,8 @@
 
             </div>
 
+{#~~~~~~~~~~~~~~~~~~~~~~~~ Initialisation du tableau des jours non feries pour menu déroulant jours RDV ~~~~~~~~~~~~~~#}
+
 
             {%  set today = 'now'|date('l')%}
             {%  set thisHour = 'now'|date_modify("+1 hour")|date('H')%}
@@ -168,6 +154,7 @@
             {#{{ form_start(formContactDisplay, {'attr': {'class': 'form-group'}} ) }}#}
             {#{{ form_end(formContactDisplay) }}#}
 
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ FORMULAIRE DEMANDE DE CONTACT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 
 
             <div class="container">
@@ -204,6 +191,9 @@
 
                                 <div class="contactChoice" style="padding-top:15px;">
 
+                                    <p style="color:#999;text-align:left;margin-bottom:30px;">Je souhaite être rappelé par :</p>
+
+
                                     <input type="radio" id="contactChoiceTel"
                                            name="contact" value="telephone" checked>
                                     <label for="contactChoiceTel">Téléphone</label>
@@ -233,7 +223,7 @@
 
                                             {% elseif thisHour < 14 %}
 
-                                                <option value = {{ day }}>{{ 'now'|date_modify("+"~day~" day")|localizeddate('full', 'none', 'locale') }}</option>                                            {% endif %}
+                                                <option value = {{ day }}>{{ 'now'|date_modify("+"~day~" day")|localizeddate('full', 'none', 'fr') }}</option>                                            {% endif %}
 
                                         {% endfor %}
 
@@ -314,6 +304,8 @@
             </div>
 
         </div>
+
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ FORMULAIRE DE DEVIS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 
 
         <div class="contactForm2" id="quoteAnchor" style="position:absolute; text-align:center; width:100%;" >
@@ -427,9 +419,15 @@
             </div>
         </div>
 
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DIVS D'ARRIERE PLAN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+
+
         <div class="section blueBlock section-our-team" style="height:300px;"></div>
 
         <div class="section beigeBlock section-our-team" style="height:1100px;"></div>
+
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PLAN ET ADRESSE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+
 
         <div class="blueBlock section section-address" style="padding-top:0; padding-bottom:0;">
                 <div class="row">

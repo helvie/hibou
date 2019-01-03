@@ -1,4 +1,6 @@
 
+// Affichage des visuels correspondant aux boutons
+
 $("#colorblindButton").click(function(){
     $("#photo").attr('src', '../assets/img/siteDalt.png');
 });

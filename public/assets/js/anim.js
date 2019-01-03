@@ -120,7 +120,7 @@ $(".gameCard").on("click", function(){
     }
 
     // On remet la variable de cartes retournées à 0
-    gerard = 0;
+    diffCard = 0;
 
     // On ajoute la classe "retournée" à la carte que l'on vient de cliquer
 
