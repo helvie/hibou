@@ -63,6 +63,9 @@ $(".validContactForm").on("click", function(){
     // Si la demande de mail est sélectionnée
     if($("#contactChoiceMail").prop('checked')) {
 
+        $("select.daysMenu").attr("required", false);
+        $("select.hoursMenu").attr("required", false);
+
 
         // Dernière action à "infos demandées"
         numLastAction = 11;
@@ -74,6 +77,10 @@ $(".validContactForm").on("click", function(){
 
     // Si demande de contact par tél
     else if($("#contactChoiceTel").prop('checked')){
+
+        $("select.daysMenu").attr("required", true);
+        $("select.hoursMenu").attr("required", true);
+
 
         // Dernière action à "rendez-vous téléphonique demandé"
         numLastAction = 12;

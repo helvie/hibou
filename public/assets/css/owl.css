@@ -1534,3 +1534,18 @@ a.lastActionBtn:hover {
 .articleTitle {
     margin-top: 70px;
 }
+
+.normalButton{
+    float:right;
+    margin-left:20px;
+}
+
+@media (max-width: 992px) {
+    .normalButton {
+        float: left;
+    }
+    .normalImg {
+        margin-top:20px;
+        margin-bottom:20px;
+    }
+}

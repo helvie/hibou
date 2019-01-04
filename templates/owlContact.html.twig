@@ -206,7 +206,7 @@
 
                                 <div class="form-group contactSelect1">
 
-                                    <select class="form-control menuSelect daysMenu"  id="formControlSelect1">
+                                    <select class="form-control menuSelect daysMenu required"  id="formControlSelect1">
 
                                         <option value="" style="color:#ffbb00;" disabled selected>Jour où vous souhaitez être rappelé</option>
 
@@ -352,7 +352,7 @@
 
 
                                 <fieldset class="form-group">
-                                    {{ form_widget(formQuote.prospect.phone, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_widget(formQuote.prospect.phone, {'attr': {'required': true, 'class' : 'form-control', 'pattern':"^[0-9]{10}$"}}) }}
                                     {{ form_errors(formQuote.prospect.phone) }}
                                 </fieldset>
 
@@ -373,7 +373,7 @@
                                 </fieldset>
 
                                 <fieldset class="form-group">
-                                    {{ form_widget(formQuote.postalCode, {'attr': {'required': true, 'class' : 'form-control'}}) }}
+                                    {{ form_widget(formQuote.postalCode, {'attr': {'required': true, 'class' : 'form-control', 'pattern':"^[0-9]{5}$"}}) }}
                                     {{ form_errors(formQuote.postalCode) }}
                                 </fieldset>
 

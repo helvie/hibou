@@ -69,25 +69,12 @@ class Article
 
 
 
-//    /**
-//     * @ORM\ManyToMany(targetEntity="Category", mappedBy="articles", orphanRemoval=true)
-//     * @JoinTable(name="category_article")
-//     */
-//    private $categories;
-
-
     /**
      * @ORM\Column(type="string", length=16000)
      * @Assert\Length(min=2,max=16000,minMessage="Veuillez saisir 2 caractères minimum ", maxMessage="Veuillez saisir un maximum de 16000 caractères")
      */
     private $text;
 
-
-//    /**
-//     * @ORM\OneToMany(targetEntity="Comment", mappedBy="article", cascade="all", orphanRemoval=true)
-//     * @ORM\JoinColumn(nullable=true)
-//     */
-//    private $comments;
 
     /**
      * @ORM\Column(type="boolean")
@@ -141,15 +128,6 @@ class Article
     {
         $this->categories = new ArrayCollection();
     }
-
-
-//    public function __construct()
-//    {
-//
-//        $this->categories = new ArrayCollection();
-//
-//    }
-
 
 
     public function getId()
@@ -220,23 +198,6 @@ class Article
     }
 
 
-//
-//    public function getCategories()
-//    {
-//        return $this->categories;
-//    }
-//
-//
-//    public function addCategory(Category $category)
-//    {
-//        $this->categories[]=$category;
-//    }
-//
-//    public function removeCategory(Category $category)
-//    {
-//        $this->categories->removeElement($category);
-//    }
-
 
 
     public function getCategories()
@@ -266,23 +227,6 @@ class Article
         $this->categories->removeElement($category);
         $category->removeArticle($this);
     }
-
-//    public function getComments()
-//    {
-//        return $this->comments;
-//    }
-//
-//
-//    public function addComment(Comment $comment)
-//    {
-//        $this->comments[]=$comment;
-//    }
-//
-//    public function removeComment(Comment $comment)
-//    {
-//        $this->comments->removeElement($comment);
-//    }
-
 
 
     public function getText()

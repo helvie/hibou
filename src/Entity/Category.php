@@ -36,12 +36,6 @@ class Category
     private $name;
 
 
-//    /**
-//     * @ORM\ManyToMany(targetEntity="Article", inversedBy="categories", orphanRemoval=true)
-//     * @JoinTable(name="category_article")
-//     */
-//    private $articles;
-
     /**
      * @var \Doctrine\Common\Collections\Collection|Article[]
      *
@@ -56,11 +50,6 @@ class Category
     {
         $this->articles = new ArrayCollection();
     }
-
-//    public function __construct()
-//    {
-//        $this->articles = new ArrayCollection();
-//    }
 
 
     public function getId()
@@ -79,22 +68,6 @@ class Category
     {
         $this->name = $name;
     }
-
-
-//    public function addArticle(Article $article)
-//    {
-//        $this->articles[]=$article;
-//    }
-//
-//    public function removeArticle(Article $article)
-//    {
-//        $this->articles->removeElement($article);
-//    }
-//
-//    public function getArticles()
-//    {
-//        return $this->articles;
-//    }
 
 
     public function getArticles()
