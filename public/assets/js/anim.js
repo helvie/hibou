@@ -22,18 +22,32 @@ $('.hamburger').click(function() {
 
 // Au clic sur une spécialisation, changement de class pour anim en CSS
 
+
+
+
 $('.markOpen').click(function(){
     console.log('essai');
+    $('.generalSpeBlock').toggleClass('hide');
+
     $('.market').toggleClass("speDisplay");
     $('.markImg').toggleClass('speImgDisplay');
-    $('.generalSpeBlock').toggleClass('hide');
+    // $('.market').show();
+    // $(".callSpe").hide();
+    // $('.specialization').css('padding-bottom',0);
+
+
 
 });
 
 $('.market').click(function(){
+    $('.market').hide();
     $('.market').toggleClass("speDisplay");
     $('.markImg').toggleClass('speImgDisplay');
     $('.generalSpeBlock').toggleClass('hide');
+    $('.market').show();
+
+    // $('.specialization').toggleClass('specialization2');
+
 });
 
 $('.devOpen').click(function(){
@@ -157,27 +171,27 @@ $(".gameCard").on("click", function(){
             // Affichage du texte selon les cartes identiques qui ont été retournées
 
             if(cardId1 == "red"){
-                $("#cardText").text("Quand ça marche pas ce projet... on voit rouge !")
+                $("#cardText").text('"SEO" est l\'acronyme de "Search Engine Optimization" et peut être défini comme l\'art de positionner un site, une page web ou une application dans les premiers résultats naturels des moteurs de recherche.')
             }
             if(cardId1 == "blue") {
-                $("#cardText").text("Ca fait mal, des fois les bleus")
+                $("#cardText").text('Le "ROI", Return On Investment" en anglais, correspond à un indicateur qui indique si une opération marketing à été une réussie ou non en termes de revenu financier. Plus simplement, c\'est l\'argent gagné par rapport à l\'argent investi.')
 
             }
             if(cardId1 == "green") {
-                $("#cardText").text("Oh oui, se mettre au vert... le rêve !")
+                $("#cardText").text('Le CTA ou “call to action” est une incitation à l’action sur votre page web ou votre site internet, présentée sous forme d’un bouton ou bien d’une bannière généralement visible et coloré, proposant à l’internaute de faire une action')
 
             }
             if(cardId1 == "pink") {
-                $("#cardText").text("Du rose... rien que pour les filles !")
+                $("#cardText").text('Le terme "UX" vient de l\'anglais "User experience" et représente le ressenti émotionnel d\'un utilisateur face à une interface, un objet ou un service.')
 
             }
             if(cardId1 == "yellow"){
-                $("#cardText").text("C'est joli le jaune... c'est la couleur du soleil")
+                $("#cardText").text('"LHQG" C\'est une agence dynamique et créative qui saura donner vie à tous vos projets. C\'est l\'agence spécialiste de l\'accessibilité')
 
 
             }
-            if(cardId1 == "owl") {
-                $("#cardText").text("Mettez un hibou dans votre site !")
+            if(cardId1 == "orange") {
+                $("#cardText").text('Le « W3C » est un sigle utilisé pour définir le « World Wide Web Consortium » qui est une organisation non lucrative permettant définir des standards pour les technologies liées aux web. Du point de vue européen, les standards fournis par cet organisme ne sont que des recommandations et non des normes standardisés. Cela permet de guider les technologies du web dans une même direction sur le long terme et ainsi améliorer leur compatibilité.')
 
             }
 

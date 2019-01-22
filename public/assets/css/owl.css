@@ -820,6 +820,10 @@ input.form-control::placeholder {
 
 
 .adminSpace .btn-owl{
+    width: 150px;
+}
+
+.adminSpace2 .btn-owl{
     width: 200px;
 }
 
@@ -856,7 +860,7 @@ input.form-control::placeholder {
 
 
 .menuCircle {
-    z-index:81;
+    z-index:1000;
 }
 
 
@@ -1547,5 +1551,63 @@ a.lastActionBtn:hover {
     .normalImg {
         margin-top:20px;
         margin-bottom:20px;
+    }
+}
+
+.btnLanding {
+    border:1px #113441 solid;
+    color:#113441;
+    background-color:#ffbb00;
+}
+
+.adminBtn2 btn {
+    width: 300px;
+}
+
+.adminBtn2 {
+    padding: 30px;
+}
+
+.cookie {
+    padding:20px 150px;
+    text-align:left;
+    position:fixed;
+    font-size:20px;
+    background-color:rgba(0,0,0,0.85);
+    height:150px;
+    width:100%;
+    z-index:15;
+}
+
+@media (max-width: 695px) {
+    .cookie {
+        padding: 20px 100px 20px 50px;
+    }
+}
+
+@media (max-width: 535px) {
+    .cookie {
+        padding: 20px 100px 20px 50px;
+        height:220px;
+    }
+}
+
+@media (max-width: 359px) {
+    .cookie {
+        padding: 20px 50px 20px 20px;
+        height:220px;
+    }
+}
+
+.yellowBlock .separator-danger:before{
+    color:#000000;
+}
+
+.yellowBlock .separator-danger:before{
+    color:#000000;
+}
+@media (max-width: 471px) {
+    .homeLogo .col-xs-3 {
+        width:25%;
     }
 }

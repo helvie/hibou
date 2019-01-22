@@ -50,6 +50,10 @@
     {% block content %}
 
 
+        {#<div class="varQuote">{{ varQuote }}</div>#}
+        {#<div class="validContac
+        t">{{ validContact }}</div>#}
+
 
         <div class="section blueBlock section-our-team">
             <h1>Contact et devis</h1>
@@ -191,7 +195,7 @@
 
                                 <div class="contactChoice" style="padding-top:15px;">
 
-                                    <p style="color:#999;text-align:left;margin-bottom:30px;">Je souhaite être rappelé par :</p>
+                                    <p style="color:#999;text-align:left;margin-bottom:30px;">Je souhaite être recontacté par :</p>
 
 
                                     <input type="radio" id="contactChoiceTel"
@@ -287,6 +291,14 @@
                                     {{ form_widget(formContactDisplay.nextActionDate.month, {'attr': {'required': false, 'class' : 'date endDateMonth form-control'}}) }}
 
                                     {{ form_widget(formContactDisplay.nextActionDate.year, {'attr': {'required': false, 'class' : 'date endDateYear form-control'}}) }}
+
+                                </div>
+
+                                <div class="rgpd checkbox" style=" text-align:left;  margin-left : 25px ; font-style : italic ; margin-bottom : 30px;">
+
+                                    {{ form_widget(formContactDisplay.rgpd, {'attr': {'required': 'true'} }) }}
+                                    {{ form_label(formContactDisplay.rgpd) }}
+                                    {{ form_errors(formContactDisplay.rgpd) }}
 
                                 </div>
 
@@ -389,6 +401,14 @@
                                     'form-control textarea',rows : "4", cols :"50", "placehoder" : "Votre message"}}) }}
                                 </fieldset>
 
+                                <div class="rgpd checkbox" style=" text-align:left; margin-left : 25px ; font-style : italic ; margin-bottom : 30px;">
+
+                                    {{ form_widget(formQuote.prospect.rgpd, {'attr': {'required': 'true'} }) }}
+                                    {{ form_label(formQuote.prospect.rgpd) }}
+                                    {{ form_errors(formQuote.prospect.rgpd) }}
+
+                                </div>
+
 
                                 <fieldset style="display:none;">
                                     {{ form_widget(formQuote.prospect, {'attr': {'required': true, 'class' : 'form-control', 'label':false  }}) }}
@@ -402,6 +422,8 @@
                                 </fieldset>
 
 
+
+
                             </div>
 
                             <div>
@@ -409,6 +431,8 @@
                                 <div class="card1-footer " style="padding:0.9375rem 20px;">
                                     {{ form_row(formQuote.save2, {'attr': {'class' : 'form-control btn btn-fill btn-rose','aria-label':"Valider la demande de devis" },'label': 'Envoyer'}) }}
                                 </div>
+
+
 
                                 {{ form_end(formQuote) }}
 
@@ -424,7 +448,7 @@
 
         <div class="section blueBlock section-our-team" style="height:300px;"></div>
 
-        <div class="section beigeBlock section-our-team" style="height:1100px;"></div>
+        <div class="section beigeBlock section-our-team" style="height:1250px;"></div>
 
 {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PLAN ET ADRESSE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 

@@ -16,23 +16,29 @@
 
             <div class="col-md-8 col-md-offset-2">
 
-                <div class="col-md-4 text-center">
+                <div class="col-md-3 text-center">
                 <a aria-label="Atteindre la page prospects" class="btn btn-fill btn-owl"  href={{ path('adminProspect')}}>
-                    Gestion prospects
+                    Prospects
                 </a>
             </div>
 
-            <div class="col-md-4 text-center">
+            <div class="col-md-3 text-center">
                 <a aria-label="Atteindre la page gestion articles" class="btn btn-fill btn-owl" href={{ path('adminArticle')}}>
-                    Gestion articles
+                    Articles
                 </a>
             </div>
 
-            <div class="col-md-4 text-center">
+            <div class="col-md-3 text-center">
                 <a  aria-label="Atteindre la page création utilisateurs" class="btn btn-fill btn-owl" href={{ path('registrationUser')}}>
-                    Création utilisateur
+                    Utilisateur +
                 </a>
             </div>
+
+                <div class="col-md-3 text-center">
+                    <a  aria-label="Atteindre la page création utilisateurs" class="btn btn-fill btn-owl" href={{ path('logout')}}>
+                        Déconnexion
+                    </a>
+                </div>
 
             </div>
         </div>
@@ -48,12 +54,16 @@
 
         <script>
             var thisId ="";
+            var nextAction="";
+            var nextActionText="";
             var nextActionInfo="";
             var nextActionDate="";
             var nextActionId="";
             var lastActionInfo="";
             // var nextActionDate="";
             var lastActionId="";
+            var lastAction ="";
+            var lastActionText = "";
 
             function dateFormat(dateObject) {
                 var d = new Date(dateObject);
@@ -75,20 +85,21 @@
             date = dateFormat(date);
 
             $(".showProspect2").on("click", function(){
-                var thisId = $(this).parent().parent().attr("id");
+                thisId = $(this).parent().parent().attr("id");
                 $(".divProspect2."+thisId).toggleClass("hidden");
+                console.log("ceci est le thisId du showprospect2 "+thisId);
 
             });
 
+
             $(".lastActionBtn").on("click", function(){
-                var thisId = $(this).parent().parent().parent().parent().parent().attr("id");
-                console.log(thisId);
-                lastActionText = $(".lastActionSelect."+thisId).find('option:selected').text();
-                lastActionVal = $(".lastActionSelect."+thisId).val();
+                thisId = $(this).parent().parent().parent().parent().parent().attr("id");
+                lastAction = $(this).prev().prev();
 
+                lastActionId = lastAction.val();
+                lastActionText = lastAction.find('option:selected').text();
+                lastActionInfo = $(this).prev().val();
 
-
-                lastActionInfo = $(".lastActionArea."+thisId).val();
                 prospectInfo = $(this).parent().parent().parent().parent().find(".prospectInfo");
 
                 newP = document.createElement("p");
@@ -96,27 +107,30 @@
                 newP.appendChild(newText);
                 prospectInfo.prepend(newP);
 
-                lastActionId = $(".lastActionSelect").val();
-                console.log("essai : "+lastActionId);
                 lastActionSave(thisId, lastActionId, lastActionInfo);
 
             });
 
             $(".nextActionBtn").on("click", function(){
                 thisId = $(this).parent().parent().parent().parent().attr("id");
+
+
+                // thisId = $(this).parent().parent().parent().parent().parent().attr("id");
+                nextAction = $(this).prev().prev();
+
+                nextActionId = nextAction.val();
+                nextActionText = nextAction.find('option:selected').text();
+                nextActionInfo = $(this).prev().val();
+                nextActionDate = dateFormat($(this).prev().prev().prev().children().val());
+
+
                 console.log(thisId);
                 prospectInfo = $(this).parent().parent().parent().parent().find(".prospectInfo");
-                nextActionText = $(".nextActionSelect."+thisId).find('option:selected').text();
-                nextActionInfo = $(".nextActionArea."+thisId).val();
-                nextActionDate = dateFormat($(".nextActionDate."+thisId).val());
                 nextFullActionDate = $(".nextActionDate."+thisId).val();
                 nextActionP = $(".nextActionP."+thisId);
                 nextActionP.empty();
                 newText = document.createTextNode("Prochaine action : "+nextActionText+", le "+nextActionDate+" (demandeur : commercial)");
                 nextActionP.prepend(newText);
-
-                nextActionId = $(".nextActionSelect").val();
-                console.log("ceci est le nextactionId "+nextActionId);
 
                 newP2 = document.createElement("p");
                 newText2 = document.createTextNode(date+" - "+nextActionText+", le "+nextActionDate+" - Note : "+nextActionInfo);
@@ -173,7 +187,7 @@
 
             function lastActionSave(prospectId, lastActionId, lastActionArea) {
 
-                // console.log("essai sauve");
+                console.log("coucou");
 
 
                 // Déclenchement du controleur de validation/invalidation de l'organisme

@@ -1,3 +1,28 @@
+#swiftmailer:
+#    url: '%env(MAILER_URL)%'
+#    spool: { type: 'memory' }
+#swiftmailer:
+#    transport: gmail
+#    auth_mode: login
+#    encryption: ssl
+##    port: 465
+##    host: 173.194.65.108
+#    username: sylviepil1l1@gmail.com
+#    password: gmOrange4201
+#    spool: { type: 'memory' }
+##    transport: "%mailer_transport%"
+#
+##    host: smtp.helvie.fr
+##    transport: smtp
+##    password: Open12345
+##    port: 587
 swiftmailer:
-    url: '%env(MAILER_URL)%'
-    spool: { type: 'memory' }
+    transport: gmail
+    auth_mode: login
+#    encryption: ssl
+#    port: 465
+    host: smtp.gmail.com
+    username: lehibouquigeek@gmail.com
+    password: joemsy9392
+#    spool: { type: 'memory' }
+#    transport: "%mailer_transport%"

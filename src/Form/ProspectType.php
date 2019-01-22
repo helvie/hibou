@@ -124,6 +124,13 @@ class ProspectType extends AbstractType
                     ))
             )
 
+
+            ->add('rgpd', CheckboxType::class, array(
+                'label' => 'Les données collectées au travers de ce formulaire, le sont dans le but de communiquer avec vous. 
+                Vous pouvez en tout temps y accéder et demander leur rectification ou leur effacement. "En soumettant ce formulaire, j\'accepte que les 
+                informations saisies soient exploitées dans le cadre du suivi de mon organisme par l\'administreur du site."',
+                'required' => true))
+
             ->add('save', SubmitType::class, ['attr' => ['class' => 'btn btn btn-info buttonValid btnSave']]);
 
         ;

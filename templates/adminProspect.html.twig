@@ -24,6 +24,28 @@
         <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
+
+            <div class="team"  style="text-align:center;margin-top:50px; margin-bottom:50px;">
+                <div class="row">
+
+                    <!-- end team -->
+                    <div>
+                        <div class="col-md-6 text-center">
+                            <a  aria-label="Lien vers la demande de devis" target="_blank" class="btn btnLanding"
+                                href={{ path('lp1')}}>
+                                Landing page 1
+                            </a>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <a  aria-label="Lien vers la demande de devis" target="_blank"
+                                class="btn btnLanding" href={{ path('lp2')}}>
+                                Landing page 2
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         {% for prospect in prospects %}
 
             {% set prospectId = "id" ~ prospect.id %}

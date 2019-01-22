@@ -140,6 +140,12 @@ class Prospect
 
 
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $rgpd;
+
+
     public function getId()
     {
         return $this->id;
@@ -320,6 +326,25 @@ class Prospect
     public function setInformation($information)
     {
         $this->information = $information;
+    }
+
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getRgpd()
+    {
+        return $this->rgpd;
+    }
+
+    /**
+     * @param mixed $rgpd
+     */
+    public function setRgpd($rgpd): void
+    {
+        $this->rgpd = $rgpd;
     }
 
 }

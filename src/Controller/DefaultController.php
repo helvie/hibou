@@ -362,7 +362,7 @@ class DefaultController extends Controller
 
         // Initialisation d'un tableau de noms de carte à jouer
 
-        $cardsArray = array("1blue", "2blue", "1green", "2green", "1pink", "2pink", "1red", "2red", "1yellow", "2yellow", "1owl", "2owl");
+        $cardsArray = array("1blue", "2blue", "1green", "2green", "1pink", "2pink", "1red", "2red", "1yellow", "2yellow", "1orange", "2orange");
 
         // Mélange du tableau
 
@@ -439,6 +439,7 @@ class DefaultController extends Controller
             $thisProspect->setApplicant(1);
             $thisProspect->setNextActionDate($today15);
             $thisProspect -> setInformation("<p>".$today2." - Inscription à la newsletter</p><p></p>".$information);
+            $thisProspect->setRgpd(1);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($thisProspect);
@@ -459,6 +460,7 @@ class DefaultController extends Controller
     public function formContactDisplay(Request $request, ProspectRepository $prospectRepository, LastActionRepository
                                         $lastActionRepository, NextActionRepository $nextActionRepository, \Swift_Mailer $mailer)
     {
+
 
         // Création d'un nouveau prospect (pour formulaire contact)
 
@@ -527,6 +529,8 @@ class DefaultController extends Controller
             $thisProspect->setApplicant(1);
             $thisProspect->setNextActionDate($formContactRequest -> getNextActionDate());
             $thisProspect->setPhone($formContactRequest -> getPhone());
+            $thisProspect->setRgpd($formContactRequest -> getRgpd());
+
 
             // Ajout du texte de l'action au texte dans le champ "information", soit demande d'info, soit demande de rdv téléphonique
 
@@ -560,7 +564,7 @@ class DefaultController extends Controller
         // Envoi du mail à l'agence, regroupant toutes les données
 
             $message = (new \Swift_Message("Demande de contact"))
-                ->setFrom($formContactRequest -> getEmail())
+                ->setFrom("lehibouquigeek@gmail.com")
                 ->setTo("lehibouquigeek@gmail.com")
                 ->setBody(
                     $this->renderView(
@@ -581,7 +585,10 @@ class DefaultController extends Controller
 
             $mailer->send($message);
 
-            return $this->redirectToRoute('owlContactDisplay');
+            return $this->redirectToRoute('owlContactDisplay', array(
+                "Q" => 0,
+                "C" => 1
+            ));
 
     }
 
@@ -641,6 +648,7 @@ class DefaultController extends Controller
             //Demandeur : 1-prospect, 2-commercial, 3-automatique
             $thisProspect->setApplicant(1);
             $thisProspect->setNextActionDate($today);
+            $thisProspect->setRgpd($formProspectInfo -> getProspect() -> getInformation());
 
             // Ajout de la nouvelle action aux précédentes actions du champ "information"
 
@@ -673,7 +681,7 @@ class DefaultController extends Controller
                 // Envoi du mail avec les infos de la demande du prospect à l'agence
 
                 $message = (new \Swift_Message("Demande de devis"))
-                ->setFrom($formProspectInfo -> getProspect() -> getEmail())
+                ->setFrom("lehibouquigeek@gmail.com")
                 ->setTo("lehibouquigeek@gmail.com")
                 ->setBody(
                     $this->renderView(
@@ -697,7 +705,10 @@ class DefaultController extends Controller
 
 
 
-            return $this->redirectToRoute('owlContactDisplay');
+            return $this->redirectToRoute('owlContactDisplay', array(
+                "Q" => 1,
+                "C" => 0
+            ));
 
         }
 
@@ -705,8 +716,7 @@ class DefaultController extends Controller
         return $this->render('owlContact.html.twig',
             array(
                 'formContactDisplay' => $formRequest->createView(),
-                'formQuote' => $formQuote->createView()
-
+                'formQuote' => $formQuote->createView(),
     )
         );
 }
@@ -956,7 +966,7 @@ class DefaultController extends Controller
             // Récupération de la photo de l'auteur et l'image de l'article
 
             $saveArticleImage = $article -> getArticleImage();
-            $saveAuthorImage = $article -> getArticleImage();
+            $saveAuthorImage = $article -> getAuthorImage();
 
         }
 
@@ -1083,7 +1093,7 @@ class DefaultController extends Controller
 
             ->add('subject', TextType::class, array(
                 'constraints' => new Length(
-                    array('min' => 5,
+                    array('min' => 4,
                         'max' => 30,
                         'minMessage' => "Vous devez saisir minimum 5 caractères",
                         'maxMessage' => "Vous devez saisir maximum 30 caractères"
@@ -1095,7 +1105,7 @@ class DefaultController extends Controller
             ->add('name', TextType::class, array(
                 'constraints' => new Length(
                     array('min' => 3,
-                        'max' => 20,
+                        'max' => 30,
                         'minMessage' => "Vous devez saisir minimum 3 caractères",
                         'maxMessage' => "Vous devez saisir maximum 20 caractères"
                     )),
@@ -1133,15 +1143,18 @@ class DefaultController extends Controller
             $data = $form->getData();
 
             $message = (new \Swift_Message($data["subject"]))
-                ->setFrom($data["email"])
+                ->setFrom("lehibouquigeek@gmail.com")
                 ->setTo("lehibouquigeek@gmail.com")
                 ->setBody(
-                    "Message de : ".$data["name"].". ".
+                    "Message de : ".$data["name"]." - ".$data["email"]." - ".
                     $data["message"]
                 );
 
             $mailer->send($message);
 
+            return $this->redirectToRoute('contactForm', array(
+                "M" => 1
+            ));
 
         }
 

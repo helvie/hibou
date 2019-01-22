@@ -5,7 +5,21 @@
     {% block stylesheets2 %}
         <meta name="description" content ="L’Agence Le Hibou qui Geek est une agence digitale spécialisée dans l’accessibilité. Elle propose la création et l’optimisation de sites vitrine ou e-commerce, la construction de votre stratégie Webmarketing, ou encore, le développement d’une identité visuelle. ">
     {% endblock %}
-    {% block logo %}
+
+        {% block cookie %}
+            {% if app.session.get('cook') != 1 %}
+            {{ app.session.set('cook', 1) }}
+            <div class="cookie">
+                <p style="color:white;">Le Hibou qui Geek utilise des cookies pour réaliser des statistiques de visites. En poursuivant votre navigation sur ce site, vous en acceptez l'utilisation.</p>
+                <p id="cookieClose" style="margin-right:30px;text-align:right;"><a class="link" style="color:white;font-size:30px;">J'accepte</a></p></div>
+            {% endif %}
+
+
+        {% endblock %}
+
+{% block logo %}
+
+
 
     <div class="headSection homeHead">
         <div>
@@ -30,7 +44,13 @@
 
         <div class="title-area">
             <h2 style="margin-top:0; padding-top:35px;">L’agence de l’accessibilité web</h2>
-            <div class="separator separator-danger">♦</div>
+            <div class="separator separator-danger" style="color:#000000;">♦</div>
+            <div class="row homeLogo">
+                <div class="col-md-2 col-md-offset-2 col-xs-3"><img style="max-width:100%;" src="../assets/img/homeLogo1.png"></div>
+                <div class="col-md-2 col-xs-3"><img style="max-width:100%;"  src="../assets/img/homeLogo2.png"></div>
+                <div class="col-md-2 col-xs-3"><img style="max-width:100%;"  src="../assets/img/homeLogo3.png"></div>
+                <div class="col-md-2 col-xs-3"><img style="max-width:100%;"  src="../assets/img/homeLogo4.png"></div>
+            </div>
             <div class="description divDescription">
             <p>
                 Experts dans le domaine du digital et passionnés par l’utilisation client, nous considérons le web comme un élément fondamental qui devrait être accessible à tous. Créatifs et dynamiques, nous saurons apporter toutes les solutions à vos besoins. La création ou la refonte de sites vitrines ou e-commerce, la construction de votre stratégie Webmarketing, ou encore, le développement d’une identité visuelle en cohérence avec image de marque, nous vous accompagnons dans tous vos projets.            </p>
@@ -50,19 +70,22 @@
             <div class="container">
                 {#<div class="text-area">#}
                     <div class="title-area"  style="margin-bottom:50px;">
-                        <h2>Le jeu du hibou</h2>
+                        <h2>Le jeu de mots du hibou</h2>
                     </div>
                 {#</div>#}
-                <div style="text-align:center">
 
-                    <p id="cardText">
-                    </p>
-
-                </div>
 
                 <div class="game"  style="text-align:center;">
                     <div class="row">
                         <div class="col-md-10 col-md-offset-1">
+
+                            <div style="text-align:center; margin-bottom:20px;">
+
+                                <p id="cardText">
+                                    Retournez les cartes et découvrez les termes spécifiques du web
+                                </p>
+
+                            </div>
                             {#<div class="row">#}
 
                                 {% for card in cardsArray %}
@@ -71,7 +94,7 @@
                                         <div class="flip col-center-block" id={{ card }}>
                                             <div class="gameCard">
                                                 <div class="face front">
-                                                    <img alt="" style = "border-radius:15px; " src="../assets/img/backgroundCard.png" class="gameImg img-responsive">
+                                                    <img alt="" style = "border-radius:15px; " src="../assets/img/backgroundCard2.png" class="gameImg img-responsive">
                                                 </div>
                                                 <div class="face back">
                                                     <img alt="" style = "border-radius:15px;"  class="gameImg img-responsive" src={{"../assets/img/"~ card|slice(1) ~".png"}} >
@@ -198,6 +221,12 @@
                                             <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6ec326037cb371ea154dace87_86e90caefa" tabindex="-1" value=""></div>
                                             <div class="clear" style="display:none"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
 
+                                            <div>
+                                                <input type="checkbox" id="rgpdNL" name="rgpdNL"
+                                                       required=true>
+                                                <label for="rgpdNL">RGPD</label>
+                                            </div>
+
                                         </div>
 
                                     </form>
@@ -227,6 +256,6 @@
     {{ parent() }}
 
     <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
-    <script src="{{ asset('assets/js/Nl.js') }}"></script>
+    <script src="{{ asset('assets/js/NL.js') }}"></script>
 
 {% endblock %}

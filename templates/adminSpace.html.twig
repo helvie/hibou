@@ -11,28 +11,34 @@
 {% block content %}
 
 
-    <div class="team adminSpace"  style="text-align:center;margin-top:50px;margin-bottom:120px;">
+    <div class="team adminSpace2"  style="text-align:center;margin-top:50px;margin-bottom:120px;">
         <div class="row">
 
             <div class="col-md-8 col-md-offset-2">
 
-                <div class="col-md-12 text-center adminBtn">
+                <div class="col-md-12 text-center adminBtn2">
                 <a aria-label="Atteindre la page prospects" class="btn btn-fill btn-owl"  href={{ path('adminProspect')}}>
                     Gestion prospects
                 </a>
             </div>
 
-            <div class="col-md-12 text-center adminBtn">
+            <div class="col-md-12 text-center adminBtn2">
                 <a aria-label="Atteindre la page gestion articles" class="btn btn-fill btn-owl" href={{ path('adminArticle')}}>
                     Gestion articles
                 </a>
             </div>
 
-            <div class="col-md-12 text-center adminBtn">
+            <div class="col-md-12 text-center adminBtn2">
                 <a  aria-label="Atteindre la page création utilisateurs" class="btn btn-fill btn-owl" href={{ path('registrationUser')}}>
                     Création utilisateur
                 </a>
             </div>
+
+                <div class="col-md-12 text-center adminBtn2">
+                    <a  aria-label="Atteindre la page création utilisateurs" class="btn btn-fill btn-owl" href={{ path('logout')}}>
+                        Déconnexion
+                    </a>
+                </div>
 
             </div>
         </div>
@@ -46,171 +52,171 @@
 
         <script src="{{ asset('assets/js/articleAdmin.js') }}"></script>
 
-        <script>
-            var thisId ="";
-            var nextActionInfo="";
-            var nextActionDate="";
-            var nextActionId="";
-            var lastActionInfo="";
-            // var nextActionDate="";
-            var lastActionId="";
+        {#<script>#}
+            {#var thisId ="";#}
+            {#var nextActionInfo="";#}
+            {#var nextActionDate="";#}
+            {#var nextActionId="";#}
+            {#var lastActionInfo="";#}
+            {#// var nextActionDate="";#}
+            {#var lastActionId="";#}
 
-            function dateFormat(dateObject) {
-                var d = new Date(dateObject);
-                var day = d.getDate();
-                var month = d.getMonth() + 1;
-                var year = d.getFullYear();
-                if (day < 10) {
-                    day = "0" + day;
-                }
-                if (month < 10) {
-                    month = "0" + month;
-                }
-                var date = day + "/" + month + "/" + year;
+            {#function dateFormat(dateObject) {#}
+                {#var d = new Date(dateObject);#}
+                {#var day = d.getDate();#}
+                {#var month = d.getMonth() + 1;#}
+                {#var year = d.getFullYear();#}
+                {#if (day < 10) {#}
+                    {#day = "0" + day;#}
+                {#}#}
+                {#if (month < 10) {#}
+                    {#month = "0" + month;#}
+                {#}#}
+                {#var date = day + "/" + month + "/" + year;#}
 
-                return date;
-            };
+                {#return date;#}
+            {#};#}
 
-            date = new Date();
-            date = dateFormat(date);
+            {#date = new Date();#}
+            {#date = dateFormat(date);#}
 
-            $(".showProspect2").on("click", function(){
-                var thisId = $(this).parent().parent().attr("id");
-                $(".divProspect2."+thisId).toggleClass("hidden");
+            {#$(".showProspect2").on("click", function(){#}
+                {#thisId = $(this).parent().parent().attr("id");#}
+                {#$(".divProspect2."+thisId).toggleClass("hidden");#}
 
-            });
+            {#});#}
 
-            $(".lastActionBtn").on("click", function(){
-                var thisId = $(this).parent().parent().parent().parent().parent().attr("id");
-                console.log(thisId);
-                lastActionText = $(".lastActionSelect."+thisId).find('option:selected').text();
-                lastActionVal = $(".lastActionSelect."+thisId).val();
-
-
-
-                lastActionInfo = $(".lastActionArea."+thisId).val();
-                prospectInfo = $(this).parent().parent().parent().parent().find(".prospectInfo");
-
-                newP = document.createElement("p");
-                newText = document.createTextNode(date+" - "+lastActionText+" - Note : "+lastActionInfo);
-                newP.appendChild(newText);
-                prospectInfo.prepend(newP);
-
-                lastActionId = $(".lastActionSelect").val();
-                console.log("essai : "+lastActionId);
-                lastActionSave(thisId, lastActionId, lastActionInfo);
-
-            });
-
-            $(".nextActionBtn").on("click", function(){
-                thisId = $(this).parent().parent().parent().parent().attr("id");
-                console.log(thisId);
-                prospectInfo = $(this).parent().parent().parent().parent().find(".prospectInfo");
-                nextActionText = $(".nextActionSelect."+thisId).find('option:selected').text();
-                nextActionInfo = $(".nextActionArea."+thisId).val();
-                nextActionDate = dateFormat($(".nextActionDate."+thisId).val());
-                nextFullActionDate = $(".nextActionDate."+thisId).val();
-                nextActionP = $(".nextActionP."+thisId);
-                nextActionP.empty();
-                newText = document.createTextNode("Prochaine action : "+nextActionText+", le "+nextActionDate+" (demandeur : commercial)");
-                nextActionP.prepend(newText);
-
-                nextActionId = $(".nextActionSelect").val();
-                console.log("ceci est le nextactionId "+nextActionId);
-
-                newP2 = document.createElement("p");
-                newText2 = document.createTextNode(date+" - "+nextActionText+", le "+nextActionDate+" - Note : "+nextActionInfo);
-                newP2.appendChild(newText2);
-                prospectInfo.prepend(newP2);
-
-                nextActionSave(thisId, nextActionId, nextActionDate, nextActionInfo);
-
-
-            });
-
-
-            function nextActionSave(prospectId, nextActionId, nextFullActionDate, nextActionArea) {
-
-                console.log("essai sauve");
-
-                // Déclenchement du controleur de validation/invalidation de l'organisme
-
-                $.ajax({
-                    url: "nextActionSave",
-                    type: "POST",
-                    data:
-                        {
-                            prospectId: prospectId,
-                            nextActionId: nextActionId,
-                            nextFullActionDate: nextFullActionDate,
-                            nextActionArea: nextActionArea
-
-
-                        },
-                    dataType: 'json',
-
-                    success: function (data) {
-                        console.log("prospectId : "+prospectId);
-                            console.log("nextActionId : "+nextActionId);
-                            console.log ("nextFullActionDate : "+nextFullActionDate);
-                            console.log ("nextActionArea : "+nextActionArea);
-
-                            console.log(data);
-
-                    },
-
-                    error: function () {
-                        console.log("prospectId : "+prospectId);
-                        console.log("nextActionId : "+nextActionId);
-                        console.log ("nextFullActionDate : "+nextFullActionDate);
-                        console.log ("nextActionArea : "+nextActionArea);
-                        console.log("retour :"+data);
-
-                    }
-
-                })
-            }
-
-            function lastActionSave(prospectId, lastActionId, lastActionArea) {
-
-                // console.log("essai sauve");
-
-
-                // Déclenchement du controleur de validation/invalidation de l'organisme
-
-                $.ajax({
-                    url: "lastActionSave",
-                    type: "POST",
-                    data:
-                        {
-                            prospectId: prospectId,
-                            lastActionId: lastActionId,
-                            lastActionArea: lastActionArea
-                        },
-                    dataType: 'json',
-
-                    success: function (data) {
-                        console.log("retour :"+data);
-
-                            console.log("prospectId: "+prospectId);
-                        console.log("lastActionId: "+lastActionId);
-                        console.log("lastActionArea: "+lastActionArea);
-
-                    },
-
-                    error: function () {
-                        console.log("prospectId: "+prospectId);
-                        console.log("lastActionId: "+lastActionId);
-                        console.log("lastActionArea: "+lastActionArea);
-                        console.log("C'est raté !");
-
-                    }
-
-                })
-            }
+            {#$(".lastActionBtn").on("click", function(){#}
+                {#thisId = $(this).parent().parent().parent().parent().parent().attr("id");#}
+                {#console.log(thisId);#}
+                {#lastActionText = $(".lastActionSelect."+thisId).find('option:selected').text();#}
+                {#lastActionVal = $(".lastActionSelect."+thisId).val();#}
 
 
 
-        </script>
+                {#lastActionInfo = $(".lastActionArea."+thisId).val();#}
+                {#prospectInfo = $(this).parent().parent().parent().parent().find(".prospectInfo");#}
+
+                {#newP = document.createElement("p");#}
+                {#newText = document.createTextNode(date+" - "+lastActionText+" - Note : "+lastActionInfo);#}
+                {#newP.appendChild(newText);#}
+                {#prospectInfo.prepend(newP);#}
+
+                {#lastActionId = $(".lastActionSelect").val();#}
+                {#console.log("essai : "+lastActionId);#}
+                {#lastActionSave(thisId, lastActionId, lastActionInfo);#}
+
+            {#});#}
+
+            {#$(".nextActionBtn").on("click", function(){#}
+                {#thisId = $(this).parent().parent().parent().parent().attr("id");#}
+                {#console.log(thisId);#}
+                {#prospectInfo = $(this).parent().parent().parent().parent().find(".prospectInfo");#}
+                {#nextActionText = $(".nextActionSelect."+thisId).find('option:selected').text();#}
+                {#nextActionInfo = $(".nextActionArea."+thisId).val();#}
+                {#nextActionDate = dateFormat($(".nextActionDate."+thisId).val());#}
+                {#nextFullActionDate = $(".nextActionDate."+thisId).val();#}
+                {#nextActionP = $(".nextActionP."+thisId);#}
+                {#nextActionP.empty();#}
+                {#newText = document.createTextNode("Prochaine action : "+nextActionText+", le "+nextActionDate+" (demandeur : commercial)");#}
+                {#nextActionP.prepend(newText);#}
+
+                {#nextActionId = $(".nextActionSelect").val();#}
+                {#console.log("ceci est le nextactionId "+nextActionId);#}
+
+                {#newP2 = document.createElement("p");#}
+                {#newText2 = document.createTextNode(date+" - "+nextActionText+", le "+nextActionDate+" - Note : "+nextActionInfo);#}
+                {#newP2.appendChild(newText2);#}
+                {#prospectInfo.prepend(newP2);#}
+
+                {#nextActionSave(thisId, nextActionId, nextActionDate, nextActionInfo);#}
+
+
+            {#});#}
+
+
+            {#function nextActionSave(prospectId, nextActionId, nextFullActionDate, nextActionArea) {#}
+
+                {#console.log("essai sauve");#}
+
+                {#// Déclenchement du controleur de validation/invalidation de l'organisme#}
+
+                {#$.ajax({#}
+                    {#url: "nextActionSave",#}
+                    {#type: "POST",#}
+                    {#data:#}
+                        {#{#}
+                            {#prospectId: prospectId,#}
+                            {#nextActionId: nextActionId,#}
+                            {#nextFullActionDate: nextFullActionDate,#}
+                            {#nextActionArea: nextActionArea#}
+
+
+                        {#},#}
+                    {#dataType: 'json',#}
+
+                    {#success: function (data) {#}
+                        {#console.log("prospectId : "+prospectId);#}
+                            {#console.log("nextActionId : "+nextActionId);#}
+                            {#console.log ("nextFullActionDate : "+nextFullActionDate);#}
+                            {#console.log ("nextActionArea : "+nextActionArea);#}
+
+                            {#console.log(data);#}
+
+                    {#},#}
+
+                    {#error: function () {#}
+                        {#console.log("prospectId : "+prospectId);#}
+                        {#console.log("nextActionId : "+nextActionId);#}
+                        {#console.log ("nextFullActionDate : "+nextFullActionDate);#}
+                        {#console.log ("nextActionArea : "+nextActionArea);#}
+                        {#console.log("retour :"+data);#}
+
+                    {#}#}
+
+                {#})#}
+            {#}#}
+
+            {#function lastActionSave(prospectId, lastActionId, lastActionArea) {#}
+
+                {#// console.log("essai sauve");#}
+
+
+                {#// Déclenchement du controleur de validation/invalidation de l'organisme#}
+
+                {#$.ajax({#}
+                    {#url: "lastActionSave",#}
+                    {#type: "POST",#}
+                    {#data:#}
+                        {#{#}
+                            {#prospectId: prospectId,#}
+                            {#lastActionId: lastActionId,#}
+                            {#lastActionArea: lastActionArea#}
+                        {#},#}
+                    {#dataType: 'json',#}
+
+                    {#success: function (data) {#}
+                        {#console.log("retour :"+data);#}
+
+                            {#console.log("prospectId: "+prospectId);#}
+                        {#console.log("lastActionId: "+lastActionId);#}
+                        {#console.log("lastActionArea: "+lastActionArea);#}
+
+                    {#},#}
+
+                    {#error: function () {#}
+                        {#console.log("prospectId: "+prospectId);#}
+                        {#console.log("lastActionId: "+lastActionId);#}
+                        {#console.log("lastActionArea: "+lastActionArea);#}
+                        {#console.log("C'est raté !");#}
+
+                    {#}#}
+
+                {#})#}
+            {#}#}
+
+
+
+        {#</script>#}
 
     {% endblock %}

@@ -110,4 +110,11 @@
 </div>
 {% endblock %}
 
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script src="{{ asset('assets/js/contact.js') }}"></script>
+
+{% endblock %}
 

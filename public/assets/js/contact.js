@@ -1,3 +1,34 @@
+
+var varQuote = "";
+
+$(function () {
+
+    jQuery(document).ready(function () {
+
+        console.log(getUrlParameter("C"));
+        console.log(getUrlParameter("Q"));
+
+
+    });
+});
+
+if(getUrlParameter("C")==1){
+    alert("Votre demande de contact a bien été prise en compte !")
+}
+
+if(getUrlParameter("Q")==1){
+    alert("Votre demande de devis a bien été prise en compte !")
+}
+
+if(getUrlParameter("M")==1){
+    alert("Votre message a bien été prise en compte. Nous y répondrons dans les meilleurs délais")
+}
+
+
+// variable = $(".marcel").html();
+
+// console.log(varQuote);
+
 mapDisplay();
 
 
